@@ -1,0 +1,24 @@
+name: PPS-EvolDino ci
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    
+test:
+    strategy:
+      fail-fast: false
+      matrix:
+          os: [ macos-latest, windows-latest, ubuntu-18.04 ]
+          java: [ adopt@1.11, adopt@1.16 ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.5.0
+      - name: Setup Scala
+        uses: olafurpg/setup-scala@v13
+        with:
+          java-version: ${{ matrix.java }}
+      - name: Build and test
+        run: sbt test
+        shell: bash
