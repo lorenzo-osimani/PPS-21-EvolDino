@@ -5,7 +5,8 @@ on:
   push:
     branches: [main]
     
-test:
+jobs:
+  test:
     strategy:
       fail-fast: false
       matrix:
