@@ -23,7 +23,5 @@ class DemoScalaTest extends AnyFunSpec {
       assertResult(1) {count(tree, 2)}
       assertResult(0) {count(tree, 3)}
     }
-
-
   }
 }
