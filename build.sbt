@@ -8,6 +8,8 @@ libraryDependencies += "org.scalafx" %% "scalafx" % "19.0.0-R30"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % Test
 
+libraryDependencies += "org.typelevel" %% "cats-effect" % "3.3.14"
+
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature")
 
 fork := true
