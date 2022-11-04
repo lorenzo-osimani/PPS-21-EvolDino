@@ -14,6 +14,9 @@ object Environment {
   def apply(temperature: Float, vegetationAvailable: Float, humidity: Float): Environment =
     new EnvironmentImpl(temperature, vegetationAvailable, humidity)
 
+  def apply(environment: Environment): Environment =
+    new EnvironmentImpl(environment.temperature, environment.vegetationAvailable, environment.humidity)
+
   val BasicEnvironment: Environment = apply(20, 100, 30)
 
   val IceAgeEnvironment: Environment = apply(-40, 10, 100)

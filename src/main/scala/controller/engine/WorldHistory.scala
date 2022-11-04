@@ -1,5 +1,6 @@
 package controller.engine
 
+import controller.engine.WorldSnapshot.Population
 import model.Environment
 
 object WorldHistory {
@@ -12,7 +13,18 @@ object WorldHistory {
     Seq(WorldSnapshot(Environment.BasicEnvironment, Seq.empty))
   }
 
-  def nextIteration(): Unit = {
+  def getLastSnapshot(): WorldSnapshot = history.head
 
+  def dinosaursEatingPhase(): Unit = {}
+
+  def applyDisturbances(): Unit = {}
+
+  def nextIteration(): Unit =
+    history = WorldSnapshot(environmentEvolutionPhase(), reproductionPhase()) +: history
+
+  private def reproductionPhase(): Population = getLastSnapshot().population
+
+  private def environmentEvolutionPhase(): Environment = {
+    Environment(getLastSnapshot().environment)
   }
 }

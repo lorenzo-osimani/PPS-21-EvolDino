@@ -12,6 +12,8 @@ object Engine {
 
   def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(EngineConstants.iteration_ms_1x, TimeUnit.MILLISECONDS))
+    _ <- dinosaursEatingPhase()
+    _ <- applyDisturbances()
     _ <- nextIteration()
     _ <-  if (!hasSimulationEnded()) simulationLoop()
       else unit
