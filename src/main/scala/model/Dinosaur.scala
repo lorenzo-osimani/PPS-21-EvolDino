@@ -1,27 +1,32 @@
-class Dino {
+package scala.model
 
-  /** Represents a Dino */
-  sealed trait Dino {
-    val type: String
-    val name: String
+class Dinosaur:
+
+  /** Represents a Dinosaur */
+  sealed trait Dinosaur:
+    val type: String // erbivoro o carnivoro
+    val name: String // es.: t-rex,brontosaurus..
     val height: Int
     val weight: Int
     val color: String
     val gender: String
 
-    /** @return the age of the bunny */
+    /** @return the age of the dinosaur */
     def age: Int
-
-    /** Method to check if a bee is alive.
-     *
-     * @return true if the Dino is alive, false otherwise */
-    def isAlive: Boolean
 
     /** Setter for age. */
     protected def age_=(age: Int): Unit
 
+    /** Method to check if a dinosaur is alive.
+     *
+     * @return true if the dinosaur is alive, false otherwise */
+    def isAlive: Boolean
+
     /** Setter for alive. */
     protected def alive_=(alive: Boolean): Unit
+
+    /** Kills the dinosaur by updating the alive value to false. */
+    def kill(): Unit = isAlive = false
 
     override def toString: String = {
       super.toString +
@@ -34,5 +39,3 @@ class Dino {
         "\n isAlive: " + isAlive +
         "\n age: " + age +
     }
-  }
-}
