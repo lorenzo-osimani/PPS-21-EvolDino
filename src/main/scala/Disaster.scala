@@ -3,14 +3,10 @@ class Disaster:
   /** Represent a Disaster */
     sealed trait Disaster:
     //forse meglio mettere var??
-      val damage: Int
-      val extension: Int
-      //l aprobailità che vada a buon fine
-      val probability: Double
-      //FORSe troppo complesso ma vogliamo fare ache anche la bimente è dinamico ?
-      //cio che seè glaciazioen temperatura ambientale varia fino ad arrivare a to gradi, oppure in base al danno che cè, sono i dinosauri ceh percepiscono qeulla temperatura
-      val temperature: Option[Double]
-      //varinterested: Option[AnyVal]//DinosaurType
+      def damage: Int
+      def extension: Int
+      def probability: Int
+      def temperature: Option[Double]
       //val coordinates: Tuple2[_: Int,_: Int]
       val coordinates: (Int, Int) = Option(x,y)
        //def coordinates: Tuple2[x,y] => (x: Int, y: Int)
@@ -20,14 +16,12 @@ class Disaster:
       //meglio mettere tutto protected o private o caosa ? oppure dato che è un salead trait con ovveride è a posto
       //meglio usare le apply??o in aggiunta
       //meglio tipato o non tipato
+      
       case class Earthquake extends Disaster:
         override val damage: Int = 1000
-        //MORTALITA'??' cioè se vieni colpito la probailità di morte ?
         override val extension: Int = 3
         //nonnn sarebbe meglio che l engine decidesse le coordinate
-        //override coordinates: 
-        //ha senso lascaire probabilità qua o no
-        //alla fien hanno senso gli atrli damata ??
+        //override coordinates: engine probabilmente
         override val probability: Double = 0.5
 
       case class Meteorite extends Disaster:
@@ -36,10 +30,11 @@ class Disaster:
         override def extension: Int = 3
         override def probability: Double = 0.5
 
+//refactoring
       case class IceAge extends Disaster:
-        override def gravity: Int = 1
-        override def damage: Int = 1000
-        override def extension: Int = 3
+        override val gravity: Int = 1
+        override val damage: Int = 1000
+        override val extension: Int = 3
         override def probability: Double = 0.5
         override def temperature: Int = 100000
 
@@ -83,7 +78,7 @@ class Disaster:
       def createIceAge:
           IceAge
     
-      def DoARandomDsaster: () => Disaster:
+      def DoARandomDisaster: () => Disaster:
        random match
          case IceAge
          case EarthQuake
