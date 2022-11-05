@@ -1,68 +1,38 @@
-class Disaster:
-
-  /** Represent a Disaster */
+ /** Represent a Disaster */
     sealed trait Disaster:
-    //forse meglio mettere var??
       def damage: Int
-      def extension: Int
+      def extension: Option[Int]
+   //nonnn sarebbe meglio che l engine decidesse le coordinate
+   //override coordinates: engine probabilmente
       def probability: Int
       def temperature: Option[Double]
-      //val coordinates: Tuple2[_: Int,_: Int]
-      val coordinates: (Int, Int) = Option(x,y)
-       //def coordinates: Tuple2[x,y] => (x: Int, y: Int)
+      val coordinates:(Int, Int) = Option(x,y)
 
-      //diffrenza that val e deff , def sembrano valori che possono ritornare invece val valori
-
-      //meglio mettere tutto protected o private o caosa ? oppure dato che è un salead trait con ovveride è a posto
-      //meglio usare le apply??o in aggiunta
-      //meglio tipato o non tipato
-      
-      case class Earthquake extends Disaster:
+      case object Earthquake extends Disaster:
         override val damage: Int = 1000
         override val extension: Int = 3
-        //nonnn sarebbe meglio che l engine decidesse le coordinate
-        //override coordinates: engine probabilmente
         override val probability: Double = 0.5
 
-      case class Meteorite extends Disaster:
-        override def gravity: Int = 1
-        override def damage: Int = 1000
-        override def extension: Int = 3
-        override def probability: Double = 0.5
+      case object Meteorite extends Disaster:
+        override val gravity: Int = 1
+        override val damage: Int = 1000
+        override val extension: Int = 3
+        override val probability: Double = 0.5
 
 //refactoring
       case class IceAge extends Disaster:
         override val gravity: Int = 1
         override val damage: Int = 1000
         override val extension: Int = 3
-        override def probability: Double = 0.5
-        override def temperature: Int = 100000
+        override val  probability: Double = 0.5
+        override val  temperature: Int = 100000
 
       case class Drought extends Disaster:
-        override def gravity: Int = 11
-        override def damage: Int = 100
-        override def extension: Int = 23
-        override def probability: Double = 0.3
-        //errore scompare ma non ha senso, prova a togliere Option qui
-        override def temperature: Option[Double] = 10000
-        override def interested: String = "Erbivorous"
-
- /* object LessAnimalsToEat extends Disaster:
-        override def gravity: Int = 1
-        override def damage: Int = 1000
-        override def extension: Int = 3
-        override def probability: Double = 0.5
-        override def temperature: Double = 100000
-        override def interested: String = "Erbivorous"
-
-      object LessPlantsToEat extends Disaster :
-         override def gravity: Int = 1
-         override def damage: Int = 1000
-         override def extension: Int = 3
-         override def probability: Double = 0.5
-         //errore scompare ma non ha senso, prova a togliere Option qui
-         override def temperature: Option[Double] = 100000
-         override def interested: String = "Erbivorous"*/
+        override val gravity: Int = 11
+        override val damage: Int = 100
+        override val extension: Int = 23
+        override val probability: Double = 0.3
+        override val temperature: Option[Double] = 10000
 
       override def toString: String = {
         super.toString +
@@ -86,3 +56,20 @@ class Disaster:
         
 
       //DOBBIAMO definire bene cosa vaqui e cosa nell engine
+
+ /* object LessAnimalsToEat extends Disaster:
+        override def gravity: Int = 1
+        override def damage: Int = 1000
+        override def extension: Int = 3
+        override def probability: Double = 0.5
+        override def temperature: Double = 100000
+        override def interested: String = "Erbivorous"
+
+      object LessPlantsToEat extends Disaster :
+         override def gravity: Int = 1
+         override def damage: Int = 1000
+         override def extension: Int = 3
+         override def probability: Double = 0.5
+         //errore scompare ma non ha senso, prova a togliere Option qui
+         override def temperature: Option[Double] = 100000
+         override def interested: String = "Erbivorous"*/
