@@ -17,5 +17,13 @@ class WorldTest extends AnyFunSpec {
       assert(WorldHistory.getLastSnapshot().environment equals Environment.BasicEnvironment)
       assert(!(WorldHistory.getLastSnapshot().population equals null))
     }
+
+    it ("should evolve") {
+      for
+        i <- 0 until  10
+       do
+         WorldHistory.nextIteration()
+         assert(!(WorldHistory.getLastSnapshot().environment equals Environment.BasicEnvironment))
+    }
   }
 }

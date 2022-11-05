@@ -8,7 +8,6 @@ trait WorldSnapshot {
   def environment: Environment
 
   def population: Population
-  
 }
 
 object WorldSnapshot {

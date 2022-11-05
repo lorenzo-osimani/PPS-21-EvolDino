@@ -25,6 +25,6 @@ object WorldHistory {
   private def reproductionPhase(): Population = getLastSnapshot().population
 
   private def environmentEvolutionPhase(): Environment = {
-    Environment(getLastSnapshot().environment)
+    Environment.evolveFromEnvironment(getLastSnapshot().environment)
   }
 }
