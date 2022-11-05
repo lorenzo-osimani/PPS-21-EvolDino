@@ -1,7 +1,5 @@
 package scala.model
 
-class Dinosaur:
-
   /** Represents a Dinosaur */
   sealed trait Dinosaur:
     val type: String // erbivoro o carnivoro
