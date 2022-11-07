@@ -10,6 +10,9 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % Test
 
 libraryDependencies += "org.typelevel" %% "cats-effect" % "3.3.14"
 
+libraryDependencies += "it.unibo.alice.tuprolog" % "2p-core" % "4.1.1"
+libraryDependencies += "it.unibo.alice.tuprolog" % "2p-ui" % "4.1.1"
+
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature")
 
 fork := true
