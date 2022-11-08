@@ -1,10 +1,10 @@
 import cats.effect.{ IO, Temporal }
-import controller.engine.WorldHistory
+import it.unibo.pps.evoldino.controller.engine.WorldHistory
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
 import org.scalatest.matchers.should.Matchers
-import controller.engine.WorldHistory.*
-import model.Environment
+import it.unibo.pps.evoldino.controller.engine.WorldHistory.*
+import it.unibo.pps.evoldino.model.Environment
 
 class WorldTest extends AnyFunSpec {
 

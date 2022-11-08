@@ -1,7 +1,8 @@
-package model
+package it.unibo.pps.evoldino.model
 
-import model.GlobalUtils._
-import EnvironmentConstants._
+import it.unibo.pps.evoldino.model.Environment
+import it.unibo.pps.evoldino.GlobalUtils.calculateProbability
+import it.unibo.pps.evoldino.model.EnvironmentConstants.*
 
 trait Environment {
 
@@ -66,5 +67,5 @@ object EnvironmentConstants {
 
   val characteristicEvolutionProbability = 0.3
 
-  val evolutionDelta = 1
+  val evolutionDelta: Float = 1
 }

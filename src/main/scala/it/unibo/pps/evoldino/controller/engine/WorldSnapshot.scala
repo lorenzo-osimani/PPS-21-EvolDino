@@ -1,9 +1,8 @@
-package controller.engine
+package it.unibo.pps.evoldino.controller.engine
 
 import scala.util.Random
-
-import controller.engine.WorldSnapshot.Population
-import model.Environment
+import WorldSnapshot.Population
+import it.unibo.pps.evoldino.model.Environment
 
 trait WorldSnapshot {
 

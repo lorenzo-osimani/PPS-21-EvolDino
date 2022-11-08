@@ -1,8 +1,8 @@
-package controller.engine
+package it.unibo.pps.evoldino.controller.engine
 
-import controller.engine.WorldSnapshot.Population
-import model.Environment
-import EngineConstants._
+import WorldSnapshot.Population
+import EngineConstants.*
+import it.unibo.pps.evoldino.model.Environment
 
 object WorldHistory {
 
