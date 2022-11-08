@@ -2,6 +2,7 @@ package controller.engine
 
 import controller.engine.WorldSnapshot.Population
 import model.Environment
+import EngineConstants._
 
 object WorldHistory {
 
