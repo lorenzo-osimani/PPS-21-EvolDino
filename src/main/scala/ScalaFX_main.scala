@@ -10,16 +10,18 @@ import scalafx.scene.layout.HBox
 import scalafx.scene.paint.*
 import scalafx.scene.paint.Color.{White, *}
 import scalafx.scene.text.Text
+/*
 import scalafx.scene.button
 import scalafx.scene.gridpane
-
+*/
 import scala.language.implicitConversions
 
 object ScalaFX_main extends JFXApp3 :
 
   override def start(): Unit =
-      button1 = new Button("PREMI QUI")
-      button2 = new Button("PREMI QUI B")
+    /*
+    buuton1 = new Button("premi qui A")
+    button2 = new Button("PREMI QUI B")
     button3 = new Button("PREMI QUI C")
     button4 = new Button("PREMI QUI A")
     button5 = new Button("PREMI QUI D")
@@ -29,20 +31,26 @@ object ScalaFX_main extends JFXApp3 :
       height = 750
       //    initStyle(StageStyle.Unified)
       title = "Epic Dinosaur Evolution Simulator"
-      button1 = new Button("PREMI QUI")
+      button1 = Button("PREMI QUI")
       button2 = new Button("PREMI QUI B")
       button3 = new Button("PREMI QUI C")
       button4 = new Button("PREMI QUI A")
       button5 = new Button("PREMI QUI D")
 
+      scene = new Scene(gripane, 900, 1200):
 
       gridpane = new GridPane()
       gridPane.add(button1, 0, 0)
       gridPane.add(button2, 1, 0)
       gridPane.add(button3, 1, 1)
       gridPane.add(button4, 0, 1)
-
-      scene = new Scene(gripane, 900, 1200):
+    */
+    stage = new JFXApp3.PrimaryStage :
+      width = 1200
+      height = 750
+      //    initStyle(StageStyle.Unified)
+      title = "Epic Dinosaur Evolution Simulator"
+      scene = new Scene(900, 1200):
 
         fill = Color.rgb(38, 38, 38)
         content = new HBox :
