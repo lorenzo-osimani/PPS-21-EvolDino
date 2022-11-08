@@ -2,7 +2,7 @@ package scala.model
 
   /** Represents a Dinosaur */
   sealed trait Dinosaur:
-    val type: String // erbivoro o carnivoro
+    val x : String // erbivoro o carnivoro
     val name: String // es.: t-rex,brontosaurus..
     val height: Int
     val weight: Int
@@ -21,19 +21,19 @@ package scala.model
     def isAlive: Boolean
 
     /** Setter for alive. */
-    protected def alive_=(alive: Boolean): Unit
+    protected def isAlive_=(isAlive: Boolean): Unit
 
     /** Kills the dinosaur by updating the alive value to false. */
     def kill(): Unit = isAlive = false
 
     override def toString: String = {
       super.toString +
-        "\n type: " + type +
+        "\n type: " + x +
         "\n name: " + name +
         "\n height: " + height +
         "\n weight: " + weight +
         "\n color: " + color +
         "\n gender: " + gender +
         "\n isAlive: " + isAlive +
-        "\n age: " + age +
+        "\n age: " + age
     }
