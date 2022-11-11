@@ -1,8 +1,8 @@
-package scala.model
+package model.dinosaur
 
-  /** Represents a Dinosaur */
+/** Represents a Dinosaur */
   sealed trait Dinosaur:
-    val x : String // erbivoro o carnivoro
+    val kind : String // erbivoro o carnivoro
     val name: String // es.: t-rex,brontosaurus..
     val height: Int
     val weight: Int
@@ -16,7 +16,6 @@ package scala.model
     protected def age_=(age: Int): Unit
 
     /** Method to check if a dinosaur is alive.
-     *
      * @return true if the dinosaur is alive, false otherwise */
     def isAlive: Boolean
 
@@ -28,7 +27,7 @@ package scala.model
 
     override def toString: String = {
       super.toString +
-        "\n type: " + x +
+        "\n kind: " + kind +
         "\n name: " + name +
         "\n height: " + height +
         "\n weight: " + weight +
@@ -37,3 +36,9 @@ package scala.model
         "\n isAlive: " + isAlive +
         "\n age: " + age
     }
+
+/** Method that updates the dinosaur instance for the next generation */
+def increaseAge(): Unit = {
+  age += 1
+  if (age >= MAX_AGE) isAlive = false
+}
