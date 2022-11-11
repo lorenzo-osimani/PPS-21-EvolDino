@@ -6,6 +6,7 @@ import cats.effect.unsafe.implicits.global
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
+import scala.language.implicitConversions
 
 import WorldHistory._
 
@@ -32,6 +33,9 @@ object Engine {
     case EngineConstants.iteration_ms_2x => iteration_speed = EngineConstants.iteration_ms_4x
     case EngineConstants.iteration_ms_4x => iteration_speed = EngineConstants.iteration_ms_1x
 
+  given Conversion[Unit, IO[Unit]] with
+    def apply(exp: Unit): IO[Unit] = IO(exp)
+
   def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- nextIteration()
@@ -44,5 +48,4 @@ object Engine {
 
   private def hasSimulationEnded(): Boolean = isSimulationOver() || ended
 
-  given Conversion[Unit, IO[Unit]] = exp => IO(exp)
 }
