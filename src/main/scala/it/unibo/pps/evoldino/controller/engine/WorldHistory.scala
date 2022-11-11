@@ -10,7 +10,7 @@ object WorldHistory {
 
   var history: History = initializeWorld()
 
-  def disturbances: List[Int] = List.empty
+  var disturbances: List[Int] = List.empty
 
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
@@ -30,8 +30,8 @@ object WorldHistory {
     if (damage > 0) getLastSnapshot().damagePopulation(damage)
 
   def applyDisturbances(): Unit =
-    for disturbance <- disturbances do getLastSnapshot().damagePopulation(disturbance.apply())
-  disturbances = disturbances.filter(d => d > 5)
+    //for disturbance <- disturbances do getLastSnapshot().damagePopulation(disturbance.apply())
+    disturbances = disturbances.filter(d => d > 5)
 
   def nextIteration(): Unit =
     history = WorldSnapshot(environmentEvolutionPhase(), reproductionPhase()) +: history
