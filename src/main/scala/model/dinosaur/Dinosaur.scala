@@ -1,4 +1,4 @@
-package model.dinosaur
+package scala.model.dinosaur.Dinosaur
 
 /** Represents a Dinosaur */
   sealed trait Dinosaur:
