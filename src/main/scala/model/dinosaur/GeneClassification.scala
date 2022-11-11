@@ -1,4 +1,4 @@
-package model.dinosaur
+package scala.model.dinosaur.GeneClassification
 
 private [model] object GeneClassification extends Enumeration {
 
