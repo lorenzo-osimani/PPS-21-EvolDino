@@ -10,6 +10,8 @@ object WorldHistory {
 
   var history: History = initializeWorld()
 
+  def disturbances: List[Int] = List.empty
+
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
       population: Population = Seq.fill(20)(1)): Unit =
@@ -27,10 +29,17 @@ object WorldHistory {
       1 - getLastSnapshot().environment.vegetationAvailable * dino_veg_ratio / getLastSnapshot().population.size
     if (damage > 0) getLastSnapshot().damagePopulation(damage)
 
-  def applyDisturbances(): Unit = {}
+  def applyDisturbances(): Unit =
+    for disturbance <- disturbances do getLastSnapshot().damagePopulation(disturbance.apply())
+  disturbances = disturbances.filter(d => d > 5)
 
   def nextIteration(): Unit =
     history = WorldSnapshot(environmentEvolutionPhase(), reproductionPhase()) +: history
+
+  def isSimulationOver(): Boolean =
+    history.size >= max_iterations ||
+      getLastSnapshot().population.size >= max_population_size ||
+      getLastSnapshot().population.size <= 0
 
   private def reproductionPhase(): Population = getLastSnapshot().population
 

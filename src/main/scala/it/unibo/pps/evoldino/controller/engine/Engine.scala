@@ -42,7 +42,7 @@ object Engine {
       else unit
   } yield ()
 
-  private def hasSimulationEnded(): Boolean = false || ended
+  private def hasSimulationEnded(): Boolean = isSimulationOver() || ended
 
   given Conversion[Unit, IO[Unit]] = exp => IO(exp)
 }

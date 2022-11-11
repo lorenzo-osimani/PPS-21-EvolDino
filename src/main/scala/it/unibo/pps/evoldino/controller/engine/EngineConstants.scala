@@ -11,4 +11,8 @@ object EngineConstants {
   //Eating Phase
   val dino_veg_ratio = 2
 
+  //Ending Conditions
+  val max_iterations = 1000
+  val max_population_size = 1000
+
 }

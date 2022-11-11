@@ -6,16 +6,14 @@ import org.scalatest.funspec.AnyFunSpec
 class EngineTest extends AnyFunSpec {
 
   it("A simulation should be able to start") {
-    WorldHistory.resetHistory()
-    Engine.startSimulation()
+    resetTestConditions()
     Thread.sleep(EngineConstants.iteration_ms_1x * 3)
     Engine.endSimulation()
     assert(WorldHistory.history.size >= 3)
   }
 
   it("A simulation can be paused") {
-    WorldHistory.resetHistory()
-    Engine.startSimulation()
+    resetTestConditions()
     Thread.sleep(EngineConstants.iteration_ms_1x * 3)
     assert(WorldHistory.history.size >= 3)
     Engine.pauseSimulation()
@@ -25,8 +23,7 @@ class EngineTest extends AnyFunSpec {
   }
 
   it("A simulation can be unpaused") {
-    WorldHistory.resetHistory()
-    Engine.startSimulation()
+    resetTestConditions()
     Engine.pauseSimulation()
     Thread.sleep(EngineConstants.iteration_ms_1x * 3)
     assert(WorldHistory.history.size <= 2)
@@ -34,5 +31,10 @@ class EngineTest extends AnyFunSpec {
     Thread.sleep(EngineConstants.iteration_ms_1x * 3)
     Engine.endSimulation()
     assert(WorldHistory.history.size >= 3)
+  }
+
+  def resetTestConditions(): Unit = {
+    WorldHistory.resetHistory()
+    Engine.startSimulation()
   }
 }
