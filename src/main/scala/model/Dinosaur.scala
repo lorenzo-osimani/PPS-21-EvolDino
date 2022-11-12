@@ -1,4 +1,4 @@
-package scala.model
+package model
 
 /** Represents a dinosaur */
 sealed trait Dinosaur:
@@ -43,4 +43,4 @@ sealed trait Dinosaur:
   /** Method that updates the dinosaur instance for the next generation */
   def increaseAge(): Unit =
     age += 1
-    //if (age >= MAX_AGE) isAlive = false
+//if (age >= MAX_AGE) isAlive = false

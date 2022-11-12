@@ -18,6 +18,8 @@ trait WorldSnapshot {
     else throw new IllegalArgumentException
 
   def closeSnapShot(): Unit = this.expanded = true
+
+  //def livingPopulation(): Population = population.filter(x => x.isAlive)
 }
 
 object WorldSnapshot {

@@ -41,6 +41,7 @@ object Engine {
     _ <- nextIteration()
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
+    _ <- reproductionPhase()
     _ <-
       if (!hasSimulationEnded() && !paused) simulationLoop()
       else unit
