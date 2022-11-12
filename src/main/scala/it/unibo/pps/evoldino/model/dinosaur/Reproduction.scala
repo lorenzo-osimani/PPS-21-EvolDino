@@ -1,4 +1,4 @@
-package scala.model.dinosaur.Reproduction
+package it.unibo.pps.evoldino.model.dinosaur
 
 import scala.model.dinosaur.Dinosaur
 

@@ -1,3 +1,5 @@
+package it.unibo.pps.evoldino.model.dinosaur
+
 <<<<<<< HEAD
 package model
 
