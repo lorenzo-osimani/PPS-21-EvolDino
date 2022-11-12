@@ -1,7 +1,7 @@
 package it.unibo.pps.evoldino.model
 
 import it.unibo.pps.evoldino.model.Environment
-import it.unibo.pps.evoldino.GlobalUtils.calculateProbability
+import it.unibo.pps.evoldino.utils.GlobalUtils.calculateProbability
 import it.unibo.pps.evoldino.model.EnvironmentConstants.*
 
 trait Environment {

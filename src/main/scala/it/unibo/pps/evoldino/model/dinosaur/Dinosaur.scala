@@ -1,4 +1,4 @@
-package model
+package it.unibo.pps.evoldino.model.dinosaur
 
 /** Represents a dinosaur */
 sealed trait Dinosaur:
