@@ -6,11 +6,11 @@ import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
 
-def generateRandomExtension(): Int =
+private def generateRandomExtension(): Int =
   /* genera una estensione random da 0 a 10 */
   scala.util.Random.between(0,11)
 
-def generateRandomPosition(): (Int,Int) =
+private def generateRandomPosition(): (Int,Int) =
   /* genera una posizione random da 1 a 100 */
   (scala.util.Random.between(1,101),scala.util.Random.between(1,101))
 

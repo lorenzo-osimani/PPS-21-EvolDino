@@ -2,23 +2,21 @@ package it.unibo.pps.evoldino.model
 
 import it.unibo.pps.evoldino.model.Disaster
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
-
-def generateRandomExtension(): Int =
+private def generateRandomExtensionP(): Int =
   /* genera una estensione random da 0 a 10 */
   scala.util.Random.between(0,11)
 
-def generateRandomPosition(): (Int,Int) =
+private def generateRandomPositionP(): (Int,Int) =
   /* genera una posizione random da 1 a 100 */
   (scala.util.Random.between(1,101),scala.util.Random.between(1,101))
 
 def createDemoSingleRandomDisasterProb(): List[Disaster] =
 
-  val demoDisEarthquake: Disaster = Disaster.Earthquake(e = generateRandomExtension(), c = generateRandomPosition())
-  val demoDisMeteorite: Disaster = Disaster.Meteorite(e = generateRandomExtension(), c = generateRandomPosition())
+  val demoDisEarthquake: Disaster = Disaster.Earthquake(e = generateRandomExtensionP(), c = generateRandomPositionP())
+  val demoDisMeteorite: Disaster = Disaster.Meteorite(e = generateRandomExtensionP(), c = generateRandomPositionP())
   val demoDisIceAge: Disaster = Disaster.IceAge
   val demoDisDrought: Disaster = Disaster.Drought
 
@@ -33,7 +31,7 @@ def createDemoSingleRandomDisasterProb(): List[Disaster] =
   for (disWithProb <- disArrayNoProb)
       disasterProbArray += disWithProb
 
-  println(disasterProbArray)
+  print("POLLOOOOO")
 
   val disasterSingleRandomProb = new ListBuffer[Disaster]()
 

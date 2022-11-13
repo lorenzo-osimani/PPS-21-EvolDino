@@ -4,9 +4,8 @@ import it.unibo.pps.evoldino.model.createDemoDinosaur
 import it.unibo.pps.evoldino.model.createDemoDisaster
 import it.unibo.pps.evoldino.model.createDemoSingleRandomDisaster
 import it.unibo.pps.evoldino.model.createDemoSingleRandomDisasterProb
-class testDemo extends AnyFunSpec{
 
-    print("test begin")
+class testDemo extends AnyFunSpec:
 
     describe("Tests for createDinosaurDemo") {
       val testPopolation = createDemoDinosaur()
@@ -17,6 +16,7 @@ class testDemo extends AnyFunSpec{
     }
 
     describe("Tests for createDisasterDemo") {
+      print("DIS DISASTER DEMO")
       val testDisaster = createDemoDisaster()
       it("should have elements") {
         println(testDisaster)
@@ -25,6 +25,7 @@ class testDemo extends AnyFunSpec{
     }
 
     describe("Tests for createDisasterDemo Single Random") {
+      print("DIS SINGLE RANDOM")
       val testDisasterSingleRandom = createDemoSingleRandomDisaster()
       it("should have elements") {
         println(testDisasterSingleRandom)
@@ -33,11 +34,10 @@ class testDemo extends AnyFunSpec{
     }
 
     describe("Tests for createDisasterDemo Single Random With Prob") {
+      print("DIS SINGLE RANDOM PROB")
       val testDisasterSingleRandomProb = createDemoSingleRandomDisasterProb()
       it("should have elements") {
         println(testDisasterSingleRandomProb)
         println("OK DIS SINGLE RANDOM WITH PROB")
     }
   }
-
-}
