@@ -30,7 +30,9 @@ sealed trait Disaster:
     case _ => throw Error
  */
 
-sealed trait AreaEffect:
+
+/* DECIDERE COSA ESTENDERE E CHE FARE */
+sealed trait AreaEffect extends Disaster:
   def extension: Int
   def coordinates: (Int, Int)
 
@@ -40,7 +42,7 @@ sealed trait AreaEffect:
       "\n coordinateX " + coordinates._1 +
       "\n coordinateY " + coordinates._2 +
       "\n OK :) \n"
-sealed trait ClimateEffect:
+sealed trait ClimateEffect extends Disaster:
   def temperature: Int
 
   override def toString: String =
@@ -57,7 +59,7 @@ object Disaster {
     override val extension: Int = e
     override val coordinates: (Int, Int) = c
 
-  case class Meteorite(e: Int, c:(Int,Int)) extends Disaster with AreaEffect:
+  case class Meteorite(e: Int, c:(Int,Int)) extends AreaEffect:
     override val name: String = "Meteorite"
     override val damage: Int = 1000
     override val probability: Int = 3
@@ -70,7 +72,7 @@ object Disaster {
     override val probability: Int = 1
     override val temperature: Int = 100
 
-  case object Drought extends Disaster with ClimateEffect:
+  case object Drought extends ClimateEffect:
     override val name: String = "Drought"
     override val damage: Int = 100
     override val probability: Int = 7

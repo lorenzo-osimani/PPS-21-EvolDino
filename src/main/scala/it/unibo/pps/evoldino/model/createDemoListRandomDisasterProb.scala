@@ -1,25 +1,34 @@
 package it.unibo.pps.evoldino.model
 
+import it.unibo.pps.evoldino.model
 import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.Disaster.{Drought, Earthquake, Meteorite}
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
+
 import scala.collection.mutable.ListBuffer
+import scala.language.postfixOps
 import scala.util.Random
 
-private def generateRandomExtensionP(): Int =
+private def generateRandomExtensionPList(): Int =
   /* genera una estensione random da 0 a 10 */
   scala.util.Random.between(0,11)
 
-private def generateRandomPositionP(): (Int,Int) =
+private def generateRandomPositionPList(): (Int,Int) =
   /* genera una posizione random da 1 a 100 */
   (scala.util.Random.between(1,101),scala.util.Random.between(1,101))
 
-def createDemoSingleRandomDisasterProb(): List[Disaster] =
-  
-  /* parte qui ok dato che è singolo, se no in lista fatto diverso */
-  val demoDisEarthquake: Disaster = Disaster.Earthquake(e = generateRandomExtensionP(), c = generateRandomPositionP())
-  val demoDisMeteorite: Disaster = Disaster.Meteorite(e = generateRandomExtensionP(), c = generateRandomPositionP())
-  val demoDisIceAge: Disaster = Disaster.IceAge
-  val demoDisDrought: Disaster = Disaster.Drought
+/*
+private def overrideExtAndPos(d: Disaster): Unit =
+  print("ok")
+  /*override d.extension = generateRandomExtensionPList()
+  override d.coordinates = generateRandomPositionPList()*/
+*/
+def createDemoListRandomDisasterProb(n: Int): List[Disaster] =
+  /*ERRATO RICONTROLLARE**/
+  val demoDisEarthquake: AreaEffect = Disaster.Earthquake(e = 0, c = (0,0))
+  val demoDisMeteorite: AreaEffect = Disaster.Meteorite(e = 0, c = (0, 0))
+  val demoDisIceAge: ClimateEffect = Disaster.IceAge
+  val demoDisDrought: ClimateEffect = Disaster.Drought
 
   val disArrayNoProb = new ListBuffer[Disaster]
   disArrayNoProb += demoDisEarthquake
@@ -32,20 +41,34 @@ def createDemoSingleRandomDisasterProb(): List[Disaster] =
   for (disWithProb <- disArrayNoProb)
       print("\n EVALUATING: " + disWithProb.name + " con prob " + disWithProb.probability)
       print("\n ")
-      for ( p <- 1 to disWithProb.probability)
-        disProbList += disWithProb
-        print(" P INSERTED ")
+      for ( prob <- 1 to disWithProb.probability)
+        disWithProb match {
+          case _: Earthquake =>
+            println ("nuovo terremoto \n")
+            disProbList += Earthquake(e = generateRandomExtensionPList (), c = generateRandomPositionPList())
+          case _: Meteorite =>
+            println("nuovo meteorite \n")
+            disProbList += Meteorite(e = generateRandomExtensionPList(), c = generateRandomPositionPList())
+          case _: ClimateEffect =>
+            println("inserito \n")
+            disProbList += disWithProb
+          case null => println("ERROR")
+        }
 
-  print("\n SINGLE LIST WITH PROB \n")
+  print("\n LIST WITH PROB \n")
   print(disProbList)
-  print("\n END SINGLE LIST WITH PROB \n")
+  print("\n END LIST WITH PROB \n")
 
   val disasterSingleRandomProb = new ListBuffer[Disaster]()
-/*in list NON single parte random fatta meglio*/
-  val rand = new Random(System.currentTimeMillis())
-  val random_index = rand.nextInt(disProbList.length)
-  val resultRand = disProbList(random_index)
-  disasterSingleRandomProb += resultRand
+
+  /*cosi rimane comunque il problema" se genero 15 e ne ho un array di 10 sono fregato" */
+  /* SOLUZIONE
+  * fai solo la funzione che ne crea uno (cosi eviti anche il casino del match case
+  * poi ogni volta richiami tutta la funzione
+  */
+  //penso sia meglio fare alla fine che crei una funzione per crearne uno. poi la richiami
+  for(nDis <- 1 to n)
+    disasterSingleRandomProb += disProbList(Random.nextInt(disProbList.length))
 
   val dTestRandomProb = disasterSingleRandomProb.toList
 
@@ -149,4 +172,18 @@ def createDemoSingleRandomDisasterProb(): List[Disaster] =
   
   return pTest
   */
+
+
+/*if(disWithProb == Disaster.Earthquake)
+  disWithProb.AreaEffect.apply(generateRandomExtensionPList(),(0,0))
+  //disWithProb.Earthquake.
+  print("d")
+*/
+/*
+if(disWithProb.extension != None)
+disWithProb.extension = generateRandomExtensionPList()
+if(isypeOf(disWithProb) == Disaster.Drought
+print("sss")
+disWithProb(e = generateRandomExtensionPList())
+*/
 
