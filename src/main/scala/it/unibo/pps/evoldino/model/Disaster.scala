@@ -14,7 +14,7 @@ sealed trait Disaster:
 
   def name: String
   def damage: Int
-  def probability: Double
+  def probability: Int
 
   override def toString: String = {
     super.toString +
@@ -60,20 +60,20 @@ object Disaster {
   case class Meteorite(e: Int, c:(Int,Int)) extends Disaster with AreaEffect:
     override val name: String = "Meteorite"
     override val damage: Int = 1000
-    override val probability: Double = 3
+    override val probability: Int = 3
     override val extension: Int = e
     override val coordinates: (Int, Int) = c
 
   case object IceAge extends Disaster with ClimateEffect:
     override val name: String = "IceAge"
     override val damage: Int = 1000
-    override val probability: Double = 1
+    override val probability: Int = 1
     override val temperature: Int = 100
 
   case object Drought extends Disaster with ClimateEffect:
     override val name: String = "Drought"
     override val damage: Int = 100
-    override val probability: Double = 7
+    override val probability: Int = 7
     override val temperature: Int = 5000
 
 }
