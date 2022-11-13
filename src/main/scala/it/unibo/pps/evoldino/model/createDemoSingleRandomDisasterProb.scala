@@ -26,18 +26,24 @@ def createDemoSingleRandomDisasterProb(): List[Disaster] =
   disArrayNoProb += demoDisIceAge
   disArrayNoProb += demoDisDrought
 
-  val disasterProbArray = new ListBuffer[Disaster]
+  val disProbList = new ListBuffer[Disaster]
 
   for (disWithProb <- disArrayNoProb)
-      disasterProbArray += disWithProb
+      print("\n EVALUATING: " + disWithProb.name + " con prob " + disWithProb.probability)
+      print("\n ")
+      for ( p <- 1 to disWithProb.probability)
+        disProbList += disWithProb
+        print(" P INSERTED ")
 
-  print("POLLOOOOO")
+  print("\n LIST WITH PROB \n")
+  print(disProbList)
+  print("\n END LIST WITH PROB \n")
 
   val disasterSingleRandomProb = new ListBuffer[Disaster]()
 
   val rand = new Random(System.currentTimeMillis())
-  val random_index = rand.nextInt(disasterProbArray.length)
-  val resultRand = disasterProbArray(random_index)
+  val random_index = rand.nextInt(disProbList.length)
+  val resultRand = disProbList(random_index)
   disasterSingleRandomProb += resultRand
 
   val dTestRandomProb = disasterSingleRandomProb.toList

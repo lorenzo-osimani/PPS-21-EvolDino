@@ -10,34 +10,35 @@ class testDemo extends AnyFunSpec:
     describe("Tests for createDinosaurDemo") {
       val testPopolation = createDemoDinosaur()
       it("should have elements"){
+        print("\n DIN \n")
         println(testPopolation)
-        println("OK DIN")
+        println("\n OK DIN \n")
       }
     }
 
     describe("Tests for createDisasterDemo") {
-      print("DIS DISASTER DEMO")
       val testDisaster = createDemoDisaster()
       it("should have elements") {
+        print("\n DIS \n")
         println(testDisaster)
-        println("OK DIS")
+        println("\n OK DIS \n")
       }
     }
 
     describe("Tests for createDisasterDemo Single Random") {
-      print("DIS SINGLE RANDOM")
       val testDisasterSingleRandom = createDemoSingleRandomDisaster()
       it("should have elements") {
+        print("\n DIS SINGLE RANDOM \n")
         println(testDisasterSingleRandom)
-        println("OK DIS SINGLE RANDOM")
+        println("\n OK DIS SINGLE RANDOM \n")
       }
     }
 
     describe("Tests for createDisasterDemo Single Random With Prob") {
-      print("DIS SINGLE RANDOM PROB")
       val testDisasterSingleRandomProb = createDemoSingleRandomDisasterProb()
       it("should have elements") {
+        print("\n DIS SINGLE RANDOM PROB \n")
         println(testDisasterSingleRandomProb)
-        println("OK DIS SINGLE RANDOM WITH PROB")
+        println("\n OK DIS SINGLE RANDOM WITH PROB \n")
+      }
     }
-  }
