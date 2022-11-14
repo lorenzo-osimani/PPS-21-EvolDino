@@ -7,8 +7,8 @@ import cats.effect.unsafe.implicits.global
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 import scala.language.implicitConversions
-
-import WorldHistory._
+import WorldHistory.*
+import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
 
 object Engine {
 
@@ -18,7 +18,7 @@ object Engine {
 
   private var ended = false
 
-  def startSimulation(): Unit = simulationLoop().unsafeRunAndForget()
+  def startSimulation(): Unit = iterationLoop().unsafeRunAndForget()
 
   def endSimulation(): Unit = ended = true
 
@@ -26,7 +26,7 @@ object Engine {
 
   def unpauseSimulation(): Unit =
     paused = false
-    simulationLoop().unsafeRunAndForget()
+    iterationLoop().unsafeRunAndForget()
 
   def changeSpeed(): Unit = iteration_speed match
     case EngineConstants.iteration_ms_1x => iteration_speed = EngineConstants.iteration_ms_2x
@@ -38,13 +38,15 @@ object Engine {
 
   def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
+    _ <- iterationLoop()
+    _ <- if (!hasSimulationEnded() && !paused) simulationLoop() else unit
+  } yield ()
+
+  def iterationLoop(): IO[Unit] = for {
     _ <- nextIteration()
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
     _ <- reproductionPhase()
-    _ <-
-      if (!hasSimulationEnded() && !paused) simulationLoop()
-      else unit
   } yield ()
 
   private def hasSimulationEnded(): Boolean = isSimulationOver() || ended

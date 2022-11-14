@@ -2,6 +2,7 @@ package it.unibo.pps.evoldino.controller.engine
 
 import WorldSnapshot.Population
 import EngineConstants.*
+import EngineController.*
 import it.unibo.pps.evoldino.model.{ Disaster, Environment }
 
 object WorldHistory {
@@ -9,8 +10,6 @@ object WorldHistory {
   type History = Seq[WorldSnapshot]
 
   var history: History = initializeWorld(Environment.BasicEnvironment, Seq.empty)
-
-  var incomingDisasters: List[Disaster] = List.empty
 
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
@@ -30,17 +29,16 @@ object WorldHistory {
     val newPopulation = getLastLivingPopulation()
     getLastSnapshot().closeSnapShot()
     newPopulation foreach (_.increaseAge())
-    history =
-      WorldSnapshot(environmentEvolutionPhase(), newPopulation, incomingDisasters) +: history
-    incomingDisasters = incomingDisasters filter (_ => false)
+    history = WorldSnapshot(
+      environmentEvolutionFunction()(getLastSnapshot().environment),
+      newPopulation,
+      disasterFunction()()
+    ) +: history
 
   def dinosaursEatingPhase(): Unit =
     val damage =
       1 - getLastSnapshot().environment.vegetationAvailable * dino_veg_ratio / getLastLivingPopulation().size
     if (damage > 0) getLastSnapshot().damagePopulation(damage)
-
-  def addDisaster(disaster: Disaster): Unit =
-    incomingDisasters = incomingDisasters :+ disaster
 
   def applyDisturbances(): Unit =
     // getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation()))
@@ -54,7 +52,4 @@ object WorldHistory {
     history.size >= max_iterations ||
       getLastLivingPopulation().size >= max_population_size ||
       getLastLivingPopulation().size <= 0
-
-  private def environmentEvolutionPhase(): Environment =
-    Environment.evolveFromEnvironment(getLastSnapshot().environment)
 }
