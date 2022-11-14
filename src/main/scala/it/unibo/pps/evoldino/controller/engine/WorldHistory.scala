@@ -8,52 +8,52 @@ object WorldHistory {
 
   type History = Seq[WorldSnapshot]
 
-  var history: History = initializeWorld()
+  var history: History = initializeWorld(Environment.BasicEnvironment, Seq.empty)
 
-  var disturbances: List[Disaster] = List.empty
+  var incomingDisasters: List[Disaster] = List.empty
 
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
-      population: Population = Seq.fill(20)(1)): Unit =
+      population: Population = Seq.empty): Unit =
     history = initializeWorld(environment, population)
 
   private def initializeWorld(
-      startingEnvironment: Environment = Environment.BasicEnvironment,
-      startingPopulation: Population = Seq.fill(20)(1)): History =
+      startingEnvironment: Environment,
+      startingPopulation: Population): History =
     Seq(WorldSnapshot(startingEnvironment, startingPopulation))
 
   def getLastSnapshot(): WorldSnapshot = history.head
 
-  def dinosaursEatingPhase(): Unit =
-    val damage =
-      1 - getLastSnapshot().environment.vegetationAvailable * dino_veg_ratio / getLastSnapshot().population.size
-    if (damage > 0) getLastSnapshot().damagePopulation(damage)
-
-  def applyDisturbances(): Unit =
-    return
-
-  //for disturbance <- disturbances do
-  //val disturbance = disturbances.drop(i)
-  //disturbance.apply(getLastSnapshot().livingPopulation())
+  def getLastLivingPopulation(): Population = getLastSnapshot().livingPopulation()
 
   def nextIteration(): Unit =
-    history = WorldSnapshot(
-      environmentEvolutionPhase(),
-      getLastSnapshot().population //.map(d => d.incrementAge())
-    ) +: history
+    val newPopulation = getLastLivingPopulation()
+    getLastSnapshot().closeSnapShot()
+    newPopulation foreach (_.increaseAge())
+    history =
+      WorldSnapshot(environmentEvolutionPhase(), newPopulation, incomingDisasters) +: history
+    incomingDisasters = incomingDisasters filter (_ => false)
+
+  def dinosaursEatingPhase(): Unit =
+    val damage =
+      1 - getLastSnapshot().environment.vegetationAvailable * dino_veg_ratio / getLastLivingPopulation().size
+    if (damage > 0) getLastSnapshot().damagePopulation(damage)
+
+  def addDisaster(disaster: Disaster): Unit =
+    incomingDisasters = incomingDisasters :+ disaster
+
+  def applyDisturbances(): Unit =
+    // getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation()))
+    return
 
   def reproductionPhase(): Unit =
     getLastSnapshot().population =
       getLastSnapshot().population //reproduction(getLastSnapshot().population)
-    getLastSnapshot().closeSnapShot()
 
   def isSimulationOver(): Boolean =
     history.size >= max_iterations ||
-      getLastSnapshot().population.size >= max_population_size ||
-      getLastSnapshot().population.size <= 0
-
-  def addDisaster(disaster: Disaster): Unit =
-    disturbances = disaster +: disturbances
+      getLastLivingPopulation().size >= max_population_size ||
+      getLastLivingPopulation().size <= 0
 
   private def environmentEvolutionPhase(): Environment =
     Environment.evolveFromEnvironment(getLastSnapshot().environment)
