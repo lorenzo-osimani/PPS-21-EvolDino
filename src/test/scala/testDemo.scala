@@ -16,6 +16,7 @@ class testDemo extends AnyFunSpec:
       }
     }
 
+  /*
     describe("Tests for createDisasterDemo") {
       val testDisaster = createDemoDisaster()
       it("should have elements") {
@@ -23,8 +24,9 @@ class testDemo extends AnyFunSpec:
         println(testDisaster)
         println("\n OK DIS \n")
       }
-    }
+    }*/
 
+    /*
     describe("Tests for createDisasterDemo Single Random") {
       val testDisasterSingleRandom = createDemoSingleRandomDisaster()
       it("should have elements") {
@@ -42,11 +44,12 @@ class testDemo extends AnyFunSpec:
         println("\n OK DIS SINGLE RANDOM WITH PROB \n")
       }
     }
+    */
 
     describe("Tests for createDisasterDemo List Random With Prob") {
-      val testDisasterSingleRandomProb = createDemoListRandomDisasterProb(15)
+      val testDisasterSingleRandomProb = createDemoSingleRandomDisasterProb(15)
       it("should have elements") {
-        print("\n DIS LIST RANDOM PROB with 10 elements\n")
+        print("\n DIS LIST RANDOM PROB with 15 elements\n")
         println(testDisasterSingleRandomProb)
         println("\n OK DIS LIST RANDOM WITH PROB \n")
   }

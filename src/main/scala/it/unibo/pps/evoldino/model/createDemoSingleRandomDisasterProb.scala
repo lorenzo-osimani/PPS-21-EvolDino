@@ -13,7 +13,7 @@ private def generateRandomPositionP(): (Int,Int) =
   /* genera una posizione random da 1 a 100 */
   (scala.util.Random.between(1,101),scala.util.Random.between(1,101))
 
-def createDemoSingleRandomDisasterProb(): List[Disaster] =
+def createDemoSingleRandomDisasterProb(): Disaster =
   
   /* parte qui ok dato che è singolo, se no in lista fatto diverso */
   val demoDisEarthquake: Disaster = Disaster.Earthquake(e = generateRandomExtensionP(), c = generateRandomPositionP())
@@ -45,12 +45,18 @@ def createDemoSingleRandomDisasterProb(): List[Disaster] =
   val rand = new Random(System.currentTimeMillis())
   val random_index = rand.nextInt(disProbList.length)
   val resultRand = disProbList(random_index)
-  disasterSingleRandomProb += resultRand
+  //disasterSingleRandomProb += resultRand
 
-  val dTestRandomProb = disasterSingleRandomProb.toList
+  val dTestRandomProb = resultRand
 
   return dTestRandomProb
 
+def createDemoSingleRandomDisasterProb(i: Int): List[Disaster] =
+  val disAP = new ListBuffer[Disaster]
+  for ( _ <- 1 to i)
+    disAP += new createDemoSingleRandomDisasterProb
+  return disAP.toList
+    //createDemoSingleRandomDisasterProb()
 
   /*  val
     case class Earthquake(x: Int, y: Int) extends Disaster with AreaEffect :
