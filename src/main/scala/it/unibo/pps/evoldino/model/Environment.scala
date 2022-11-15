@@ -16,7 +16,6 @@ trait Environment {
     "T: " + temperature + ", V: " + vegetationAvailable + ", H: " + humidity
 
   override def equals(obj: Any): Boolean =
-    println("matching stuff " + obj.toString)
     obj match
       case that: Environment =>
         that.isInstanceOf[Environment] &&

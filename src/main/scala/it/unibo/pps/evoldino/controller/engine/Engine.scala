@@ -18,7 +18,7 @@ object Engine {
 
   private var ended = false
 
-  def startSimulation(): Unit = iterationLoop().unsafeRunAndForget()
+  def startSimulation(): Unit = simulationLoop().unsafeRunAndForget()
 
   def endSimulation(): Unit = ended = true
 
@@ -26,7 +26,7 @@ object Engine {
 
   def unpauseSimulation(): Unit =
     paused = false
-    iterationLoop().unsafeRunAndForget()
+    simulationLoop().unsafeRunAndForget()
 
   def changeSpeed(): Unit = iteration_speed match
     case EngineConstants.iteration_ms_1x => iteration_speed = EngineConstants.iteration_ms_2x

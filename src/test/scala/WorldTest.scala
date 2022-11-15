@@ -18,11 +18,4 @@ class WorldTest extends AnyFunSpec {
       assert(WorldHistory.getLastSnapshot().population != null)
     }
   }
-
-  it("dinosaurs should die") {
-    WorldHistory.resetHistory(Environment(vegetationAvailable = 5))
-    println(WorldHistory.getLastSnapshot().environment.toString)
-    dinosaursEatingPhase()
-    assert(WorldHistory.getLastSnapshot().population.size != 20)
-  }
 }

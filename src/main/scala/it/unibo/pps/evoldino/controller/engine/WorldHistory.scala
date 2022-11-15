@@ -29,6 +29,7 @@ object WorldHistory {
     val newPopulation = getLastLivingPopulation()
     getLastSnapshot().closeSnapShot()
     newPopulation foreach (_.increaseAge())
+    environmentEvolutionFunction()(getLastSnapshot().environment).toString
     history = WorldSnapshot(
       environmentEvolutionFunction()(getLastSnapshot().environment),
       newPopulation,
@@ -50,6 +51,5 @@ object WorldHistory {
 
   def isSimulationOver(): Boolean =
     history.size >= max_iterations ||
-      getLastLivingPopulation().size >= max_population_size ||
-      getLastLivingPopulation().size <= 0
+      getLastLivingPopulation().size >= max_population_size //|| getLastLivingPopulation().size <= 0
 }

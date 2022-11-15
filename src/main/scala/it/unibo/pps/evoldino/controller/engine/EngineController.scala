@@ -12,6 +12,7 @@ object EngineController {
   var incomingDisasters: List[Disaster] = List.empty
 
   def setManualMode(mode: Boolean) = manual = mode
+  def isManualModeActive() = manual
 
   def environmentEvolutionFunction(): Environment => Environment =
     if (manual) { (env: Environment) =>
@@ -30,14 +31,14 @@ object EngineController {
   }
 
   def disasterFunction(): () => Seq[Disaster] =
-    if (manual) { () =>
-      val disasters = Seq.from(incomingDisasters)
-      incomingDisasters = incomingDisasters.filter(_ => false)
-      disasters
-    } else { () =>
+    var disasters: Seq[Disaster] = Seq.empty
+    if (manual)
+      disasters = Seq.from(incomingDisasters)
+    else
       //generateRandomDisasters()
-      Seq.empty
-    }
+      disasters = Seq.empty
+    incomingDisasters = incomingDisasters.filter(_ => false)
+    () => disasters
 
   def addDisaster(disaster: Disaster): Unit =
     incomingDisasters = incomingDisasters :+ disaster
