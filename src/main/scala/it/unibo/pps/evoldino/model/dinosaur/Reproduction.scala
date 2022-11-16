@@ -1,11 +1,10 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
-import scala.model.dinosaur.Dinosaur
+import scala.it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 
 object Reproduction {
 
-  class CoupleGendersException
-    extends ExplainedException()
+  class CoupleGendersException extends ExplainedException()
 
   type Population = List[Dinosaur]
 

@@ -1,5 +1,6 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
+/** It's an enumeration that defines the names of all characteristics  */
 private [model] object GeneClassification extends Enumeration {
 
   type GeneClassification = Value
