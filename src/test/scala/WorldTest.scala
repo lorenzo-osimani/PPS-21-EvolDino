@@ -14,7 +14,7 @@ class WorldTest extends AnyFunSpec {
     }
 
     it("should have a basic climate and a population") {
-      assert(WorldHistory.getLastSnapshot().environment equals Environment())
+      assert(WorldHistory.getLastSnapshot().environment.isInstanceOf[Environment])
       assert(WorldHistory.getLastSnapshot().population != null)
     }
   }
