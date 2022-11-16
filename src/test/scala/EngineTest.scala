@@ -1,11 +1,10 @@
-import it.unibo.pps.evoldino.controller.engine.WorldHistory.dinosaursEatingPhase
 import it.unibo.pps.evoldino.controller.engine.{
   Engine,
   EngineConstants,
   EngineController,
   WorldHistory
 }
-import it.unibo.pps.evoldino.model.Environment
+import it.unibo.pps.evoldino.model.world.Environment
 import org.scalatest.funspec.AnyFunSpec
 
 class EngineTest extends AnyFunSpec {
@@ -40,7 +39,7 @@ class EngineTest extends AnyFunSpec {
 
   private def resetTestConditions(): Unit = {
     WorldHistory.resetHistory()
-    Engine.startSimulation()
+    Controller.startSimulation()
   }
 
   describe("A manual mode should exist") {

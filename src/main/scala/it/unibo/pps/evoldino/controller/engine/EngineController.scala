@@ -1,6 +1,7 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import it.unibo.pps.evoldino.model.{ Disaster, Environment }
+import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.world.Environment
 
 object EngineController {
   private var manual: Boolean = false

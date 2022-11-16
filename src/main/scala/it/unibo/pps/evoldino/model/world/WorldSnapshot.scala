@@ -1,9 +1,10 @@
-package it.unibo.pps.evoldino.controller.engine
+package it.unibo.pps.evoldino.model.world
+
+import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
+import it.unibo.pps.evoldino.model.world.WorldSnapshot.Population
+import it.unibo.pps.evoldino.model.Disaster
 
 import scala.util.Random
-import WorldSnapshot.Population
-import it.unibo.pps.evoldino.model.{ Disaster, Environment }
-import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 
 trait WorldSnapshot {
 

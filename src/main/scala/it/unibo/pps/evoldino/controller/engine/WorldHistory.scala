@@ -1,9 +1,10 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import WorldSnapshot.Population
 import EngineConstants.*
 import EngineController.*
-import it.unibo.pps.evoldino.model.{ Disaster, Environment }
+import it.unibo.pps.evoldino.model.world.{ Environment, WorldSnapshot }
+import it.unibo.pps.evoldino.model.world.WorldSnapshot.Population
+import it.unibo.pps.evoldino.model.Disaster
 
 object WorldHistory {
 

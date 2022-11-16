@@ -36,13 +36,13 @@ object Engine {
   given Conversion[Unit, IO[Unit]] with
     def apply(exp: Unit): IO[Unit] = IO(exp)
 
-  def simulationLoop(): IO[Unit] = for {
+  private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- iterationLoop()
     _ <- if (!hasSimulationEnded() && !paused) simulationLoop() else unit
   } yield ()
 
-  def iterationLoop(): IO[Unit] = for {
+  private def iterationLoop(): IO[Unit] = for {
     _ <- nextIteration()
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
