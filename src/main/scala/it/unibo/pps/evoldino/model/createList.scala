@@ -12,9 +12,10 @@ import scala.util.Random
 
 def createList(n: Int) : List[Disaster] =
 
-  val myDis = createDemoListRandomDisasterProb()
+  //val myDis = createDemoListRandomDisasterProb()
   val dL = new ListBuffer[Disaster]
-  dL += myDis
+  for (i <- 1 to n)
+    dL += createDemoListRandomDisasterProb()
   val dTestRandomProb = dL.toList
 
   return dTestRandomProb
