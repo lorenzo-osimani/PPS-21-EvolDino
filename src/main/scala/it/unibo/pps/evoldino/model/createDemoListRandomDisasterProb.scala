@@ -23,7 +23,8 @@ private def overrideExtAndPos(d: Disaster): Unit =
   /*override d.extension = generateRandomExtensionPList()
   override d.coordinates = generateRandomPositionPList()*/
 */
-def createDemoListRandomDisasterProb(n: Int): List[Disaster] =
+def createDemoListRandomDisasterProb(): Disaster =
+
   /*ERRATO RICONTROLLARE**/
   val demoDisEarthquake: AreaEffect = Disaster.Earthquake(e = 0, c = (0,0))
   val demoDisMeteorite: AreaEffect = Disaster.Meteorite(e = 0, c = (0, 0))
@@ -59,22 +60,16 @@ def createDemoListRandomDisasterProb(n: Int): List[Disaster] =
   print(disProbList)
   print("\n END LIST WITH PROB \n")
 
-  val disasterSingleRandomProb = new ListBuffer[Disaster]()
+  //al disasterSingleRandomProb = new ListBuffer[Disaster]()
 
-  /*cosi rimane comunque il problema" se genero 15 e ne ho un array di 10 sono fregato" */
-  /* SOLUZIONE
-  * fai solo la funzione che ne crea uno (cosi eviti anche il casino del match case
-  * poi ogni volta richiami tutta la funzione
-  */
-  //penso sia meglio fare alla fine che crei una funzione per crearne uno. poi la richiami
-  for(nDis <- 1 to n)
-    disasterSingleRandomProb += disProbList(Random.nextInt(disProbList.length))
+  //for(nDis <- 1 to n)
+  //disasterSingleRandomProb += disProbList(Random.nextInt(disProbList.length))
+  val disasterSingleRandomProb = disProbList(Random.nextInt(disProbList.length))
 
-  val dTestRandomProb = disasterSingleRandomProb.toList
+  //val dTestRandomProb = disasterSingleRandomProb.toList
 
-  return dTestRandomProb
-
-
+  //return dTestRandomProb
+  disasterSingleRandomProb
   /*  val
     case class Earthquake(x: Int, y: Int) extends Disaster with AreaEffect :
       override val name = "Earthquake"
