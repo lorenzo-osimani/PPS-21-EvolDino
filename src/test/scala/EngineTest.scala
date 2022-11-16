@@ -39,7 +39,7 @@ class EngineTest extends AnyFunSpec {
 
   private def resetTestConditions(): Unit = {
     WorldHistory.resetHistory()
-    Controller.startSimulation()
+    Engine.startSimulation()
   }
 
   describe("A manual mode should exist") {
