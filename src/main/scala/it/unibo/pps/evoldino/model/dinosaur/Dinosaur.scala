@@ -29,7 +29,7 @@ sealed trait Dinosaur:
   /** @return the lifepoints of the dinosaur */
   def lifepoints: Int
   def damageDinosaur (damage: Int) =
-    lifepoints -= damage
+   // lifepoints -= damage
     if(lifepoints <= 0)
     {this.kill();}
 
@@ -47,3 +47,16 @@ sealed trait Dinosaur:
   /** Method that updates the dinosaur instance for the next generation */
   def incrementAge(): Unit = age += 1
   if (age >= MAX_AGE) isAlive = false
+  
+  private class DinosaurImpl(dinosaur: Dinosaur) extends Dinosaur {
+
+    override val kind: String = dinosaur.kind
+    override val name: String = dinosaur.name
+    override val height: Int = dinosaur.height
+    override val weight: Int = dinosaur.weight
+    override val color: String = dinosaur.color
+    override val gender: String = dinosaur.gender
+    override val age: Int = dinosaur.age
+    override val isAlive: Boolean = dinosaur.isAlive
+
+  }
