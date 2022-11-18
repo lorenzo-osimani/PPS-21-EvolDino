@@ -8,7 +8,16 @@ trait Dinosaur:
   val weight: Int
   val color: String
   val gender: String
-/*
+
+  def testAge: Int
+
+  def testLifePoints: Int
+
+  def testCoordinates: (Int, Int)
+
+  def testDinoID: Int
+
+  /*
   /** @return the age of the dinosaur */
   def age: Int
 
@@ -28,7 +37,7 @@ trait Dinosaur:
 
   /** Kills the dinosaur by updating the alive value to false. */
   def kill(): Unit = isAlive = false
-*/
+   */
   override def toString: String =
     super.toString +
       "\n kind: " + kind +
@@ -38,6 +47,6 @@ trait Dinosaur:
       "\n color: " + color +
       "\n gender: " + gender
 
-  /** Method that updates the dinosaur instance for the next generation */
+/** Method that updates the dinosaur instance for the next generation */
 
 //if (age >= MAX_AGE) isAlive = false
