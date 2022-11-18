@@ -33,8 +33,8 @@ sealed trait Disaster:
 
 /* DECIDERE COSA ESTENDERE E CHE FARE */
 sealed trait AreaEffect extends Disaster:
-  def extension: Int
-  def coordinates: (Int, Int)
+  val extension: Int
+  val coordinates: (Int, Int)
 
   override def toString: String =
     super.toString +
@@ -44,7 +44,7 @@ sealed trait AreaEffect extends Disaster:
       "\n OK :) \n"
 
 sealed trait ClimateEffect extends Disaster:
-  def temperature: Int
+  val temperature: Int
 
   override def toString: String =
     super.toString +
@@ -67,7 +67,7 @@ object Disaster {
     override val extension: Int = e
     override val coordinates: (Int, Int) = c
 
-  case object IceAge extends Disaster with ClimateEffect:
+  case object IceAge extends ClimateEffect:
     override val name: String = "IceAge"
     override val damage: Int = 40
     override val probability: Int = 1

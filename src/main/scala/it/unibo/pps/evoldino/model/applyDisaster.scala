@@ -49,13 +49,13 @@ def applyDisaster(d: List[Disaster], p: List[Dinosaur]): List[Dinosaur] =
    */
 
   for (disaster <- d)
-    print("\n EVALUATING: " + disaster.name + "\n")
+    print("\n EVALUATING: " + disaster.name + " \n\n")
     disaster match {
       case _: AreaEffect =>
         if (disaster == Earthquake)
           println("terremoto")
           for (dinosaur <- p)
-            if (dinosaur.testCoordinates == disaster.coordinates)
+            if (dinosaur.testCoordinates.equals(disaster.coordinates))
               print("colpito a " + dinosaur.testCoordinates)
               appDino(dinosaur,disaster)
               dinoListNew += appDino(dinosaur,disaster)
@@ -72,12 +72,12 @@ def applyDisaster(d: List[Disaster], p: List[Dinosaur]): List[Dinosaur] =
               dinoListNew += dinosaur
       case _: ClimateEffect =>
         if (disaster == Drought)
-          println("colpito siccita")
+          println("\n colpito siccita \n")
           for (dinosaur <- p)
             appDino(dinosaur, disaster)
             dinoListNew += appDino(dinosaur, disaster)
         if (disaster == IceAge)
-          println("colpito glaciazione")
+          println("\n colpito glaciazione \n")
           for (dinosaur <- p)
             appDino(dinosaur,disaster)
             dinoListNew += appDino(dinosaur, disaster)
