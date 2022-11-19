@@ -14,7 +14,8 @@ sealed trait Dinosaur:
 
   /** Setter for age. */
   protected def age_=(age: Int): Unit
-  private val MAX_AGE: Int = 100;
+  private val MIN_AGE: Int = 1;
+  private val MAX_AGE: Int = 40;
 
   /** Method to check if a dinosaur is alive.
    * @return true if the dinosaur is alive, false otherwise */
