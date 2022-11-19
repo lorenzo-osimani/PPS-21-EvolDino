@@ -65,7 +65,6 @@ abstract class AreaEffect extends Disaster:
     //val dinoListNew = new ListBuffer[Dinosaur]
     print("valutazione dinosauri \n")
     for (dino <- p)
-      //ma prende quello che gli viene passato o quello su cui si applicat??
       if ((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
         && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
         print(" !!COLPITO!! \n")
@@ -90,8 +89,7 @@ abstract class ClimateEffect extends Disaster:
 
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     //val dinoListNew = new ListBuffer[Dinosaur]
-    print("valutazione dinosauri \n")
-
+    print("applicaziona a tutti i dinosauri \n")
     for (dino <- p)
       dino.testLifePoints = dino.testLifePoints - damage
     //dinoListNew += dino
