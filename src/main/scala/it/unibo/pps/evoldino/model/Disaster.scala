@@ -1,8 +1,8 @@
 package it.unibo.pps.evoldino.model
 
-import it.unibo.pps.evoldino.controller.engine.{EngineConstants, WorldSnapshot}
+import it.unibo.pps.evoldino.controller.engine.{EngineConstants}
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.{Disaster, Environment}
+import it.unibo.pps.evoldino.model.{Disaster}
 import scala.collection.mutable.ListBuffer
 import cats.implicits.catsSyntaxMonadIdOps
 import math.Ordering.Implicits.infixOrderingOps
@@ -22,7 +22,7 @@ sealed trait Disaster:
   def damage: Int
   def probability: Int
 
-  def applyDisasterNEW(d: Disaster, p: List[Dinosaur]): List[Dinosaur] =
+  def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     print("\n nessun disastro applicato \n")
     p
 
@@ -61,20 +61,17 @@ abstract class AreaEffect extends Disaster:
     //dinoListNew.toList
     p
   */
-  override def applyDisasterNEW(d: Disaster, p: List[Dinosaur]): List[Dinosaur] =
+  override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     //val dinoListNew = new ListBuffer[Dinosaur]
-    print("valutazione dinosauri")
+    print("valutazione dinosauri \n")
     for (dino <- p)
     //ma prende quello che gli viene passato o quello su cui si applicat??
       if ((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
         && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
-          print(dino)
           print(" !!COLPITO!! \n")
-          dino.testLifePoints = dino.testLifePoints - d.damage
+          dino.testLifePoints = dino.testLifePoints - damage
       //dinoListNew += dino
-      else
-        print(dino)
-    print("\n AreaEffect disastro applicato \n")
+    print("AreaEffect disastro applicato \n")
     //dinoListNew.toList
     p
   override def toString: String =
@@ -90,15 +87,14 @@ abstract class ClimateEffect extends Disaster:
     super.toString +
       "\n temperature " + temperature
 
-  override def applyDisasterNEW(d: Disaster, p: List[Dinosaur]): List[Dinosaur] =
+  override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     //val dinoListNew = new ListBuffer[Dinosaur]
-    print("valutazione dinosauri")
+    print("valutazione dinosauri \n")
 
     for (dino <- p)
-      dino.testLifePoints = dino.testLifePoints - d.damage
+      dino.testLifePoints = dino.testLifePoints - damage
       //dinoListNew += dino
-      print(dino)
-    print("\n AreaEffect disastro applicato \n")
+    print("ClimateEffect disastro applicato \n")
     //dinoListNew.toList
     p
 
