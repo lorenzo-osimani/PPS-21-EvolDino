@@ -29,7 +29,7 @@ object WorldHistory {
   def nextIteration(): Unit =
     val newPopulation = getLastLivingPopulation()
     getLastSnapshot().closeSnapShot()
-    newPopulation foreach (_.increaseAge())
+    newPopulation foreach (_.incrementAge())
     environmentEvolutionFunction()(getLastSnapshot().environment).toString
     history = WorldSnapshot(
       environmentEvolutionFunction()(getLastSnapshot().environment),
