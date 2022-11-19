@@ -1,7 +1,7 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
 /** Represents a dinosaur */
-sealed trait Dinosaur:
+ sealed trait Dinosaur:
   val kind: String // erbivoro o carnivoro
   val name: String // es.: t-rex,brontosaurus..
   val height: Int
@@ -42,7 +42,7 @@ sealed trait Dinosaur:
     if(lifepoints <= 0)
     {this.kill();}
 
- override def toString: String =
+  override def toString: String =
     super.toString +
       "\n kind: " + kind +
       "\n name: " + name +

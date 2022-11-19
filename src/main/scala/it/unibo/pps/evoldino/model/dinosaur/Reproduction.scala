@@ -7,5 +7,6 @@ import scala.util.Random
 object Reproduction {
   override def newPopulation: Int = {
     val Population: Int = GeneClassification.REPRODUCTION_GENE
-    Random.shuffle(Population)
+    Random.nextInt(Population)
   }
+}
