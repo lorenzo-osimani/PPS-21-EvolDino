@@ -1,4 +1,4 @@
-package it.unibo.pps.evoldino
+package it.unibo.pps.evoldino.utils
 
 object GlobalUtils {
   private val random = new scala.util.Random

@@ -9,6 +9,14 @@ sealed trait Dinosaur:
   val color: String
   val gender: String
 
+  def testAge: Int
+
+  def testLifePoints: Int
+
+  def testCoordinates: (Int, Int)
+
+  def testDinoID: Int
+
   /** @return the age of the dinosaur */
   def age: Int
 
@@ -33,7 +41,7 @@ sealed trait Dinosaur:
     if(lifepoints <= 0)
     {this.kill();}
 
-  override def toString: String =
+ override def toString: String =
     super.toString +
       "\n kind: " + kind +
       "\n name: " + name +

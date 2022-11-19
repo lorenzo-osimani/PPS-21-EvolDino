@@ -4,7 +4,7 @@ import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
 import org.scalatest.matchers.should.Matchers
 import it.unibo.pps.evoldino.controller.engine.WorldHistory.*
-import it.unibo.pps.evoldino.model.Environment
+import it.unibo.pps.evoldino.model.world.Environment
 
 class WorldTest extends AnyFunSpec {
 
@@ -14,15 +14,8 @@ class WorldTest extends AnyFunSpec {
     }
 
     it("should have a basic climate and a population") {
-      assert(WorldHistory.getLastSnapshot().environment equals Environment())
-      assert(!(WorldHistory.getLastSnapshot().population equals null))
+      assert(WorldHistory.getLastSnapshot().environment.isInstanceOf[Environment])
+      assert(WorldHistory.getLastSnapshot().population != null)
     }
-  }
-
-  it("dinosaurs should die") {
-    WorldHistory.resetHistory(Environment(vegetationAvailable = 5))
-    println(WorldHistory.getLastSnapshot().environment.toString)
-    dinosaursEatingPhase()
-    assert(WorldHistory.getLastSnapshot().population.size != 20)
   }
 }
