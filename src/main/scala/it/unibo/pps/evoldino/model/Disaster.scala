@@ -1,28 +1,28 @@
 package it.unibo.pps.evoldino.model
 
+import it.unibo.pps.evoldino.controller.engine.{ EngineConstants, WorldSnapshot }
+import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
+import it.unibo.pps.evoldino.model.{ Disaster, Environment }
+
+/*
 import scalafx.geometry.Point2D
 import scalafx.geometry.Point2D.Zero.x
 import scalafx.geometry.Point2D.Zero.y
+ */
 
 /** Represent a Disaster */
 sealed trait Disaster:
 
   def name: String
   def damage: Int
-  def probability: Double
-
-  override def toString: String = {
+  def probability: Int
+  def extension: Int
+  def coordinates: (Int, Int)
+  override def toString: String =
     super.toString +
-      "\n name: " + name
-    "\n damage: " + damage
-    //if
-    //if(extension !== null) => "\n extension " + extension +
-    //"\n coordinateX" + coordinates(x)
-    //"\n coordinateY" + coordinates(y)
-  }
-//cè un modo di creare un array per riprendere i danni creati
-//problema che aclune variabili devono stare entro un certo range
-//è posbbile settare questo range da pruma nella definizione delle def
+      "\n name: " + name +
+      "\n damage: " + damage +
+      "\n probability: " + probability
 
 /*
   def DoARandomDisaster: () => Disaster = match
@@ -31,38 +31,66 @@ sealed trait Disaster:
     case _ => throw Error
  */
 
-sealed trait AreaEffect:
-  def extension: Int
-  def coordinates: (Int, Int)
+/* DECIDERE COSA ESTENDERE E CHE FARE */
+sealed trait AreaEffect extends Disaster:
+  val extension: Int
+  val coordinates: (Int, Int)
 
-sealed trait ClimateEffect:
-  def temperature: Int
+  override def toString: String =
+    super.toString +
+      "\n extension " + extension +
+      "\n coordinateX " + coordinates._1 +
+      "\n coordinateY " + coordinates._2 +
+      "\n OK :) \n"
+
+sealed trait ClimateEffect extends Disaster:
+  val temperature: Int
+
+  override def toString: String =
+    super.toString +
+      "\n temperature " + temperature +
+      "\n OK"
 
 object Disaster {
 
-  case class Earthquake(x: Int, y: Int) extends Disaster with AreaEffect:
+  case class Earthquake(e: Int, c: (Int, Int)) extends AreaEffect:
     override val name = "Earthquake"
     override val damage = 1000
-    override val extension = 3
-    override val probability = 0.5
-    override val coordinates: (Int, Int) = (x, y)
+    override val probability = 5
+    override val extension: Int = e
+    override val coordinates: (Int, Int) = c
 
-  case class Meteorite(x: Int, y: Int) extends Disaster with AreaEffect:
+  case class Meteorite(e: Int, c: (Int, Int)) extends AreaEffect:
     override val name: String = "Meteorite"
     override val damage: Int = 1000
-    override val extension = 3
-    override val probability: Double = 0.5
-    override val coordinates: (Int, Int) = (x, y)
+    override val probability: Int = 3
+    override val extension: Int = e
+    override val coordinates: (Int, Int) = c
 
-  case object IceAge extends Disaster with ClimateEffect:
+  case object IceAge extends ClimateEffect:
     override val name: String = "IceAge"
-    override val damage: Int = 1000
-    override val probability: Double = 0.5
-    override val temperature: Int = 100000
+    override val damage: Int = 40
+    override val probability: Int = 1
+    override val temperature: Int = 100
+    override val coordinates: (Int, Int) = (0,0)
+    override val extension: Int = 0
 
-  case object Drought extends Disaster with ClimateEffect:
+  case object Drought extends ClimateEffect:
     override val name: String = "Drought"
-    override val damage: Int = 100
-    override val probability: Double = 0.3
-    override val temperature: Int = 10000
+    override val damage: Int = 30
+    override val probability: Int = 7
+    override val temperature: Int = 5000
+    override val coordinates: (Int, Int) = (0, 0)
+    override val extension: Int = 0
 }
+
+/*inutile*/
+/*def testPop(): Unit=
+  val popArrayTest: List[Dinosaur] = createDemoDinosaur()
+  println(popArrayTest(0))
+  println(popArrayTest(1))
+  println(popArrayTest(2))
+  println(popArrayTest(3))
+  println(popArrayTest(4))
+  println(popArrayTest(5))
+ */

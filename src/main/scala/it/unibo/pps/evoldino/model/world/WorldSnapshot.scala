@@ -33,15 +33,15 @@ object WorldSnapshot {
   type Population = Seq[Dinosaur]
 
   def apply(
-             environment: Environment,
-             population: Population,
-             disasters: Seq[Disaster] = Seq.empty): WorldSnapshot =
+      environment: Environment,
+      population: Population,
+      disasters: Seq[Disaster] = Seq.empty): WorldSnapshot =
     new WorldSnapshotImpl(environment, population, disasters, false)
 
   private class WorldSnapshotImpl(
-                                   override val environment: Environment,
-                                   var population: Population,
-                                   override val disasters: Seq[Disaster],
-                                   var ended: Boolean)
-    extends WorldSnapshot
+      override val environment: Environment,
+      var population: Population,
+      override val disasters: Seq[Disaster],
+      var ended: Boolean)
+      extends WorldSnapshot
 }

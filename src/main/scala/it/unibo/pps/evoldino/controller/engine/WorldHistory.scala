@@ -1,60 +1,56 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import WorldSnapshot.Population
 import EngineConstants.*
-import it.unibo.pps.evoldino.model.{ Disaster, Environment }
+import EngineController.*
+import it.unibo.pps.evoldino.model.world.{ Environment, WorldSnapshot }
+import it.unibo.pps.evoldino.model.world.WorldSnapshot.Population
+import it.unibo.pps.evoldino.model.Disaster
 
 object WorldHistory {
 
   type History = Seq[WorldSnapshot]
 
-  var history: History = initializeWorld()
-
-  var disturbances: List[Disaster] = List.empty
+  var history: History = initializeWorld(Environment.BasicEnvironment, Seq.empty)
 
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
-      population: Population = Seq.fill(20)(1)): Unit =
+      population: Population = Seq.empty): Unit =
     history = initializeWorld(environment, population)
 
   private def initializeWorld(
-      startingEnvironment: Environment = Environment.BasicEnvironment,
-      startingPopulation: Population = Seq.fill(20)(1)): History =
+      startingEnvironment: Environment,
+      startingPopulation: Population): History =
     Seq(WorldSnapshot(startingEnvironment, startingPopulation))
 
   def getLastSnapshot(): WorldSnapshot = history.head
 
+  def getLastLivingPopulation(): Population = getLastSnapshot().livingPopulation()
+
+  def nextIteration(): Unit =
+    val newPopulation = getLastLivingPopulation()
+    getLastSnapshot().closeSnapShot()
+    newPopulation foreach (_.increaseAge())
+    environmentEvolutionFunction()(getLastSnapshot().environment).toString
+    history = WorldSnapshot(
+      environmentEvolutionFunction()(getLastSnapshot().environment),
+      newPopulation,
+      disasterFunction()()
+    ) +: history
+
   def dinosaursEatingPhase(): Unit =
     val damage =
-      1 - getLastSnapshot().environment.vegetationAvailable * dino_veg_ratio / getLastSnapshot().population.size
+      1 - getLastSnapshot().environment.vegetationAvailable * dino_veg_ratio / getLastLivingPopulation().size
     if (damage > 0) getLastSnapshot().damagePopulation(damage)
 
   def applyDisturbances(): Unit =
+    // getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation()))
     return
-
-  //for disturbance <- disturbances do
-  //val disturbance = disturbances.drop(i)
-  //disturbance.apply(getLastSnapshot().livingPopulation())
-
-  def nextIteration(): Unit =
-    history = WorldSnapshot(
-      environmentEvolutionPhase(),
-      getLastSnapshot().population //.map(d => d.incrementAge())
-    ) +: history
 
   def reproductionPhase(): Unit =
     getLastSnapshot().population =
       getLastSnapshot().population //reproduction(getLastSnapshot().population)
-    getLastSnapshot().closeSnapShot()
 
   def isSimulationOver(): Boolean =
     history.size >= max_iterations ||
-      getLastSnapshot().population.size >= max_population_size ||
-      getLastSnapshot().population.size <= 0
-
-  def addDisaster(disaster: Disaster): Unit =
-    disturbances = disaster +: disturbances
-
-  private def environmentEvolutionPhase(): Environment =
-    Environment.evolveFromEnvironment(getLastSnapshot().environment)
+      getLastLivingPopulation().size >= max_population_size //|| getLastLivingPopulation().size <= 0
 }

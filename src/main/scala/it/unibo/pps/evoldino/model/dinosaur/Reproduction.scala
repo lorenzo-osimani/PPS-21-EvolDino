@@ -9,4 +9,3 @@ object Reproduction {
     val Population: Int = GeneClassification.REPRODUCTION_GENE
     Random.shuffle(Population)
   }
-}

@@ -20,7 +20,7 @@ class DisasterTest extends AnyFunSpec {
   }
 
   describe("Tests for Earthquake") {
-    val earthquakeTest = Disaster.Earthquake(0, 1)
+    val earthquakeTest = Disaster.Earthquake(0, (0,0))
     it("should have the name Earthquake") {
       assertResult("Earthquake")(earthquakeTest.name)
     }
@@ -30,7 +30,7 @@ class DisasterTest extends AnyFunSpec {
   }
 
   describe("Tests for Meteorite") {
-    val meteoriteTest = Disaster.Meteorite(1, 0)
+    val meteoriteTest = Disaster.Meteorite(0, (0,0))
     it("should have the name Meteorite") {
       assertResult("Meteorite")(meteoriteTest.name)
     }
