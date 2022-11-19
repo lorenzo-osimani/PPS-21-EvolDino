@@ -9,13 +9,13 @@ trait Dinosaur:
   val color: String
   val gender: String
 
-  def testAge: Int
+  var testAge: Int
 
-  def testLifePoints: Int
+  var testLifePoints: Int
 
-  def testCoordinates: (Int, Int)
+  var testCoordinates: (Int, Int)
 
-  def testDinoID: Int
+  var testDinoID: Int
 
   /*
   /** @return the age of the dinosaur */
@@ -42,10 +42,17 @@ trait Dinosaur:
     super.toString +
       "\n kind: " + kind +
       "\n name: " + name +
+    /*
       "\n height: " + height +
       "\n weight: " + weight +
       "\n color: " + color +
-      "\n gender: " + gender
+      "\n gender: " + gender +
+    */
+      "\n testLifePoints: " + testLifePoints +
+      "\n X: " + testCoordinates._1 +
+      "\n Y: " + testCoordinates._2 +
+      "\n"
+
 
 /** Method that updates the dinosaur instance for the next generation */
 

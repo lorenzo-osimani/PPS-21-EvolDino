@@ -2,7 +2,6 @@ package it.unibo.pps.evoldino.model
 
 import it.unibo.pps.evoldino.model
 import it.unibo.pps.evoldino.model.Disaster.{ Drought, Earthquake, IceAge, Meteorite }
-import it.unibo.pps.evoldino.model.{ createSingleRandomDisasterProb, Disaster }
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 import it.unibo.pps.evoldino.model.AreaEffect
 import it.unibo.pps.evoldino.model.ClimateEffect
@@ -11,14 +10,8 @@ import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
 def appDino(dino: Dinosaur, dam : Disaster): Dinosaur =
-  val newdino = new Dinosaur:
-    override val kind: String = dino.kind
-    override val name: String = dino.name
-    override val height: Int = dino.height
-    override val weight: Int = dino.weight
-    override val color: String = dino.color
-    override val gender: String = dino.gender
 
+    /*
     override def testAge: Int = testDinoID
 
     override def testLifePoints: Int = (testLifePoints - dam.damage)
@@ -26,8 +19,8 @@ def appDino(dino: Dinosaur, dam : Disaster): Dinosaur =
     override def testCoordinates: (Int, Int) = testCoordinates
 
     override def testDinoID: Int = testDinoID
-
-  return newdino
+    */
+  return dino
 
 def applyDisaster(d: List[Disaster], p: List[Dinosaur]): List[Dinosaur] =
 
@@ -49,14 +42,14 @@ def applyDisaster(d: List[Disaster], p: List[Dinosaur]): List[Dinosaur] =
    */
 
   for (disaster <- d)
-    print("\n EVALUATING: " + disaster.name + " \n\n")
+    print("\n EVALUATING: " + disaster.name + "\n")
     disaster match {
       case _: AreaEffect =>
         if (disaster == Earthquake)
           println("terremoto")
           for (dinosaur <- p)
-            if (dinosaur.testCoordinates.equals(disaster.coordinates))
-              print("colpito a " + dinosaur.testCoordinates)
+            if (true)
+              print("colpito a" + dinosaur.testCoordinates + "\n")
               appDino(dinosaur,disaster)
               dinoListNew += appDino(dinosaur,disaster)
             else
@@ -64,20 +57,23 @@ def applyDisaster(d: List[Disaster], p: List[Dinosaur]): List[Dinosaur] =
         if (disaster == Meteorite)
           println("meteorite")
           for (dinosaur <- p)
-            if(dinosaur.testCoordinates == disaster.coordinates)
-              print("colpito a " + dinosaur.testCoordinates)
+            print("eval coordi")
+            print(dinosaur.testCoordinates)
+            /*print(disaster.coordinates)
+            if (dinosaur.testCoordinates._1.equals(disaster.coordinates._1))
+              print("colpito a " + dinosaur.testCoordinates + "\n")
               appDino(dinosaur, disaster)
               dinoListNew += appDino(dinosaur, disaster)
             else
-              dinoListNew += dinosaur
+              dinoListNew += dinosaur*/
       case _: ClimateEffect =>
         if (disaster == Drought)
-          println("\n colpito siccita \n")
+          println("colpito siccita" + "\n")
           for (dinosaur <- p)
             appDino(dinosaur, disaster)
             dinoListNew += appDino(dinosaur, disaster)
         if (disaster == IceAge)
-          println("\n colpito glaciazione \n")
+          println("colpito glaciazione" + "\n")
           for (dinosaur <- p)
             appDino(dinosaur,disaster)
             dinoListNew += appDino(dinosaur, disaster)

@@ -1,8 +1,7 @@
-package it.unibo.pps.evoldino.model
+package it.unibo.pps.evoldino.model.world
 
-import it.unibo.pps.evoldino.model.Environment
+import it.unibo.pps.evoldino.model.world.EnvironmentConstants.*
 import it.unibo.pps.evoldino.utils.GlobalUtils.calculateProbability
-import it.unibo.pps.evoldino.model.EnvironmentConstants.*
 
 trait Environment {
 
@@ -16,7 +15,6 @@ trait Environment {
     "T: " + temperature + ", V: " + vegetationAvailable + ", H: " + humidity
 
   override def equals(obj: Any): Boolean =
-    println("matching stuff " + obj.toString)
     obj match
       case that: Environment =>
         that.isInstanceOf[Environment] &&
