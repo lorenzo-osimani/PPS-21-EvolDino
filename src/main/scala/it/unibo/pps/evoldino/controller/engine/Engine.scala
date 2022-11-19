@@ -7,8 +7,8 @@ import cats.effect.unsafe.implicits.global
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 import scala.language.implicitConversions
-
-import WorldHistory._
+import WorldHistory.*
+import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
 
 object Engine {
 
@@ -36,15 +36,17 @@ object Engine {
   given Conversion[Unit, IO[Unit]] with
     def apply(exp: Unit): IO[Unit] = IO(exp)
 
-  def simulationLoop(): IO[Unit] = for {
+  private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
+    _ <- iterationLoop()
+    _ <- if (!hasSimulationEnded() && !paused) simulationLoop() else unit
+  } yield ()
+
+  private def iterationLoop(): IO[Unit] = for {
     _ <- nextIteration()
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
     _ <- reproductionPhase()
-    _ <-
-      if (!hasSimulationEnded() && !paused) simulationLoop()
-      else unit
   } yield ()
 
   private def hasSimulationEnded(): Boolean = isSimulationOver() || ended
