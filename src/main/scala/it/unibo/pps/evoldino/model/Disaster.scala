@@ -1,8 +1,8 @@
 package it.unibo.pps.evoldino.model
 
-import it.unibo.pps.evoldino.controller.engine.{EngineConstants}
+import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.{Disaster}
+import it.unibo.pps.evoldino.model.Disaster
 import scala.collection.mutable.ListBuffer
 import cats.implicits.catsSyntaxMonadIdOps
 import math.Ordering.Implicits.infixOrderingOps
@@ -60,20 +60,20 @@ abstract class AreaEffect extends Disaster:
     print("\n AreaEffect disastro applicato \n")
     //dinoListNew.toList
     p
-  */
+   */
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     //val dinoListNew = new ListBuffer[Dinosaur]
     print("valutazione dinosauri \n")
     for (dino <- p)
-    //ma prende quello che gli viene passato o quello su cui si applicat??
       if ((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
         && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
-          print(" !!COLPITO!! \n")
-          dino.testLifePoints = dino.testLifePoints - damage
-      //dinoListNew += dino
+        print(" !!COLPITO!! \n")
+        dino.testLifePoints = dino.testLifePoints - damage
+    //dinoListNew += dino
     print("AreaEffect disastro applicato \n")
     //dinoListNew.toList
     p
+
   override def toString: String =
     super.toString +
       "\n extension " + extension +
@@ -89,11 +89,10 @@ abstract class ClimateEffect extends Disaster:
 
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     //val dinoListNew = new ListBuffer[Dinosaur]
-    print("valutazione dinosauri \n")
-
+    print("applicaziona a tutti i dinosauri \n")
     for (dino <- p)
       dino.testLifePoints = dino.testLifePoints - damage
-      //dinoListNew += dino
+    //dinoListNew += dino
     print("ClimateEffect disastro applicato \n")
     //dinoListNew.toList
     p
@@ -126,8 +125,6 @@ object Disaster {
     override val probability: Int = 7
     override val temperature: Int = 5000
 }
-
-
 
 /*inutile*/
 /*def testPop(): Unit=
