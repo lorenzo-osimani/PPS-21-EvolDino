@@ -43,8 +43,7 @@ object WorldHistory {
     if (damage > 0) getLastSnapshot().damagePopulation(damage)
 
   def applyDisturbances(): Unit =
-    // getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation()))
-    return
+    getLastSnapshot().disasters foreach (_.applyDisasterNEW(getLastLivingPopulation().toList))
 
   def reproductionPhase(): Unit =
     getLastSnapshot().population =
@@ -52,5 +51,5 @@ object WorldHistory {
 
   def isSimulationOver(): Boolean =
     history.size >= max_iterations ||
-      getLastLivingPopulation().size >= max_population_size //|| getLastLivingPopulation().size <= 0
+      getLastLivingPopulation().size >= max_population_size || getLastLivingPopulation().size <= 0
 }

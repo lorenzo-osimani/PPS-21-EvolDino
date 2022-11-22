@@ -6,7 +6,6 @@ import cats.effect.unsafe.implicits.global
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
-import scala.language.implicitConversions
 import WorldHistory.*
 import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
 
