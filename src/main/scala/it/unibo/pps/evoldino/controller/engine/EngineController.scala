@@ -1,6 +1,7 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import it.unibo.pps.evoldino.model.{ createList, Disaster, DisasterGenerator }
+import it.unibo.pps.evoldino.model.disaster.Disaster
+import it.unibo.pps.evoldino.model.disaster.DisasterGenerator
 import it.unibo.pps.evoldino.model.world.Environment
 
 object EngineController {
@@ -35,7 +36,7 @@ object EngineController {
     var disasters: Seq[Disaster] = Seq.empty
     if (manual) disasters = Seq.from(incomingDisasters)
     else
-      disasters = DisasterGenerator.createList()
+      disasters = DisasterGenerator.createListOfDisastersWithDistribuition()
       incomingDisasters = incomingDisasters.filter(_ => false)
     () => disasters
 

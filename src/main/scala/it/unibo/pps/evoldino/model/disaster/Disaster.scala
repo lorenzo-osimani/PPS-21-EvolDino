@@ -1,14 +1,15 @@
-package it.unibo.pps.evoldino.model
+package it.unibo.pps.evoldino.model.disaster
 
+import cats.implicits.catsSyntaxMonadIdOps
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect, Disaster }
+
 import scala.collection.mutable.ListBuffer
-import cats.implicits.catsSyntaxMonadIdOps
-import math.Ordering.Implicits.infixOrderingOps
-import math.Numeric.Implicits.infixNumericOps
-import math.Fractional.Implicits.infixFractionalOps
-import math.Integral.Implicits.infixIntegralOps
+import scala.math.Fractional.Implicits.infixFractionalOps
+import scala.math.Integral.Implicits.infixIntegralOps
+import scala.math.Numeric.Implicits.infixNumericOps
+import scala.math.Ordering.Implicits.infixOrderingOps
 /*
 import scalafx.geometry.Point2D
 import scalafx.geometry.Point2D.Zero.x
@@ -62,16 +63,16 @@ abstract class AreaEffect extends Disaster:
     p
    */
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
-    //val dinoListNew = new ListBuffer[Dinosaur]
+    // val dinoListNew = new ListBuffer[Dinosaur]
     print("valutazione dinosauri \n")
     for (dino <- p)
       if ((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
         && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
         print(" !!COLPITO!! \n")
         dino.testLifePoints = dino.testLifePoints - damage
-    //dinoListNew += dino
+    // dinoListNew += dino
     print("AreaEffect disastro applicato \n")
-    //dinoListNew.toList
+    // dinoListNew.toList
     p
 
   override def toString: String =
@@ -88,13 +89,13 @@ abstract class ClimateEffect extends Disaster:
       "\n temperature " + temperature
 
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
-    //val dinoListNew = new ListBuffer[Dinosaur]
+    // val dinoListNew = new ListBuffer[Dinosaur]
     print("applicaziona a tutti i dinosauri \n")
     for (dino <- p)
       dino.testLifePoints = dino.testLifePoints - damage
-    //dinoListNew += dino
+    // dinoListNew += dino
     print("ClimateEffect disastro applicato \n")
-    //dinoListNew.toList
+    // dinoListNew.toList
     p
 
 object Disaster {

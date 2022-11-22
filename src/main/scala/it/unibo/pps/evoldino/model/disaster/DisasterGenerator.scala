@@ -1,12 +1,8 @@
-package it.unibo.pps.evoldino.model
+package it.unibo.pps.evoldino.model.disaster
 
-import it.unibo.pps.evoldino.model
-import it.unibo.pps.evoldino.model.Disaster
-import it.unibo.pps.evoldino.model.Disaster.{ Drought, Earthquake, Meteorite }
-import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
+import it.unibo.pps.evoldino.model.disaster.Disaster._
 
 import scala.collection.mutable.ListBuffer
-import scala.language.postfixOps
 import scala.util.Random
 
 object DisasterGenerator {
@@ -72,10 +68,13 @@ object DisasterGenerator {
     disasterSingleRandomProb
 
   /* It can generate from 0 to 3 disasters */
-  def createList(): List[Disaster] =
+  def createListOfDisasters(n: Int): List[Disaster] =
     val dL = new ListBuffer[Disaster]
-    val number_of_disasters = (3 * Math.pow(random.nextDouble(), 4)).toInt
-    for (i <- 1 to number_of_disasters)
+    for (i <- 1 to n)
       dL += createSingleRandomDisasterProb()
     dL.toList
+
+  def createListOfDisastersWithDistribuition(): List[Disaster] =
+    val number_of_disasters = (3 * Math.pow(random.nextDouble(), 4)).toInt
+    createListOfDisasters(number_of_disasters)
 }

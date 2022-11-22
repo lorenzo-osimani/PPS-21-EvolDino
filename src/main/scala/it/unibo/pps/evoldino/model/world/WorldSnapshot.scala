@@ -2,7 +2,7 @@ package it.unibo.pps.evoldino.model.world
 
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 import it.unibo.pps.evoldino.model.world.WorldSnapshot.Population
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.Disaster
 
 import scala.util.Random
 
@@ -25,7 +25,7 @@ trait WorldSnapshot {
 
   def closeSnapShot() =
     ended = true
-  //population flatMap() IMMUTABLE DINOSAURS
+  // population flatMap() IMMUTABLE DINOSAURS
 }
 
 object WorldSnapshot {

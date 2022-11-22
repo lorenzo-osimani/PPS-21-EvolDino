@@ -1,6 +1,6 @@
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.Disaster
 
 class DisasterTest extends AnyFunSpec {
   print("test begin")
@@ -20,7 +20,7 @@ class DisasterTest extends AnyFunSpec {
   }
 
   describe("Tests for Earthquake") {
-    val earthquakeTest = Disaster.Earthquake(0, (0,0))
+    val earthquakeTest = Disaster.Earthquake(0, (0, 0))
     it("should have the name Earthquake") {
       assertResult("Earthquake")(earthquakeTest.name)
     }
@@ -30,7 +30,7 @@ class DisasterTest extends AnyFunSpec {
   }
 
   describe("Tests for Meteorite") {
-    val meteoriteTest = Disaster.Meteorite(0, (0,0))
+    val meteoriteTest = Disaster.Meteorite(0, (0, 0))
     it("should have the name Meteorite") {
       assertResult("Meteorite")(meteoriteTest.name)
     }
@@ -52,7 +52,7 @@ class DisasterTest extends AnyFunSpec {
     }
   }
 
-  //it ("a dinosaur Die")
+  // it ("a dinosaur Die")
   //  assert
   /*
   it ("a disaster created") {
