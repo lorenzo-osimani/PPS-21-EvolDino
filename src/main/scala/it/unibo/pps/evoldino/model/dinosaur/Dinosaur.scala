@@ -1,4 +1,5 @@
 package it.unibo.pps.evoldino.model.dinosaur
+import it.unibo.pps.evoldino.model.Disaster
 
 /** Represents a dinosaur */
  sealed trait Dinosaur:
@@ -37,8 +38,9 @@ package it.unibo.pps.evoldino.model.dinosaur
 
   /** @return the lifepoints of the dinosaur */
   def lifepoints: Int
+
   def damageDinosaur (damage: Int) =
-   // lifepoints -= damage
+   lifepoints -= damage
     if(lifepoints <= 0)
     {this.kill();}
 
@@ -53,19 +55,55 @@ package it.unibo.pps.evoldino.model.dinosaur
       "\n age: " + age +
       "\n isAlive: " + isAlive
 
-  /** Method that updates the dinosaur instance for the next generation */
-  def incrementAge(): Unit = age += 1
-  if (age >= MAX_AGE) isAlive = false
-  
-  private class DinosaurImpl(dinosaur: Dinosaur) extends Dinosaur {
-
-    override val kind: String = dinosaur.kind
-    override val name: String = dinosaur.name
-    override val height: Int = dinosaur.height
-    override val weight: Int = dinosaur.weight
-    override val color: String = dinosaur.color
-    override val gender: String = dinosaur.gender
-    override val age: Int = dinosaur.age
-    override val isAlive: Boolean = dinosaur.isAlive
-
+  /** Method that updates the dinosaur age for the next generation */
+  def incrementAge(): Unit =
+    { age += 1
+  if (age >= MAX_AGE) this.kill()
+    }
+  /** Method that updates the dinosaur lifepoints for the next generation */
+  def decrementLifepoints(): Unit =
+  { lifepoints -= 1
+    if (lifepoints <= 0) this.kill()
   }
+
+object Dinosaur {
+
+ def apply(
+   kind:String,
+   name: String,
+   height: Int,
+   weight: Int,
+   color: String,
+   gender: String,
+   age: Int,
+   testLifePoints: Int,
+   testCoordinates: (Int, Int),
+   testDinoID: Int): Dinosaur =
+
+  new DinosaurImpl(
+   kind,
+   name,
+   height,
+   weight,
+   color,
+   gender,
+   age,
+   testLifePoints,
+   testCoordinates,
+   testDinoID
+  )
+
+ private class DinosaurImpl(
+     override val kind: String,
+     override val name: String,
+     override val height: Int,
+     override val weight: Int,
+     override val color: String,
+     override val gender: String,
+     var age: Int,
+     var testLifePoints: Int,
+     var testCoordinates: (Int, Int),
+     var testDinoID: Int)
+
+   extends Dinosaur
+}
