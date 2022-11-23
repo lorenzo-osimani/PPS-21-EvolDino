@@ -1,6 +1,8 @@
 package it.unibo.pps.evoldino.model.dinosaur
 import it.unibo.pps.evoldino.model.Disaster
 
+import scala.collection.mutable.ListBuffer
+
 /** Represents a dinosaur */
  sealed trait Dinosaur:
   val kind: String // erbivoro o carnivoro
@@ -8,8 +10,11 @@ import it.unibo.pps.evoldino.model.Disaster
   val height: Int
   val weight: Int
   val color: String
-  val gender: String
+  val gender: Gender
 
+sealed trait Gender
+case object male extends Gender
+case object female extends Gender
   def testAge: Int
 
   def testLifePoints: Int
@@ -39,7 +44,7 @@ import it.unibo.pps.evoldino.model.Disaster
   /** @return the lifepoints of the dinosaur */
   def lifepoints: Int
 
-  def damageDinosaur (damage: Int) =
+  def damageDinosaur (damage: Int)  =
    lifepoints -= damage
     if(lifepoints <= 0)
     {this.kill();}
@@ -74,7 +79,7 @@ object Dinosaur {
    height: Int,
    weight: Int,
    color: String,
-   gender: String,
+   gender: Gender,
    age: Int,
    testLifePoints: Int,
    testCoordinates: (Int, Int),
@@ -99,7 +104,7 @@ object Dinosaur {
      override val height: Int,
      override val weight: Int,
      override val color: String,
-     override val gender: String,
+     override val gender: Gender,
      var age: Int,
      var testLifePoints: Int,
      var testCoordinates: (Int, Int),
@@ -107,3 +112,20 @@ object Dinosaur {
 
    extends Dinosaur
 }
+
+
+ def deleteDeadDino (l: List[Dinosaur]): List[Dinosaur] =
+  val ListDino = new ListBuffer[Dinosaur]
+  for (ListDino <- l)
+    if (lifepoints > 0)
+    val newList = ListDino.toList
+    print(newList)
+
+  def genderDino (l: List[Dinosaur]): List[Dinosaur] =
+   val maleDino = new ListBuffer[Dinosaur]
+   val femaleDino = new ListBuffer[Dinosaur]
+   for (maleDino <- l)
+   if (Gender == male)
+   print(maleDino)
+   else if (Gender == female)
+     print(femaleDino)
