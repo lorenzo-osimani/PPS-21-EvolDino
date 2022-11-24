@@ -1,7 +1,9 @@
 package it.unibo.pps.evoldino.controller
 
 import it.unibo.pps.evoldino.controller.engine.Engine
+import it.unibo.pps.evoldino.controller.engine.Engine.paused
 import it.unibo.pps.evoldino.controller.engine.EngineController
+import it.unibo.pps.evoldino.controller.engine.WorldHistory.isSimulationOver
 
 object Controller {
   def startSimulation() = Engine.startSimulation()
@@ -13,6 +15,10 @@ object Controller {
   def unpauseSimulation() = Engine.unpauseSimulation()
 
   def changeSpeed() = Engine.changeSpeed()
+
+  def isSimulationPlaying(): Boolean = Engine.isSimulationPlaying()
+
+  def hasSimulationEnded(): Boolean = Engine.hasSimulationEnded()
 
   def setManualMode(mode: Boolean) = EngineController.setManualMode(mode)
 

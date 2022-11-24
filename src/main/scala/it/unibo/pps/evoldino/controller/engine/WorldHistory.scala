@@ -51,5 +51,5 @@ object WorldHistory {
 
   def isSimulationOver(): Boolean =
     history.size >= max_iterations ||
-      getLastLivingPopulation().size >= max_population_size || getLastLivingPopulation().size <= 0
+      getLastLivingPopulation().size >= max_population_size // || getLastLivingPopulation().size <= 0
 }

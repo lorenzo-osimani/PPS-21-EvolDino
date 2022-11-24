@@ -13,16 +13,16 @@ class EngineTest extends AnyFunSpec {
 
   it("A simulation should be able to start") {
     resetTestConditions()
-    Thread.sleep(EngineConstants.iteration_ms_1x * n_iterations)
+    Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.endSimulation()
     assert(WorldHistory.history.size >= n_iterations)
   }
 
   it("A simulation can be paused") {
     resetTestConditions()
-    Thread.sleep(EngineConstants.iteration_ms_1x * n_iterations)
+    Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.pauseSimulation()
-    Thread.sleep(EngineConstants.iteration_ms_1x * n_iterations)
+    Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.endSimulation()
     assert(WorldHistory.history.size <= n_iterations + 1)
   }
@@ -30,9 +30,9 @@ class EngineTest extends AnyFunSpec {
   it("A simulation can be unpaused") {
     resetTestConditions()
     Engine.pauseSimulation()
-    Thread.sleep(EngineConstants.iteration_ms_1x * n_iterations)
+    Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.unpauseSimulation()
-    Thread.sleep(EngineConstants.iteration_ms_1x * n_iterations)
+    Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.endSimulation()
     assert(WorldHistory.history.size >= n_iterations)
   }
@@ -53,7 +53,7 @@ class EngineTest extends AnyFunSpec {
       EngineController.setManualMode(true)
       EngineController.modifyManualSettings(10, 10, 10)
       resetTestConditions()
-      Thread.sleep(EngineConstants.iteration_ms_1x * n_iterations)
+      Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
       assert(WorldHistory.getLastSnapshot().environment equals Environment(10, 10, 10))
     }
   }

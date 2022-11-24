@@ -8,10 +8,11 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 import WorldHistory.*
 import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
+import EngineConstants._
 
 object Engine {
 
-  private var iteration_speed = EngineConstants.iteration_ms_1x
+  private var iteration_speed: Int = ITERATION_MS_1X
 
   private var paused = false
 
@@ -27,10 +28,16 @@ object Engine {
     paused = false
     simulationLoop().unsafeRunAndForget()
 
-  def changeSpeed(): Unit = iteration_speed match
-    case EngineConstants.iteration_ms_1x => iteration_speed = EngineConstants.iteration_ms_2x
-    case EngineConstants.iteration_ms_2x => iteration_speed = EngineConstants.iteration_ms_4x
-    case EngineConstants.iteration_ms_4x => iteration_speed = EngineConstants.iteration_ms_1x
+  def changeSpeed(): Int =
+    iteration_speed match
+      case ITERATION_MS_1X => iteration_speed = ITERATION_MS_2X
+      case ITERATION_MS_2X => iteration_speed = ITERATION_MS_4X
+      case ITERATION_MS_4X => iteration_speed = ITERATION_MS_1X
+    iteration_speed
+
+  def isSimulationPlaying(): Boolean = !paused
+
+  def hasSimulationEnded(): Boolean = isSimulationOver() || ended
 
   given Conversion[Unit, IO[Unit]] with
     def apply(exp: Unit): IO[Unit] = IO(exp)
@@ -47,7 +54,5 @@ object Engine {
     _ <- applyDisturbances()
     _ <- reproductionPhase()
   } yield ()
-
-  private def hasSimulationEnded(): Boolean = isSimulationOver() || ended
 
 }

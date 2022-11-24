@@ -1,7 +1,7 @@
 package it.unibo.pps.evoldino.model
 
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.Disaster
 
 def createDemoDinosaur(): List[Dinosaur] =
 
@@ -32,7 +32,7 @@ def createDemoDinosaur(): List[Dinosaur] =
   val dino6: Dinosaur =
     Dinosaur("erbivorous", "erbo6", 23, 1234, "green", "male", 100, 100, (50, 50), 6)
 
-  //usaare listbuffer perche' mutabile//vedere qui
+  // usaare listbuffer perche' mutabile//vedere qui
   // https://alvinalexander.com/scala/how-add-elements-to-a-list-in-scala-listbuffer-immutable/
   import scala.collection.mutable.ListBuffer
 
