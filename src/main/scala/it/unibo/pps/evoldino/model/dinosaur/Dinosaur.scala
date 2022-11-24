@@ -11,10 +11,16 @@ import scala.collection.mutable.ListBuffer
   val weight: Int
   val color: String
   val gender: Gender
+  val mum: Option[Dinosaur]
+  val dad: Option[Dinosaur]
 
 sealed trait Gender
 case object male extends Gender
 case object female extends Gender
+
+sealed trait Kind
+case object herbivorous extends Kind
+case object carnivorous extends Kind
   def testAge: Int
 
   def testLifePoints: Int
@@ -28,7 +34,7 @@ case object female extends Gender
 
   /** Setter for age. */
   protected def age_=(age: Int): Unit
-  private val MIN_AGE: Int = 1;
+  private val MIN_AGE: Int = 0;
   private val MAX_AGE: Int = 40;
 
   /** Method to check if a dinosaur is alive.
@@ -43,6 +49,10 @@ case object female extends Gender
 
   /** @return the lifepoints of the dinosaur */
   def lifepoints: Int
+
+  /** Setter for lifepoints. */
+  protected def lifepoints_=(lifepoints: Int): Unit
+  private val MAX_LIFEPOINTS: Int = 100;
 
   def damageDinosaur (damage: Int)  =
    lifepoints -= damage
@@ -113,6 +123,24 @@ object Dinosaur {
    extends Dinosaur
 }
 
+/** Represents a Dinosaur that has just been created after reproduction. */
+case class newDinosaur(
+                       override val kind: randomKind,
+                       override val name: ,
+                       override val height:,
+                       override val weight:,
+                       override val color:,
+                       override val gender: randomGender,
+                       override val mum: Option[Dinosaur],
+                       override val dad: Option[Dinosaur]
+                     ) extends Dinosaur {
+  override var age: Int = 0
+  override var lifepoints: Int = 100
+  override var isAlive: Boolean = true
+ }
+
+val randomGender: () => Gender = () => Seq(male, female).random
+val randomKind: () => Kind = () => Seq(herbivorous, carnivorous ).random
 
  def deleteDeadDino (l: List[Dinosaur]): List[Dinosaur] =
   val ListDino = new ListBuffer[Dinosaur]
