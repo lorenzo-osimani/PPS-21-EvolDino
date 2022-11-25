@@ -4,6 +4,7 @@ import it.unibo.pps.evoldino.controller.engine.Engine
 import it.unibo.pps.evoldino.controller.engine.Engine.paused
 import it.unibo.pps.evoldino.controller.engine.EngineController
 import it.unibo.pps.evoldino.controller.engine.WorldHistory.isSimulationOver
+import it.unibo.pps.evoldino.model.disaster.Disaster
 
 object Controller {
   def startSimulation() = Engine.startSimulation()
@@ -26,4 +27,7 @@ object Controller {
 
   def modifyManualSettings(temp: Float, hum: Float, veg: Float) =
     EngineController.modifyManualSettings(temp, hum, veg)
+
+  /* Add random creation for area damages */
+  def addDisaster(disaster: Disaster) = EngineController.addDisaster(disaster)
 }

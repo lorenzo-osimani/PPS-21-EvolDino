@@ -18,7 +18,12 @@ object Engine {
 
   private var ended = false
 
-  def startSimulation(): Unit = simulationLoop().unsafeRunAndForget()
+  def startSimulation(): Unit =
+    EngineController.resetController()
+    paused = false
+    ended = false
+    WorldHistory.resetHistory()
+    simulationLoop().unsafeRunAndForget()
 
   def endSimulation(): Unit = ended = true
 
@@ -45,6 +50,7 @@ object Engine {
   private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- iterationLoop()
+    _ <- println("ITERAZIONE------------------")
     _ <- if (!hasSimulationEnded() && !paused) simulationLoop() else unit
   } yield ()
 

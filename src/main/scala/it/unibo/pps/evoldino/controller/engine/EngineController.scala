@@ -1,7 +1,6 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import it.unibo.pps.evoldino.model.disaster.Disaster
-import it.unibo.pps.evoldino.model.disaster.DisasterGenerator
+import it.unibo.pps.evoldino.model.disaster.{ ClimateEffect, Disaster, DisasterGenerator }
 import it.unibo.pps.evoldino.model.world.Environment
 
 object EngineController {
@@ -37,8 +36,15 @@ object EngineController {
     if (manual) disasters = Seq.from(incomingDisasters)
     else
       disasters = DisasterGenerator.createListOfDisastersWithDistribuition()
-      incomingDisasters = incomingDisasters.filter(_ => false)
+    incomingDisasters = incomingDisasters.filter(_ match
+      case _: ClimateEffect => true
+      case _                => false
+    )
     () => disasters
+
+  def resetController() =
+    incomingDisasters = List.empty
+    modifyManualSettings(20, 50, 100)
 
   def addDisaster(disaster: Disaster): Unit =
     incomingDisasters = incomingDisasters :+ disaster

@@ -13,33 +13,33 @@ import javafx.event.{ ActionEvent, EventHandler }
 object ControlBar:
 
   /* PlayButton definition */
-  val playButton = new GenericButton("Start", "Start the simulation")
+  val playButton = new GenericButton("Start", "Start the simulation"):
+    onAction = startSimEventHandler
 
-  playButton.onAction = startSimEventHandler
+  val stopButton = new GenericButton("Stop", "Stop the simulation"):
+    disable = true
 
-  val stopButton = new GenericButton("Stop", "Stop the simulation")
-
-  stopButton.onAction = _ =>
-    Controller.endSimulation()
-    changeSpeedButton.disable = true
-    stopButton.disable = true
-    playButton.onAction = startSimEventHandler
-    playButton.setText("Start")
+    onAction = _ => {
+      Controller.endSimulation()
+      changeSpeedButton.disable = true
+      this.disable = true
+      playButton.onAction = startSimEventHandler
+      playButton.setText("Start")
+    }
 
   /* ChangeSpeedButton definition */
-  val changeSpeedButton = new GenericButton("x1", "Change simulation speed")
-  changeSpeedButton.disable = true
+  val changeSpeedButton = new GenericButton("x1", "Change simulation speed"):
+    disable = true
 
-  changeSpeedButton.onAction = _ =>
-    Controller.changeSpeed() match
-      case EngineConstants.ITERATION_MS_1X => changeSpeedButton.setText("x1")
-      case EngineConstants.ITERATION_MS_2X => changeSpeedButton.setText("x2")
-      case EngineConstants.ITERATION_MS_4X => changeSpeedButton.setText("x4")
+    onAction = _ =>
+      Controller.changeSpeed() match
+        case EngineConstants.ITERATION_MS_1X => text = "x1"
+        case EngineConstants.ITERATION_MS_2X => text = "x2"
+        case EngineConstants.ITERATION_MS_4X => text = "x4"
 
   private lazy val startSimEventHandler: EventHandler[ActionEvent] = _ =>
     playButton.text = "Pause"
     playButton.tooltip = Tooltip("Pause the simulation")
-    stopButton.setDisable(false)
     playButton.onAction = _ =>
       Controller.isSimulationPlaying() match
         case true =>
@@ -50,6 +50,8 @@ object ControlBar:
           Controller.unpauseSimulation()
           playButton.text = "Pause"
           playButton.tooltip = Tooltip("Pause the simulation")
+    stopButton.setDisable(false)
+    changeSpeedButton.setDisable(false)
     Controller.startSimulation()
 
   val controlBar: TilePane =
