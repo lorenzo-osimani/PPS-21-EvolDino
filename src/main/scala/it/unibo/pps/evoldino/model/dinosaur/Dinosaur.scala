@@ -1,6 +1,6 @@
 package it.unibo.pps.evoldino.model.dinosaur
 import it.unibo.pps.evoldino.model.Disaster
-
+import scala.util.Random
 import scala.collection.mutable.ListBuffer
 
 /** Represents a dinosaur */
@@ -84,7 +84,7 @@ case object carnivorous extends Kind
 object Dinosaur {
 
  def apply(
-   kind:String,
+   kind: String,
    name: String,
    height: Int,
    weight: Int,
@@ -126,10 +126,10 @@ object Dinosaur {
 /** Represents a Dinosaur that has just been created after reproduction. */
 case class newDinosaur(
                        override val kind: randomKind,
-                       override val name: ,
-                       override val height:,
-                       override val weight:,
-                       override val color:,
+                       override val name: String,
+                       override val height: randomHeight,
+                       override val weight: randomWeight,
+                       override val color: String,
                        override val gender: randomGender,
                        override val mum: Option[Dinosaur],
                        override val dad: Option[Dinosaur]
@@ -141,6 +141,8 @@ case class newDinosaur(
 
 val randomGender: () => Gender = () => Seq(male, female).random
 val randomKind: () => Kind = () => Seq(herbivorous, carnivorous ).random
+private val randomWeight: Int = Random.between(60000, 80000)
+private val randomHeight: Int = Random.between(5,25)
 
  def deleteDeadDino (l: List[Dinosaur]): List[Dinosaur] =
   val ListDino = new ListBuffer[Dinosaur]

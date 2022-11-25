@@ -1,15 +1,18 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
+import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 import it.unibo.pps.evoldino.model.dinosaur.GeneClassification
-import it.unibo.pps.evoldino.model.world.WorldSnapshot
+import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
   case object Reproduction {
 
-    private def generateDinosaur(d: List[Dinosaur]): List[Dinosaur] = {
-      val newPopulation: Int = GeneClassification.REPRODUCTION_GENE
-      Random.between(1, 5)
-      reproduce(female[0], male[0])
+    private def generateDinosaur(l: List[Dinosaur]): List[Dinosaur] = {
+      val newGeneration: Int = Random.between(100,1000)
+      val newListDino = new ListBuffer[Dinosaur]
+      newListDino += newGeneration
+      print(newListDino.toList)
+
   }
 
 }
