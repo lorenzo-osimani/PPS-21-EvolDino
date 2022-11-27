@@ -37,31 +37,22 @@ object DisasterGenerator {
     val disProbList = new ListBuffer[Disaster]
 
     for (disWithProb <- disArrayNoProb)
-      print("\n EVALUATING: " + disWithProb.name + " con prob " + disWithProb.probability)
-      print("\n ")
       for (prob <- 1 to disWithProb.probability)
         disWithProb match {
           case _: Earthquake =>
-            println("nuovo terremoto \n")
             disProbList += Earthquake(
               e = generateRandomExtensionPList(),
               c = generateRandomPositionPList()
             )
           case _: Meteorite =>
-            println("nuovo meteorite \n")
             disProbList += Meteorite(
               e = generateRandomExtensionPList(),
               c = generateRandomPositionPList()
             )
           case _: ClimateEffect =>
-            println("inserito \n")
             disProbList += disWithProb
           case null => println("ERROR")
         }
-
-    print("\n LIST WITH PROB \n")
-    print(disProbList)
-    print("\n END LIST WITH PROB \n")
 
     val disasterSingleRandomProb = disProbList(Random.nextInt(disProbList.length))
 

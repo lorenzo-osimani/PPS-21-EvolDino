@@ -11,15 +11,17 @@ class EngineTest extends AnyFunSpec {
 
   val n_iterations = 3
 
-  it("A simulation should be able to start") {
-    resetTestConditions()
+  it("A simulation should be able to start and end") {
+    Engine.startSimulation()
     Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.endSimulation()
+    assert(WorldHistory.history.size >= n_iterations)
+    Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     assert(WorldHistory.history.size >= n_iterations)
   }
 
   it("A simulation can be paused") {
-    resetTestConditions()
+    Engine.startSimulation()
     Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.pauseSimulation()
     Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
@@ -28,18 +30,13 @@ class EngineTest extends AnyFunSpec {
   }
 
   it("A simulation can be unpaused") {
-    resetTestConditions()
+    Engine.startSimulation()
     Engine.pauseSimulation()
     Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.unpauseSimulation()
     Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.endSimulation()
-    assert(WorldHistory.history.size >= n_iterations)
-  }
-
-  private def resetTestConditions(): Unit = {
-    WorldHistory.resetHistory()
-    Engine.startSimulation()
+    assert(WorldHistory.history.size <= n_iterations + 1)
   }
 
   describe("A manual mode should exist") {
@@ -51,8 +48,8 @@ class EngineTest extends AnyFunSpec {
 
     it("can modify the current environment and keep it constant") {
       EngineController.setManualMode(true)
+      Engine.startSimulation()
       EngineController.modifyManualSettings(10, 10, 10)
-      resetTestConditions()
       Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
       assert(WorldHistory.getLastSnapshot().environment equals Environment(10, 10, 10))
     }

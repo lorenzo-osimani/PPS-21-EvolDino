@@ -19,9 +19,9 @@ object Engine {
   private var ended = false
 
   def startSimulation(): Unit =
-    EngineController.resetController()
     paused = false
     ended = false
+    EngineController.resetController()
     WorldHistory.resetHistory()
     simulationLoop().unsafeRunAndForget()
 
@@ -50,8 +50,7 @@ object Engine {
   private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- iterationLoop()
-    _ <- println(getLastSnapshot().environment.toString)
-    _ <- if (!hasSimulationEnded() && !paused) simulationLoop() else unit
+    _ <- if (hasSimulationEnded() || paused) unit else simulationLoop()
   } yield ()
 
   private def iterationLoop(): IO[Unit] = for {
