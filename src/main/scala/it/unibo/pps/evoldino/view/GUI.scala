@@ -7,7 +7,7 @@ import scalafx.scene.layout.{ Background, BackgroundFill, BorderPane }
 import scalafx.scene.paint.Color
 import scalafx.scene.text.TextAlignment
 import scalafx.stage.{ Screen, Stage }
-import it.unibo.pps.evoldino.view.widgets.{ ControlBar, EnviromentConditionsWidget }
+import it.unibo.pps.evoldino.view.widgets.{ ClimateWidget, ControlBar, EnviromentConditionsWidget }
 
 object GUI:
 
@@ -26,7 +26,8 @@ object GUI:
           background = new Background(Array(new BackgroundFill(Color.Black, null, null)))
           padding = Insets(10)
           bottom = ControlBar.controlBar
-          top = EnviromentConditionsWidget.controlBar
+          top = EnviromentConditionsWidget.disastersWidget
+          right = ClimateWidget.climateWidget
     )
 
     stage.setFullScreen(false)

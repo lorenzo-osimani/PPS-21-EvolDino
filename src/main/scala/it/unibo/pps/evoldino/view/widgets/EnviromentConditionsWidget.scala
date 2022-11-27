@@ -7,6 +7,7 @@ import scalafx.scene.text.TextAlignment
 import scalafx.geometry.*
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.model.disaster.Disaster
+import it.unibo.pps.evoldino.view.components.{ GenericButton, SliderPane }
 import scalafx.application.Platform
 
 object EnviromentConditionsWidget:
@@ -52,7 +53,7 @@ object EnviromentConditionsWidget:
     this.add(earthquakeButton, 0, 1)
     this.add(meteoriteButton, 1, 1)
 
-  val controlBar: GridPane =
+  val disastersWidget: GridPane =
     new GridPane:
       background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
       this.add(title, 0, 0)

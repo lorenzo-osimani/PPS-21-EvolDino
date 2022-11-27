@@ -10,6 +10,10 @@ object EngineController {
   private var manual_humidity: Float = 50
   private var manual_vegetation_percentage: Float = 100
 
+  // Right way to do it???
+  private var iceAgeApplied: Boolean = false
+  private var droughtApplied: Boolean = false
+
   var incomingDisasters: List[Disaster] = List.empty
 
   def setManualMode(mode: Boolean) = manual = mode
@@ -17,7 +21,7 @@ object EngineController {
 
   def environmentEvolutionFunction(): Environment => Environment =
     if (manual) { (env: Environment) =>
-      Environment(manual_temperature, manual_humidity, manual_humidity)
+      Environment(manual_temperature, manual_humidity, manual_vegetation_percentage)
     } else { (env: Environment) =>
       Environment.evolveFromEnvironment(env)
     }

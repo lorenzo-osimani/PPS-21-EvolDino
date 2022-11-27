@@ -13,4 +13,8 @@ object EngineConstants {
   val max_iterations = 1000
   val max_population_size = 1000
 
+  // Parameters
+  val min_value_climate = 0
+  val max_value_climate = 150
+
 }

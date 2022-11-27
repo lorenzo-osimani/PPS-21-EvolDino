@@ -25,6 +25,15 @@ object Controller {
 
   def isManualModeActive() = EngineController.isManualModeActive()
 
+  def modifyTemp(temp: Float) =
+    EngineController.modifyManualSettings(temp)
+
+  def modifyHum(hum: Float) =
+    EngineController.modifyManualSettings(hum = hum)
+
+  def modifyVeg(veg: Float) =
+    EngineController.modifyManualSettings(veg = veg)
+
   def modifyManualSettings(temp: Float, hum: Float, veg: Float) =
     EngineController.modifyManualSettings(temp, hum, veg)
 

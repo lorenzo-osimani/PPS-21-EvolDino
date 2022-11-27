@@ -3,11 +3,11 @@ package it.unibo.pps.evoldino.view.widgets
 import com.sun.javafx.scene.traversal.ContainerTabOrder
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
+import it.unibo.pps.evoldino.view.components.GenericButton
 import scalafx.geometry.Pos
 import scalafx.scene.layout.{ Background, BackgroundFill, TilePane }
 import scalafx.scene.control.Tooltip
 import scalafx.scene.paint.Color
-import it.unibo.pps.evoldino.view.widgets.GenericButton
 import javafx.event.{ ActionEvent, EventHandler }
 
 object ControlBar:

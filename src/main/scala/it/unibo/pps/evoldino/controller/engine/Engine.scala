@@ -50,7 +50,7 @@ object Engine {
   private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- iterationLoop()
-    _ <- println("ITERAZIONE------------------")
+    _ <- println(getLastSnapshot().environment.toString)
     _ <- if (!hasSimulationEnded() && !paused) simulationLoop() else unit
   } yield ()
 
