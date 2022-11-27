@@ -1,8 +1,10 @@
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
 import it.unibo.pps.evoldino.model.createDemoDinosaur
-import it.unibo.pps.evoldino.model.createSingleRandomDisasterProb
-import it.unibo.pps.evoldino.model.createList
+import it.unibo.pps.evoldino.model.disaster.DisasterGenerator.{
+  createListOfDisasters,
+  createSingleRandomDisasterProb
+}
 
 class testDemo extends AnyFunSpec:
 
@@ -28,7 +30,7 @@ class testDemo extends AnyFunSpec:
 
   describe("Tests for createDisasterDemo List Random With Prob") {
     val number = 5
-    val testList = createList(5)
+    val testList = createListOfDisasters(5)
     it("should have elements") {
       print("\n DIS LIST RANDOM PROB with " + number + " elements\n")
       println(testList)

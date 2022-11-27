@@ -1,12 +1,9 @@
 import it.unibo.pps.evoldino.model.*
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
-import it.unibo.pps.evoldino.model.Disaster
-import it.unibo.pps.evoldino.model.Disaster.IceAge
-import it.unibo.pps.evoldino.model.Disaster.Drought
-import it.unibo.pps.evoldino.model.AreaEffect
-import it.unibo.pps.evoldino.model.ClimateEffect
+import it.unibo.pps.evoldino.model.disaster.Disaster
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
+import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect }
 
 import scala.collection.mutable.ListBuffer
 

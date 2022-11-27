@@ -4,7 +4,7 @@ import EngineConstants.*
 import EngineController.*
 import it.unibo.pps.evoldino.model.world.{ Environment, WorldSnapshot }
 import it.unibo.pps.evoldino.model.world.WorldSnapshot.Population
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.Disaster
 
 object WorldHistory {
 
@@ -43,14 +43,13 @@ object WorldHistory {
     if (damage > 0) getLastSnapshot().damagePopulation(damage)
 
   def applyDisturbances(): Unit =
-    // getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation()))
-    return
+    getLastSnapshot().disasters foreach (_.applyDisasterNEW(getLastLivingPopulation().toList))
 
   def reproductionPhase(): Unit =
     getLastSnapshot().population =
-      getLastSnapshot().population //reproduction(getLastSnapshot().population)
+      getLastSnapshot().population // reproduction(getLastSnapshot().population)
 
   def isSimulationOver(): Boolean =
     history.size >= max_iterations ||
-      getLastLivingPopulation().size >= max_population_size //|| getLastLivingPopulation().size <= 0
+      getLastLivingPopulation().size >= max_population_size // || getLastLivingPopulation().size <= 0
 }

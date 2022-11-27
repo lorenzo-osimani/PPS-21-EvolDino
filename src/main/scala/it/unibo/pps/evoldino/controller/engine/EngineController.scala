@@ -1,6 +1,6 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.{ ClimateEffect, Disaster, DisasterGenerator }
 import it.unibo.pps.evoldino.model.world.Environment
 
 object EngineController {
@@ -10,6 +10,10 @@ object EngineController {
   private var manual_humidity: Float = 50
   private var manual_vegetation_percentage: Float = 100
 
+  // Right way to do it???
+  private var iceAgeApplied: Boolean = false
+  private var droughtApplied: Boolean = false
+
   var incomingDisasters: List[Disaster] = List.empty
 
   def setManualMode(mode: Boolean) = manual = mode
@@ -17,7 +21,7 @@ object EngineController {
 
   def environmentEvolutionFunction(): Environment => Environment =
     if (manual) { (env: Environment) =>
-      Environment(manual_temperature, manual_humidity, manual_humidity)
+      Environment(manual_temperature, manual_humidity, manual_vegetation_percentage)
     } else { (env: Environment) =>
       Environment.evolveFromEnvironment(env)
     }
@@ -33,13 +37,18 @@ object EngineController {
 
   def disasterFunction(): () => Seq[Disaster] =
     var disasters: Seq[Disaster] = Seq.empty
-    if (manual)
-      disasters = Seq.from(incomingDisasters)
+    if (manual) disasters = Seq.from(incomingDisasters)
     else
-      //generateRandomDisasters()
-      disasters = Seq.empty
-    incomingDisasters = incomingDisasters.filter(_ => false)
+      disasters = DisasterGenerator.createListOfDisastersWithDistribuition()
+    incomingDisasters = incomingDisasters.filter(_ match
+      case _: ClimateEffect => true
+      case _                => false
+    )
     () => disasters
+
+  def resetController() =
+    incomingDisasters = List.empty
+    modifyManualSettings(20, 50, 100)
 
   def addDisaster(disaster: Disaster): Unit =
     incomingDisasters = incomingDisasters :+ disaster
