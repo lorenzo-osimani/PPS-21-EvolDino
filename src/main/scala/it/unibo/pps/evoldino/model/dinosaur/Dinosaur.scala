@@ -9,11 +9,9 @@ trait Dinosaur:
   val color: String
   val gender: String
 
-  var testLifePoints: Int
+  var lifepoints: Int
 
-  var testCoordinates: (Int, Int)
-
-  var testDinoID: Int
+  var coordinates: (Int, Int)
 
   /** @return the age of the dinosaur */
   var age: Int
@@ -32,7 +30,7 @@ trait Dinosaur:
 
   def damageDinosaur(damage: Int) =
     // lifepoints -= damage
-    if (testLifePoints <= 0) { this.kill(); }
+    if (lifepoints <= 0) { this.kill(); }
 
   override def toString: String =
     super.toString +
@@ -60,21 +58,9 @@ object Dinosaur {
       color: String,
       gender: String,
       age: Int,
-      testLifePoints: Int,
-      testCoordinates: (Int, Int),
-      testDinoID: Int): Dinosaur =
-    new DinosaurImpl(
-      kind,
-      name,
-      height,
-      weight,
-      color,
-      gender,
-      age,
-      testLifePoints,
-      testCoordinates,
-      testDinoID
-    )
+      lifepoints: Int,
+      coordinates: (Int, Int)): Dinosaur =
+    new DinosaurImpl(kind, name, height, weight, color, gender, age, lifepoints, coordinates)
 
   private class DinosaurImpl(
       override val kind: String,
@@ -84,8 +70,7 @@ object Dinosaur {
       override val color: String,
       override val gender: String,
       var age: Int,
-      var testLifePoints: Int,
-      var testCoordinates: (Int, Int),
-      var testDinoID: Int)
+      var lifepoints: Int,
+      var coordinates: (Int, Int))
       extends Dinosaur
 }

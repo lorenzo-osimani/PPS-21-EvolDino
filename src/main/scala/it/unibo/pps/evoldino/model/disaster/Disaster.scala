@@ -41,9 +41,9 @@ abstract class AreaEffect extends Disaster:
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     // val dinoListNew = new ListBuffer[Dinosaur]
     for (dino <- p)
-      if ((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
-        && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
-        dino.testLifePoints = dino.testLifePoints - damage
+      if ((coordinates._1 <= dino.coordinates._1 && dino.coordinates._1 <= coordinates._1 + extension)
+        && (coordinates._2 <= dino.coordinates._2 && dino.coordinates._2 <= coordinates._2 + extension))
+        dino.lifepoints = dino.lifepoints - damage
     // dinoListNew += dino
     // dinoListNew.toList
     p
@@ -64,7 +64,7 @@ abstract class ClimateEffect extends Disaster:
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     // val dinoListNew = new ListBuffer[Dinosaur]
     for (dino <- p)
-      dino.testLifePoints = dino.testLifePoints - damage
+      dino.lifepoints = dino.lifepoints - damage
     // dinoListNew += dino
     // dinoListNew.toList
     p
