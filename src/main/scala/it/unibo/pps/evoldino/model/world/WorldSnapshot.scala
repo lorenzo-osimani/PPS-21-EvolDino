@@ -21,14 +21,14 @@ trait WorldSnapshot {
     if (!ended)
       Random
         .shuffle(livingPopulation())
-        .take(damagePerDino * population.size) foreach (_.damageDinosaur(damagePerDino))
+        .take((percentage * population.size).toInt) foreach (_.damageDinosaur(damagePerDino))
     else throw new IllegalArgumentException
 
   def livingPopulation(): Population = population filter (_.isAlive)
 
   def closeSnapShot() =
     ended = true
-    // population = population map (ImmutableDinosaur(_))
+    population = population map (ImmutableDinosaur(_))
 }
 
 object WorldSnapshot {

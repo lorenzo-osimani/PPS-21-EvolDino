@@ -5,22 +5,22 @@ import it.unibo.pps.evoldino.model.dinosaur.*
 def createDemoDinosaur(): List[Dinosaur] =
 
   val dino1: Dinosaur =
-    Dinosaur("erbivorous", "erbo1", 23, 1234, "green", Male, 100, (100, 100))
+    Dinosaur("erbo1", Gene(23, 1234, 100, "green"), Male, (100, 100))
 
   val dino2: Dinosaur =
-    Dinosaur("erbivorous", "erbo2", 23, 1234, "green", Male, 100, (19, 71))
+    Dinosaur("erbo2", Gene(23, 1234, 100, "green"), Male, (19, 71))
 
   val dino3: Dinosaur =
-    Dinosaur("erbivorous", "erb3", 23, 1234, "green", Male, 100, (35, 75))
+    Dinosaur("erb3", Gene(23, 1234, 100, "green"), Male, (35, 75))
 
   val dino4: Dinosaur =
-    Dinosaur("erbivorous", "carn4", 23, 1234, "green", Male, 100, (20, 60))
+    Dinosaur("carn4", Gene(23, 1234, 100, "green"), Male, (20, 60))
 
   val dino5: Dinosaur =
-    Dinosaur("erbivorous", "pollo5", 23, 1234, "green", Male, 100, (30, 70))
+    Dinosaur("pollo5", Gene(23, 1234, 100, "green"), Male, (30, 70))
 
   val dino6: Dinosaur =
-    Dinosaur("erbivorous", "erbo6", 23, 1234, "green", Male, 100, (50, 50))
+    Dinosaur("erbo6", Gene(23, 1234, 100, "green"), Male, (50, 50))
 
   // usaare listbuffer perche' mutabile//vedere qui
   // https://alvinalexander.com/scala/how-add-elements-to-a-list-in-scala-listbuffer-immutable/

@@ -2,7 +2,8 @@ package it.unibo.pps.evoldino.controller.engine
 
 import EngineConstants.*
 import EngineController.*
-import it.unibo.pps.evoldino.model.world.{ Environment, WorldSnapshot }
+import it.unibo.pps.evoldino.model.dinosaur.Reproduction
+import it.unibo.pps.evoldino.model.world.{Environment, WorldSnapshot}
 import it.unibo.pps.evoldino.model.world.Population
 import it.unibo.pps.evoldino.model.disaster.Disaster
 
@@ -46,8 +47,7 @@ object WorldHistory {
     getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation().toList))
 
   def reproductionPhase(): Unit =
-    getLastSnapshot().population =
-      getLastSnapshot().population // reproduction(getLastSnapshot().population)
+    getLastSnapshot().population = Reproduction.reproduction(getLastSnapshot().livingPopulation())
 
   def isSimulationOver(): Boolean =
     history.size >= max_iterations ||

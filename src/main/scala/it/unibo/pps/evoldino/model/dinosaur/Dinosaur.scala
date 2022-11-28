@@ -9,11 +9,8 @@ case object Female extends Gender
 
 /** Represents a dinosaur */
 trait Dinosaur:
-  val kind: String
   val name: String
-  val height: Int
-  val weight: Int
-  val color: String
+  val genes: Gene
   val gender: Gender
   val mother: Option[Dinosaur]
   val father: Option[Dinosaur]
@@ -45,55 +42,41 @@ trait Dinosaur:
 
   override def toString: String =
     super.toString +
-      "\n kind: " + kind +
       "\n name: " + name +
-      "\n height: " + height +
-      "\n weight: " + weight +
-      "\n color: " + color +
+      "\n genes: " + genes.toString
       "\n gender: " + gender +
       "\n age: " + age +
       "\n isAlive: " + isAlive
 
 object Dinosaur {
 
-  def apply(kind: String,
+  def apply(
   name: String,
-  height: Int,
-  weight: Int,
-  color: String,
+  genes: Gene,
   gender: Gender,
-  max_lifepoints: Int,
   starting_coordinates: (Int, Int),
   mother: Option[Dinosaur] = Option.empty,
   father: Option[Dinosaur] = Option.empty): Dinosaur =
     new DinosaurImpl(
-    kind,
     name,
-    height,
-    weight,
-    color,
+    genes,
     gender,
-    max_lifepoints,
     starting_coordinates,
     mother,
     father
   )
 
   private class DinosaurImpl(
-                              override val kind: String,
                               override val name: String,
-                              override val height: Int,
-                              override val weight: Int,
-                              override val color: String,
+                              override val genes: Gene,
                               override val gender: Gender,
-                              max_lifepoints: Int,
                               starting_coordinates: (Int, Int),
                               override val mother: Option[Dinosaur],
                               override val father: Option[Dinosaur])
     extends Dinosaur :
 
     private var _age: Int = 0
-    private var _lifepoints: Int = max_lifepoints
+    private var _lifepoints: Int = genes.lifespan
     private var _coordinates: (Int, Int) = starting_coordinates
     private var alive: Boolean = true
 
@@ -106,7 +89,6 @@ object Dinosaur {
     override def incrementAge(): Unit =
       _age += 1
       damageDinosaur(1)
-      if (age >= 100) kill()
 
     override def lifepoints: Int = _lifepoints
 
@@ -128,11 +110,8 @@ object Dinosaur {
 }
 
 case class ImmutableDinosaur(dinosaur: Dinosaur) extends Dinosaur:
-  override val kind = dinosaur.kind
-  override val name = dinosaur.kind
-  override val height = dinosaur.height
-  override val weight = dinosaur.weight
-  override val color = dinosaur.color
+  override val name = dinosaur.name
+  override val genes = dinosaur.genes
   override val gender = dinosaur.gender
   override val father = dinosaur.father
   override val mother = dinosaur.mother
