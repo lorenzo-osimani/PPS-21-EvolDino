@@ -1,7 +1,11 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
+import it.unibo.pps.evoldino.controller.engine.EngineConstants
+
 import scala.util.Random
 import it.unibo.pps.evoldino.model.dinosaur.Gender
+import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
+import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
 
 sealed trait Gender
 case object Male extends Gender
@@ -9,7 +13,6 @@ case object Female extends Gender
 
 /** Represents a dinosaur */
 trait Dinosaur:
-  val name: String
   val genes: Gene
   val gender: Gender
   val mother: Option[Dinosaur]
@@ -19,7 +22,7 @@ trait Dinosaur:
   def age: Int
 
   /** @return the life points of the dinosaur */
-  def lifepoints: Int
+  def lifepoints: Float
 
   /** @return the coordinates of the dinosaur */
   def coordinates: (Int, Int)
@@ -35,15 +38,16 @@ trait Dinosaur:
   def incrementAge(): Unit = ()
 
   /** Method that damages the dinosaur instance because of natural causes */
-  def damageDinosaur(damage: Int): Unit = ()
+  def damageDinosaur(damage: Float): Unit = ()
 
   /** Method that moves the dinosaur instance on the map */
   def moveDinosaur(): Unit = ()
 
   override def toString: String =
     super.toString +
-      "\n name: " + name +
-      "\n genes: " + genes.toString
+      "\n genes: {" +
+      "\n" + genes +
+      "\n }" +
       "\n gender: " + gender +
       "\n age: " + age +
       "\n isAlive: " + isAlive
@@ -51,32 +55,28 @@ trait Dinosaur:
 object Dinosaur {
 
   def apply(
-  name: String,
-  genes: Gene,
-  gender: Gender,
-  starting_coordinates: (Int, Int),
-  mother: Option[Dinosaur] = Option.empty,
-  father: Option[Dinosaur] = Option.empty): Dinosaur =
-    new DinosaurImpl(
-    name,
-    genes,
-    gender,
-    starting_coordinates,
-    mother,
-    father
-  )
+      genes: Gene,
+      gender: Gender,
+      starting_coordinates: (Int, Int) = (
+        Random.nextInt(EngineConstants.dim_w_world + 1),
+        Random.nextInt(EngineConstants.dim_h_world + 1)
+      ),
+      mother: Option[Dinosaur] = Option.empty,
+      father: Option[Dinosaur] = Option.empty): Dinosaur =
+    new DinosaurImpl(genes, gender, starting_coordinates, mother, father)
+
+  def randomizedDinosaur() = Dinosaur(Gene.randomizedGene(), chooseBetweenTwo(Male, Female))
 
   private class DinosaurImpl(
-                              override val name: String,
-                              override val genes: Gene,
-                              override val gender: Gender,
-                              starting_coordinates: (Int, Int),
-                              override val mother: Option[Dinosaur],
-                              override val father: Option[Dinosaur])
-    extends Dinosaur :
+      override val genes: Gene,
+      override val gender: Gender,
+      starting_coordinates: (Int, Int),
+      override val mother: Option[Dinosaur],
+      override val father: Option[Dinosaur])
+      extends Dinosaur:
 
     private var _age: Int = 0
-    private var _lifepoints: Int = genes.lifespan
+    private var _lifepoints: Float = genes.lifespan.toFloat
     private var _coordinates: (Int, Int) = starting_coordinates
     private var alive: Boolean = true
 
@@ -90,9 +90,9 @@ object Dinosaur {
       _age += 1
       damageDinosaur(1)
 
-    override def lifepoints: Int = _lifepoints
+    override def lifepoints: Float = _lifepoints
 
-    override def damageDinosaur(damage: Int): Unit =
+    override def damageDinosaur(damage: Float): Unit =
       _lifepoints -= damage
       if (lifepoints <= 0) kill()
 
@@ -104,13 +104,12 @@ object Dinosaur {
       val delta_x = Random.between(-1, 2)
       val delta_y = Random.between(-1, 2)
       _coordinates = (
-        _coordinates._1 keepValueInBounds(delta_x, 100),
-        _coordinates._2 keepValueInBounds(delta_y, 100)
+        _coordinates._1 keepValueInBounds (delta_x, 100),
+        _coordinates._2 keepValueInBounds (delta_y, 100)
       )
 }
 
 case class ImmutableDinosaur(dinosaur: Dinosaur) extends Dinosaur:
-  override val name = dinosaur.name
   override val genes = dinosaur.genes
   override val gender = dinosaur.gender
   override val father = dinosaur.father

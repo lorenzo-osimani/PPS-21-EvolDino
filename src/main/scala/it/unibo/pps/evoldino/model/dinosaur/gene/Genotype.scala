@@ -1,4 +1,4 @@
-package it.unibo.pps.evoldino.model.dinosaur.genes
+package it.unibo.pps.evoldino.model.dinosaur.gene
 
 sealed trait Genotype
 
@@ -17,12 +17,12 @@ object HumidityType extends Genotype:
   val MEDIUM_HUMIDITY: Int = 35
   val HIGH_HUMIDITY: Int = 70
 
-enum BodyType extends Genotype:
-  case SmallBody
-  case MediumBody
-  case BigBody
+object HungerLevel extends Genotype:
+  val LOW_HUNGER = 1
+  val MEDIUM_HUNGER = 2
+  val HIGH_HUNGER = 5
 
-import it.unibo.pps.evoldino.model.dinosaur.Genotype
+import it.unibo.pps.evoldino.model.dinosaur.gene.Genotype
 
 import scala.util.Random
 
@@ -33,8 +33,4 @@ def getRandomGenotype[A <: Genotype](genotype: A): Int =
     field.setAccessible(true)
     field.getInt(genotype)
   }
-  Random.shuffle(fields).head
-
-def getRandomBodyType(): BodyType =
-  val fields = BodyType.values
   Random.shuffle(fields).head

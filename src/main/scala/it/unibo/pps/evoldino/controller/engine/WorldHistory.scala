@@ -2,9 +2,8 @@ package it.unibo.pps.evoldino.controller.engine
 
 import EngineConstants.*
 import EngineController.*
-import it.unibo.pps.evoldino.model.dinosaur.Reproduction
-import it.unibo.pps.evoldino.model.world.{Environment, WorldSnapshot}
-import it.unibo.pps.evoldino.model.world.Population
+import it.unibo.pps.evoldino.model.dinosaur.{ Population, PopulationFactory, Reproduction }
+import it.unibo.pps.evoldino.model.world.{ Environment, WorldSnapshot }
 import it.unibo.pps.evoldino.model.disaster.Disaster
 
 object WorldHistory {
@@ -15,7 +14,7 @@ object WorldHistory {
 
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
-      population: Population = Seq.empty): Unit =
+      population: Population = PopulationFactory(6)): Unit =
     history = initializeWorld(environment, population)
 
   private def initializeWorld(
@@ -39,9 +38,12 @@ object WorldHistory {
     ) +: history
 
   def dinosaursEatingPhase(): Unit =
-    val percentage =
-      1 - getLastSnapshot().environment.vegetationAvailable * dino_veg_ratio / getLastLivingPopulation().size
-    if (percentage > 0) getLastSnapshot().damagePopulation(percentage, 20)
+    val vegetation_necessary = (getLastLivingPopulation() map (_.genes.hunger)).sum
+    val difference = getLastSnapshot().environment.vegetationAvailable / vegetation_necessary
+    if (difference < 1)
+      getLastSnapshot().population foreach (dino =>
+        dino.damageDinosaur((1 - difference) * dino.genes.hunger * 10)
+      )
 
   def applyDisturbances(): Unit =
     getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation().toList))
