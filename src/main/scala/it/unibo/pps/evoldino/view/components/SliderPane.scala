@@ -1,7 +1,7 @@
 package it.unibo.pps.evoldino.view.components
 
 import it.unibo.pps.evoldino.controller.Controller
-import it.unibo.pps.evoldino.controller.engine.EngineConstants
+import it.unibo.pps.evoldino.model.world.WorldConstants
 import it.unibo.pps.evoldino.view.components.SliderPane
 import scalafx.geometry.Insets
 import scalafx.scene.control.{ Label, Slider, Tooltip }
@@ -30,9 +30,9 @@ object SliderPane {
     margin = Insets(15)
 
     protected val slider: Slider = new Slider:
-      min = EngineConstants.min_value_climate
-      max = EngineConstants.max_value_climate
-      value = EngineConstants.min_value_climate
+      min = WorldConstants.min_temperature
+      max = WorldConstants.max_temperature
+      value = WorldConstants.min_temperature
       tooltip = Tooltip(this.getValue() + " " + measureUnit)
 
     slider.valueProperty.addListener((_, _, newVal: Number) =>

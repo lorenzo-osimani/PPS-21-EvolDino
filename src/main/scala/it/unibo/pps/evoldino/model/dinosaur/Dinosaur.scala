@@ -5,6 +5,7 @@ import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import scala.util.Random
 import it.unibo.pps.evoldino.model.dinosaur.Gender
 import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
+import it.unibo.pps.evoldino.model.world.WorldConstants
 import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
 
 sealed trait Gender
@@ -35,13 +36,15 @@ trait Dinosaur:
   def isAlive: Boolean
 
   /** Method that updates the dinosaur instance for the next generation */
-  def incrementAge(): Unit = ()
+  def incrementAge(): Unit = throw IllegalStateException()
 
   /** Method that damages the dinosaur instance because of natural causes */
-  def damageDinosaur(damage: Float): Unit = ()
+  def damageDinosaur(damage: Float): Unit = throw IllegalStateException()
+
+  def kill(): Unit = throw IllegalStateException()
 
   /** Method that moves the dinosaur instance on the map */
-  def moveDinosaur(): Unit = ()
+  def moveDinosaur(): Unit = throw IllegalStateException()
 
   override def toString: String =
     super.toString +
@@ -58,8 +61,8 @@ object Dinosaur {
       genes: Gene,
       gender: Gender,
       starting_coordinates: (Int, Int) = (
-        Random.nextInt(EngineConstants.dim_w_world + 1),
-        Random.nextInt(EngineConstants.dim_h_world + 1)
+        Random.nextInt(WorldConstants.dim_w_world + 1),
+        Random.nextInt(WorldConstants.dim_h_world + 1)
       ),
       mother: Option[Dinosaur] = Option.empty,
       father: Option[Dinosaur] = Option.empty): Dinosaur =
@@ -82,7 +85,7 @@ object Dinosaur {
 
     override def isAlive: Boolean = alive
 
-    private def kill(): Unit = alive = false
+    override def kill(): Unit = alive = false
 
     override def age: Int = _age
 
@@ -104,8 +107,8 @@ object Dinosaur {
       val delta_x = Random.between(-1, 2)
       val delta_y = Random.between(-1, 2)
       _coordinates = (
-        _coordinates._1 keepValueInBounds (delta_x, 100),
-        _coordinates._2 keepValueInBounds (delta_y, 100)
+        _coordinates._1 keepValueInCircularRange (delta_x, 100),
+        _coordinates._2 keepValueInCircularRange (delta_y, 100)
       )
 }
 

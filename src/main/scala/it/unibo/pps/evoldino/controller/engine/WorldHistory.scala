@@ -1,6 +1,5 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import EngineConstants.*
 import EngineController.*
 import it.unibo.pps.evoldino.model.dinosaur.{ Population, PopulationFactory, Reproduction }
 import it.unibo.pps.evoldino.model.world.{ Environment, WorldSnapshot }
@@ -14,7 +13,7 @@ object WorldHistory {
 
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
-      population: Population = PopulationFactory(6)): Unit =
+      population: Population = PopulationFactory(10)): Unit =
     history = initializeWorld(environment, population)
 
   private def initializeWorld(
@@ -30,7 +29,6 @@ object WorldHistory {
     val newPopulation = getLastLivingPopulation()
     getLastSnapshot().closeSnapShot()
     newPopulation foreach (_.incrementAge())
-    environmentEvolutionFunction()(getLastSnapshot().environment).toString
     history = WorldSnapshot(
       environmentEvolutionFunction()(getLastSnapshot().environment),
       newPopulation,
@@ -38,12 +36,16 @@ object WorldHistory {
     ) +: history
 
   def dinosaursEatingPhase(): Unit =
-    val vegetation_necessary = (getLastLivingPopulation() map (_.genes.hunger)).sum
-    val difference = getLastSnapshot().environment.vegetationAvailable / vegetation_necessary
+    val difference =
+      getLastSnapshot().environment.vegetationAvailable / getLastLivingPopulation().size
+    println(
+      getLastSnapshot().environment.vegetationAvailable + " " + getLastLivingPopulation().size
+    )
     if (difference < 1)
-      getLastSnapshot().population foreach (dino =>
-        dino.damageDinosaur((1 - difference) * dino.genes.hunger * 10)
-      )
+      getLastLivingPopulation()
+        .sorted(_.age - _.age)
+        .take(((1 - difference) * getLastLivingPopulation().size).toInt)
+        .foreach(_.kill())
 
   def applyDisturbances(): Unit =
     getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation().toList))
@@ -52,6 +54,6 @@ object WorldHistory {
     getLastSnapshot().population = Reproduction.reproduction(getLastSnapshot().livingPopulation())
 
   def isSimulationOver(): Boolean =
-    history.size >= max_iterations ||
-      getLastLivingPopulation().size >= max_population_size // || getLastLivingPopulation().size <= 0
+    history.size >= EngineConstants.max_iterations ||
+      getLastLivingPopulation().size >= EngineConstants.max_population_size || getLastLivingPopulation().size <= 0
 }

@@ -8,7 +8,8 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
 import WorldHistory.*
 import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
-import EngineConstants._
+import EngineConstants.*
+import it.unibo.pps.evoldino.model.dinosaur.Male
 
 object Engine {
 

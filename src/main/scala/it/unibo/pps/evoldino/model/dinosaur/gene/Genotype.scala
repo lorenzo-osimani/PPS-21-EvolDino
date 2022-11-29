@@ -17,11 +17,6 @@ object HumidityType extends Genotype:
   val MEDIUM_HUMIDITY: Int = 35
   val HIGH_HUMIDITY: Int = 70
 
-object HungerLevel extends Genotype:
-  val LOW_HUNGER = 1
-  val MEDIUM_HUNGER = 2
-  val HIGH_HUNGER = 5
-
 import it.unibo.pps.evoldino.model.dinosaur.gene.Genotype
 
 import scala.util.Random
