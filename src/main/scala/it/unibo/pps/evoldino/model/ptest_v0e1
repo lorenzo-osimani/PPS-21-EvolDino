@@ -1,0 +1,88 @@
+dino_position(60, 20).
+dino_position(70, 30).
+dino_position(45, 45).
+dino_position(30, 30).
+
+dis_position(60, 20).
+dis_position(70, 30).
+dis_position(50, 50).
+
+dis_extension(10).
+dis_extension(0).
+
+%somma
+sum ([] , 0) .
+sum ([ H|T], N) :- sum (T , N2 ) , N is H + N2 .
+
+%sum (A,B,C) :- sum([],0).
+sum (A,B,C) :- sum([A,B],C).
+
+
+%differenza
+dif ([] , 0) .
+dif ([ H|T], N) :- dif (T , N2 ) , N is H + -N2 .
+dif (A,B,C) :- dif([A,B],C).
+
+%incluso
+includedIn(DINX,DISX,DISXEXT) :- (DISX < DINX), (DINX < DISXEXT), !.
+includedIn(DINX,DISX,DISXEXT) :- (DINX = DISX), !.
+includedIn(DINX,DISX,DISXEXT) :- (DINX = DISXEXT), !.
+
+% X e Y
+disX(D) :- dis_position(D,Y).
+disY(E) :- dis_position(X,E).
+
+DINX :- disX(D).
+DINY :- disY(E).
+
+%questo se messo come riga da runnare va ma non del tutto
+%disX(D), dis_extension(P),  sum(D,P,F).
+
+%boh
+dis_position_X_extended(R) :- R is F, (disX(D), disY(E), sum(D,E,F)).
+
+%dis_position_X_extended(H) :- A is disX(D).
+%dis_position_X_extended(H) :- B is disY(B).
+
+
+%dis_position_extended(D, E, F) :- sum(D, E, F).
+
+%dis_position_extended(dis_position(J,K),dis_extension(L)) :- L is sum(dis_position(J,_),dis_extension,J).
+
+same2(X, Y) :- dino_position(X, Y), dis_position(X, Y).
+
+same(X, Y) :- dino_position(X, Y), dis_position(X, Y).
+
+%altra somma?
+
+sum2 ([], 0).
+
+sum2([U|T], N) :- sum2 (T, N2), t1(U), N is (U + N2), t1(U).
+
+%altra altra somma?
+
+sum3 ([], 0).
+
+sum3([U|T], N) :- sum (T, N2), t1(U), N is (U + N2), t1(U).
+
+
+
+max(List,Max) :-
+	List = [H|_],
+	accMax(List,H,Max).
+
+%altre diff e somma
+
+diff(J,K,L) :- L is J-K, !.
+
+somm(J,K,L) :- L is J+K, !.
+
+%serve qualcosa write eo read ?
+
+%diff(J,K,L) :- write(L) , !.
+
+
+
+
+
+

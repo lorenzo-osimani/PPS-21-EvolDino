@@ -9,6 +9,8 @@ import math.Ordering.Implicits.infixOrderingOps
 import math.Numeric.Implicits.infixNumericOps
 import math.Fractional.Implicits.infixFractionalOps
 import math.Integral.Implicits.infixIntegralOps
+
+
 /*
 import scalafx.geometry.Point2D
 import scalafx.geometry.Point2D.Zero.x
