@@ -10,7 +10,7 @@ import it.unibo.pps.evoldino.model.disaster.Disaster
 import it.unibo.pps.evoldino.view.components.{ GenericButton, SliderPane }
 import scalafx.application.Platform
 
-object EnviromentConditionsWidget:
+object DisastersWidget:
 
   val title = new Label:
     alignmentInParent = Pos.Center

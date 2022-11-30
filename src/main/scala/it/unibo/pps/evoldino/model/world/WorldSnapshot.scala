@@ -13,12 +13,9 @@ trait WorldSnapshot {
 
   val disasters: Seq[Disaster]
 
-  var ended: Boolean
-
   def livingPopulation(): Population = population filter (_.isAlive)
 
   def closeSnapShot() =
-    ended = true
     population = population map (ImmutableDinosaur(_))
 }
 
@@ -28,12 +25,11 @@ object WorldSnapshot {
       environment: Environment,
       population: Population,
       disasters: Seq[Disaster] = Seq.empty): WorldSnapshot =
-    new WorldSnapshotImpl(environment, population, disasters, false)
+    new WorldSnapshotImpl(environment, population, disasters)
 
   private class WorldSnapshotImpl(
       override val environment: Environment,
       var population: Population,
-      override val disasters: Seq[Disaster],
-      var ended: Boolean)
+      override val disasters: Seq[Disaster])
       extends WorldSnapshot
 }

@@ -1,9 +1,11 @@
-package it.unibo.pps.evoldino.controller.engine
+package it.unibo.pps.evoldino.model.world
 
-import EngineController.*
+import it.unibo.pps.evoldino.controller.engine.EngineConstants
+import it.unibo.pps.evoldino.controller.engine.EngineController.{
+  disasterFunction,
+  environmentEvolutionFunction
+}
 import it.unibo.pps.evoldino.model.dinosaur.{ Population, PopulationFactory, Reproduction }
-import it.unibo.pps.evoldino.model.world.{ Environment, WorldSnapshot }
-import it.unibo.pps.evoldino.model.disaster.Disaster
 
 object WorldHistory {
 

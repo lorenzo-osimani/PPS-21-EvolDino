@@ -1,10 +1,5 @@
-import it.unibo.pps.evoldino.controller.engine.{
-  Engine,
-  EngineConstants,
-  EngineController,
-  WorldHistory
-}
-import it.unibo.pps.evoldino.model.world.Environment
+import it.unibo.pps.evoldino.controller.engine.{ Engine, EngineConstants, EngineController }
+import it.unibo.pps.evoldino.model.world.{ Environment, WorldHistory }
 import org.scalatest.funspec.AnyFunSpec
 
 class EngineTest extends AnyFunSpec {

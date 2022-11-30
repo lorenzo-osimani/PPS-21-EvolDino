@@ -6,10 +6,12 @@ import cats.effect.unsafe.implicits.global
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
-import WorldHistory.*
+import it.unibo.pps.evoldino.model.world.WorldHistory.*
 import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
+import it.unibo.pps.evoldino.controller.Controller
 import EngineConstants.*
 import it.unibo.pps.evoldino.model.dinosaur.Male
+import it.unibo.pps.evoldino.model.world.WorldHistory
 
 object Engine {
 
@@ -51,6 +53,7 @@ object Engine {
   private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- iterationLoop()
+    _ <- Controller.renderIteration(WorldHistory.getLastSnapshot())
     _ <- if (hasSimulationEnded() || paused) unit else simulationLoop()
   } yield ()
 
