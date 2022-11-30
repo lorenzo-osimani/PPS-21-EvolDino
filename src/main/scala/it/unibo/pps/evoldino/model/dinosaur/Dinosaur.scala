@@ -1,7 +1,6 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
-
 import scala.util.Random
 import it.unibo.pps.evoldino.model.dinosaur.Gender
 import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
