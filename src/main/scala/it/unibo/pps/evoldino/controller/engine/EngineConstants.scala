@@ -6,15 +6,7 @@ object EngineConstants {
   val ITERATION_MS_2X = ITERATION_MS_1X / 2
   val ITERATION_MS_4X = ITERATION_MS_1X / 4
 
-  // Eating Phase
-  val dino_veg_ratio = 2
-
-  // Ending Conditions
-  val max_iterations = 1000
-  val max_population_size = 1000
-
-  // Parameters
-  val min_value_climate = 0
-  val max_value_climate = 150
+  val max_iterations = 10000
+  val max_population_size = 10000
 
 }

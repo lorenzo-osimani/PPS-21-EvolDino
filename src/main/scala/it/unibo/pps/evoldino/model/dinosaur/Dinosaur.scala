@@ -1,76 +1,123 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
+import it.unibo.pps.evoldino.controller.engine.EngineConstants
+import scala.util.Random
+import it.unibo.pps.evoldino.model.dinosaur.Gender
+import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
+import it.unibo.pps.evoldino.model.world.WorldConstants
+import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
+
+sealed trait Gender
+case object Male extends Gender
+case object Female extends Gender
+
 /** Represents a dinosaur */
 trait Dinosaur:
-  val kind: String // erbivoro o carnivoro
-  val name: String // es.: t-rex,brontosaurus..
-  val height: Int
-  val weight: Int
-  val color: String
-  val gender: String
-
-  var lifepoints: Int
-
-  var coordinates: (Int, Int)
+  val genes: Gene
+  val gender: Gender
+  val mother: Option[Dinosaur]
+  val father: Option[Dinosaur]
 
   /** @return the age of the dinosaur */
-  var age: Int
+  def age: Int
 
-  private val MAX_AGE: Int = 100;
+  /** @return the life points of the dinosaur */
+  def lifepoints: Float
+
+  /** @return the coordinates of the dinosaur */
+  def coordinates: (Int, Int)
 
   /**
    * Method to check if a dinosaur is alive.
    * @return
    *   true if the dinosaur is alive, false otherwise
    */
-  var isAlive: Boolean = true
+  def isAlive: Boolean
 
-  /** Kills the dinosaur by updating the alive value to false. */
-  def kill(): Unit = isAlive = false
+  /** Method that updates the dinosaur instance for the next generation */
+  def incrementAge(): Unit = throw IllegalStateException()
 
-  def damageDinosaur(damage: Int) =
-    // lifepoints -= damage
-    if (lifepoints <= 0) { this.kill(); }
+  /** Method that damages the dinosaur instance because of natural causes */
+  def damageDinosaur(damage: Float): Unit = throw IllegalStateException()
+
+  def kill(): Unit = throw IllegalStateException()
+
+  /** Method that moves the dinosaur instance on the map */
+  def moveDinosaur(): Unit = throw IllegalStateException()
 
   override def toString: String =
     super.toString +
-      "\n kind: " + kind +
-      "\n name: " + name +
-      "\n height: " + height +
-      "\n weight: " + weight +
-      "\n color: " + color +
+      "\n genes: {" +
+      "\n" + genes +
+      "\n }" +
       "\n gender: " + gender +
       "\n age: " + age +
       "\n isAlive: " + isAlive
 
-  /** Method that updates the dinosaur instance for the next generation */
-  def incrementAge(): Unit =
-    age += 1
-    if (age >= MAX_AGE) isAlive = false
-
 object Dinosaur {
 
   def apply(
-      kind: String,
-      name: String,
-      height: Int,
-      weight: Int,
-      color: String,
-      gender: String,
-      age: Int,
-      lifepoints: Int,
-      coordinates: (Int, Int)): Dinosaur =
-    new DinosaurImpl(kind, name, height, weight, color, gender, age, lifepoints, coordinates)
+      genes: Gene,
+      gender: Gender,
+      starting_coordinates: (Int, Int) = (
+        Random.nextInt(WorldConstants.dim_w_world + 1),
+        Random.nextInt(WorldConstants.dim_h_world + 1)
+      ),
+      mother: Option[Dinosaur] = Option.empty,
+      father: Option[Dinosaur] = Option.empty): Dinosaur =
+    new DinosaurImpl(genes, gender, starting_coordinates, mother, father)
+
+  def randomizedDinosaur() = Dinosaur(Gene.randomizedGene(), chooseBetweenTwo(Male, Female))
 
   private class DinosaurImpl(
-      override val kind: String,
-      override val name: String,
-      override val height: Int,
-      override val weight: Int,
-      override val color: String,
-      override val gender: String,
-      var age: Int,
-      var lifepoints: Int,
-      var coordinates: (Int, Int))
-      extends Dinosaur
+      override val genes: Gene,
+      override val gender: Gender,
+      starting_coordinates: (Int, Int),
+      override val mother: Option[Dinosaur],
+      override val father: Option[Dinosaur])
+      extends Dinosaur:
+
+    private var _age: Int = 0
+    private var _lifepoints: Float = genes.lifespan.toFloat
+    private var _coordinates: (Int, Int) = starting_coordinates
+    private var alive: Boolean = true
+
+    override def isAlive: Boolean = alive
+
+    override def kill(): Unit = alive = false
+
+    override def age: Int = _age
+
+    override def incrementAge(): Unit =
+      _age += 1
+      damageDinosaur(1)
+
+    override def lifepoints: Float = _lifepoints
+
+    override def damageDinosaur(damage: Float): Unit =
+      _lifepoints -= damage
+      if (lifepoints <= 0) kill()
+
+    override def coordinates: (Int, Int) = _coordinates
+
+    import it.unibo.pps.evoldino.utils.PimpScala.given
+
+    override def moveDinosaur(): Unit =
+      val delta_x = Random.between(-1, 2)
+      val delta_y = Random.between(-1, 2)
+      _coordinates = (
+        _coordinates._1 keepValueInCircularRange (delta_x, 100),
+        _coordinates._2 keepValueInCircularRange (delta_y, 100)
+      )
 }
+
+case class ImmutableDinosaur(dinosaur: Dinosaur) extends Dinosaur:
+  override val genes = dinosaur.genes
+  override val gender = dinosaur.gender
+  override val father = dinosaur.father
+  override val mother = dinosaur.mother
+  override val age = dinosaur.age
+  override val lifepoints = dinosaur.lifepoints
+  override val coordinates = dinosaur.coordinates
+
+  override def isAlive: Boolean = true

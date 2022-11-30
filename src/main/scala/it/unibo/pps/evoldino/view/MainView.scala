@@ -12,4 +12,4 @@ class ViewImpl extends View:
     GUI.start(stage)
 
   def renderSimulation(snapshot: WorldSnapshot): Unit =
-    Platform.runLater(() => ())
+    Platform.runLater(() => GUI.updateRender(snapshot))

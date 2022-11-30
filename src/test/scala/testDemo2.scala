@@ -26,7 +26,7 @@ class testDemo2 extends AnyFunSpec:
       print("colpire dinosauro 3 e 4 \n")
       print("LP 3: " + populationDinoEarthquake(3).lifepoints + "\n")
       print("LP 4: " + populationDinoEarthquake(4).lifepoints + "\n")
-      val populationDisEarthquake = demoDisEarthquake.applyDisasterNEW(populationDinoEarthquake)
+      val populationDisEarthquake = demoDisEarthquake.applyDisaster(populationDinoEarthquake)
       print("LP 3: " + populationDisEarthquake(3).lifepoints + "\n")
       print("LP 4: " + populationDisEarthquake(4).lifepoints + "\n")
       print("changed population end \n")
@@ -46,7 +46,7 @@ class testDemo2 extends AnyFunSpec:
       print("lifepoints iniziali \n")
       print("colpire dinosauro 5 \n")
       print("LP 5: " + populationDinoMeteorite(5).lifepoints + "\n")
-      val populationDisMeteorite = demoDisMeteorite.applyDisasterNEW(populationDinoMeteorite)
+      val populationDisMeteorite = demoDisMeteorite.applyDisaster(populationDinoMeteorite)
       print("LP 5: " + populationDisMeteorite(5).lifepoints + "\n")
       print("changed population end \n")
 
@@ -62,7 +62,7 @@ class testDemo2 extends AnyFunSpec:
       val populationDinoIceAge = createDemoDinosaur()
       val demoDisIceAge: ClimateEffect = Disaster.IceAge
       print("change population with IceAge \n")
-      val populationDisIceAge = demoDisIceAge.applyDisasterNEW(populationDinoIceAge)
+      val populationDisIceAge = demoDisIceAge.applyDisaster(populationDinoIceAge)
       print("changed population end \n")
 
       assertResult(false)(lf0 == populationDisIceAge(0).lifepoints)
@@ -77,7 +77,7 @@ class testDemo2 extends AnyFunSpec:
       val populationDinoDrought = createDemoDinosaur()
       val demoDisDrought: ClimateEffect = Disaster.Drought
       print("change population with Drought \n")
-      val populationDisDrought = demoDisDrought.applyDisasterNEW(populationDinoDrought)
+      val populationDisDrought = demoDisDrought.applyDisaster(populationDinoDrought)
       print("changed population end \n")
 
       assertResult(false)(lf0 == populationDisDrought(0).lifepoints)

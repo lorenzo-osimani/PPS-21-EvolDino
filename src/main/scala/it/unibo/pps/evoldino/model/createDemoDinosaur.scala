@@ -1,36 +1,27 @@
 package it.unibo.pps.evoldino.model
 
-import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.disaster.Disaster
+import it.unibo.pps.evoldino.model.dinosaur.*
+import it.unibo.pps.evoldino.model.dinosaur.gene.*
 
 def createDemoDinosaur(): List[Dinosaur] =
 
-  /*
-  override def toString: String =
-    super.toString + "\n testAge " + testAge +
-        "\n testLifePoints " + testLifePoints +
-        "\n testcoordinateX " + testCoordinates._1 +
-        "\n testcoordinateY " + testCoordinates._2 +
-        "\n testDinoID " + testDinoID +
-        "\n OK :) \n"*/
-
   val dino1: Dinosaur =
-    Dinosaur("erbivorous", "erbo1", 23, 1234, "green", "male", 100, 100, (100, 100))
+    Dinosaur(Gene(23, 1234, 100, "green"), Male, (100, 100))
 
   val dino2: Dinosaur =
-    Dinosaur("erbivorous", "erbo2", 23, 1234, "green", "male", 100, 100, (19, 71))
+    Dinosaur(Gene(23, 1234, 100, "green"), Male, (19, 71))
 
   val dino3: Dinosaur =
-    Dinosaur("erbivorous", "erb3", 23, 1234, "green", "male", 100, 100, (35, 75))
+    Dinosaur(Gene(23, 1234, 100, "green"), Male, (35, 75))
 
   val dino4: Dinosaur =
-    Dinosaur("erbivorous", "carn4", 23, 1234, "green", "male", 100, 100, (20, 60))
+    Dinosaur(Gene(23, 1234, 100, "green"), Male, (20, 60))
 
   val dino5: Dinosaur =
-    Dinosaur("erbivorous", "pollo5", 23, 1234, "green", "male", 100, 100, (30, 70))
+    Dinosaur(Gene(23, 1234, 100, "green"), Male, (30, 70))
 
   val dino6: Dinosaur =
-    Dinosaur("erbivorous", "erbo6", 23, 1234, "green", "male", 100, 100, (50, 50))
+    Dinosaur(Gene(23, 1234, 100, "green"), Male, (50, 50))
 
   // usaare listbuffer perche' mutabile//vedere qui
   // https://alvinalexander.com/scala/how-add-elements-to-a-list-in-scala-listbuffer-immutable/
@@ -46,4 +37,4 @@ def createDemoDinosaur(): List[Dinosaur] =
 
   val pTest = populationTest.toList
 
-  return pTest
+  pTest

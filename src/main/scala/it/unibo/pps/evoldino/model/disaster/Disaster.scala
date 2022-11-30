@@ -1,20 +1,14 @@
 package it.unibo.pps.evoldino.model.disaster
 
 import cats.implicits.catsSyntaxMonadIdOps
-import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect, Disaster }
+import it.unibo.pps.evoldino.model.disaster.{AreaEffect, ClimateEffect, Disaster}
 
 import scala.collection.mutable.ListBuffer
 import scala.math.Fractional.Implicits.infixFractionalOps
 import scala.math.Integral.Implicits.infixIntegralOps
 import scala.math.Numeric.Implicits.infixNumericOps
 import scala.math.Ordering.Implicits.infixOrderingOps
-/*
-import scalafx.geometry.Point2D
-import scalafx.geometry.Point2D.Zero.x
-import scalafx.geometry.Point2D.Zero.y
- */
 
 /** Represent a Disaster */
 sealed trait Disaster:
@@ -23,7 +17,7 @@ sealed trait Disaster:
   def damage: Int
   def probability: Int
 
-  def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
+  def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
     print("\n nessun disastro applicato \n")
     p
 
@@ -38,12 +32,12 @@ abstract class AreaEffect extends Disaster:
   val extension: Int
   val coordinates: (Int, Int)
 
-  override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
+  override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
     // val dinoListNew = new ListBuffer[Dinosaur]
     for (dino <- p)
       if ((coordinates._1 <= dino.coordinates._1 && dino.coordinates._1 <= coordinates._1 + extension)
         && (coordinates._2 <= dino.coordinates._2 && dino.coordinates._2 <= coordinates._2 + extension))
-        dino.lifepoints = dino.lifepoints - damage
+        dino.damageDinosaur(damage)
     // dinoListNew += dino
     // dinoListNew.toList
     p
@@ -61,12 +55,8 @@ abstract class ClimateEffect extends Disaster:
     super.toString +
       "\n temperature " + temperature
 
-  override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
-    // val dinoListNew = new ListBuffer[Dinosaur]
-    for (dino <- p)
-      dino.lifepoints = dino.lifepoints - damage
-    // dinoListNew += dino
-    // dinoListNew.toList
+  override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
+    p foreach (_.damageDinosaur(damage))
     p
 
 object Disaster {
