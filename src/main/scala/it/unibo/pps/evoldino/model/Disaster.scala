@@ -67,13 +67,22 @@ abstract class AreaEffect extends Disaster:
     //val dinoListNew = new ListBuffer[Dinosaur]
     print("valutazione dinosauri \n")
 
+    /*
     p.zipWithIndex.foreach {
       case (dino, count) =>
         if((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
         && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
           dino.testLifePoints = dino.testLifePoints - damage
           print(" !!COLPITO!! \n")
-    }
+    }*/
+
+    p.filter(dino =>
+      ((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
+      && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
+      ).foreach(dinoToDamage =>
+      dinoToDamage.testLifePoints = dinoToDamage.testLifePoints - damage
+      print(" !!COLPITO!! \n")
+      )
 
     //dinoListNew += dino
     print("AreaEffect disastro applicato \n")
