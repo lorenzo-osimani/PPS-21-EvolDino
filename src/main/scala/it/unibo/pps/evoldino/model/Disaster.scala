@@ -66,11 +66,15 @@ abstract class AreaEffect extends Disaster:
   override def applyDisasterNEW(p: List[Dinosaur]): List[Dinosaur] =
     //val dinoListNew = new ListBuffer[Dinosaur]
     print("valutazione dinosauri \n")
-    for (dino <- p)
-      if ((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
+
+    p.zipWithIndex.foreach {
+      case (dino, count) =>
+        if((coordinates._1 <= dino.testCoordinates._1 && dino.testCoordinates._1 <= coordinates._1 + extension)
         && (coordinates._2 <= dino.testCoordinates._2 && dino.testCoordinates._2 <= coordinates._2 + extension))
-        print(" !!COLPITO!! \n")
-        dino.testLifePoints = dino.testLifePoints - damage
+          dino.testLifePoints = dino.testLifePoints - damage
+          print(" !!COLPITO!! \n")
+    }
+
     //dinoListNew += dino
     print("AreaEffect disastro applicato \n")
     //dinoListNew.toList
