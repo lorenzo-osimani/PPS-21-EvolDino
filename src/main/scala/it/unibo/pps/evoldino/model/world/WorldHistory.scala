@@ -40,19 +40,26 @@ object WorldHistory {
   def dinosaursEatingPhase(): Unit =
     val difference =
       getLastSnapshot().environment.vegetationAvailable / getLastLivingPopulation().size
-    println(
-      getLastSnapshot().environment.vegetationAvailable + " " + getLastLivingPopulation().size
-    )
     if (difference < 1)
       getLastLivingPopulation()
         .sorted(_.age - _.age)
         .take(((1 - difference) * getLastLivingPopulation().size).toInt)
         .foreach(_.kill())
 
+  private def applyEnvironmentDamage(environment: Environment): Unit = for {
+    dino <- getLastLivingPopulation()
+  } yield {
+    val delta =
+      (dino.genes.idealHumidity - environment.humidity).abs + (dino.genes.idealTemperature - environment.temperature).abs
+    dino.damageDinosaur(math.pow(delta / 10, 2))
+  }
+
   def applyDisturbances(): Unit =
+    applyEnvironmentDamage(getLastSnapshot().environment)
     getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation().toList))
 
   def reproductionPhase(): Unit =
+    getLastSnapshot().population.foreach(_.moveDinosaur())
     getLastSnapshot().population = Reproduction.reproduction(getLastSnapshot().livingPopulation())
 
   def isSimulationOver(): Boolean =

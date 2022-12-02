@@ -1,6 +1,7 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
+
 import scala.util.Random
 import it.unibo.pps.evoldino.model.dinosaur.Gender
 import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
@@ -22,7 +23,7 @@ trait Dinosaur:
   def age: Int
 
   /** @return the life points of the dinosaur */
-  def lifepoints: Float
+  def lifepoints: Double
 
   /** @return the coordinates of the dinosaur */
   def coordinates: (Int, Int)
@@ -38,7 +39,7 @@ trait Dinosaur:
   def incrementAge(): Unit = throw IllegalStateException()
 
   /** Method that damages the dinosaur instance because of natural causes */
-  def damageDinosaur(damage: Float): Unit = throw IllegalStateException()
+  def damageDinosaur(damage: Double): Unit = throw IllegalStateException()
 
   def kill(): Unit = throw IllegalStateException()
 
@@ -78,7 +79,7 @@ object Dinosaur {
       extends Dinosaur:
 
     private var _age: Int = 0
-    private var _lifepoints: Float = genes.lifespan.toFloat
+    private var _lifepoints: Double = genes.lifespan.toFloat
     private var _coordinates: (Int, Int) = starting_coordinates
     private var alive: Boolean = true
 
@@ -92,9 +93,9 @@ object Dinosaur {
       _age += 1
       damageDinosaur(1)
 
-    override def lifepoints: Float = _lifepoints
+    override def lifepoints: Double = _lifepoints
 
-    override def damageDinosaur(damage: Float): Unit =
+    override def damageDinosaur(damage: Double): Unit =
       _lifepoints -= damage
       if (lifepoints <= 0) kill()
 

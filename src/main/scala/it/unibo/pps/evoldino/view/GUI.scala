@@ -1,5 +1,6 @@
 package it.unibo.pps.evoldino.view
 
+import it.unibo.pps.evoldino.model.disaster.AreaEffect
 import it.unibo.pps.evoldino.model.world.WorldSnapshot
 import scalafx.geometry.{ Insets, Pos }
 import scalafx.scene.Scene
@@ -12,7 +13,8 @@ import it.unibo.pps.evoldino.view.widgets.{
   ClimateWidget,
   ControlBar,
   DisastersWidget,
-  SimInfoWidget
+  SimInfoWidget,
+  WorldGridWidget
 }
 
 object GUI:
@@ -34,11 +36,22 @@ object GUI:
           bottom = new BorderPane:
             top = SimInfoWidget.simInfoWidget
             bottom = ControlBar.controlBar
-          top = DisastersWidget.disastersWidget
-          right = ClimateWidget.climateWidget
+          left = WorldGridWidget.worldGridWidget
+          right = new BorderPane:
+            top = DisastersWidget.disastersWidget
+            bottom = ClimateWidget.climateWidget
     )
 
     stage.setFullScreen(false)
 
   def updateRender(snapshot: WorldSnapshot): Unit =
     SimInfoWidget.updateRender(snapshot)
+    WorldGridWidget.renderWorld(
+      snapshot.livingPopulation().map(_.coordinates),
+      snapshot.disasters
+        .filter(_.isInstanceOf[AreaEffect])
+        .map { d =>
+          val dis = d.asInstanceOf[AreaEffect]
+          (dis.coordinates, dis.extension)
+        }
+    )

@@ -7,20 +7,20 @@ trait Environment {
 
   def temperature: Float
 
-  def vegetationAvailable: Float
-
   def humidity: Float
 
+  def vegetationAvailable: Float
+
   override def toString: String =
-    "T: " + temperature + ", V: " + vegetationAvailable + ", H: " + humidity
+    "T: " + temperature + ", H: " + humidity + ", V: " + vegetationAvailable
 
   override def equals(obj: Any): Boolean =
     obj match
       case that: Environment =>
         that.isInstanceOf[Environment] &&
+        this.temperature == that.temperature &&
         this.humidity == that.humidity &&
-        this.vegetationAvailable == that.vegetationAvailable &&
-        this.temperature == that.temperature
+        this.vegetationAvailable == that.vegetationAvailable
       case _ => false
 }
 
@@ -28,29 +28,29 @@ object Environment {
 
   def apply(
       temperature: Float = BasicEnvironment.temperature,
-      vegetationAvailable: Float = BasicEnvironment.vegetationAvailable,
-      humidity: Float = BasicEnvironment.humidity): Environment =
-    new EnvironmentImpl(temperature, vegetationAvailable, humidity)
+      humidity: Float = BasicEnvironment.humidity,
+      vegetationAvailable: Float = BasicEnvironment.vegetationAvailable): Environment =
+    new EnvironmentImpl(temperature, humidity, vegetationAvailable)
 
   def apply(environment: Environment): Environment =
     new EnvironmentImpl(
       environment.temperature,
-      environment.vegetationAvailable,
-      environment.humidity
+      environment.humidity,
+      environment.vegetationAvailable
     )
 
   import it.unibo.pps.evoldino.utils.PimpScala.given
 
   def evolveFromEnvironment(environment: Environment): Environment =
-    new EnvironmentImpl(
+    Environment(
       evolveCharacteristic(environment.temperature)
         keepValueInBounds (min_temperature, max_temperature),
+      evolveCharacteristic(environment.humidity) keepValueInBounds (min_humidity, max_humidity),
       evolveCharacteristic(environment.vegetationAvailable)
-        keepValueInBounds (max = max_vegetation_percentage),
-      evolveCharacteristic(environment.humidity) keepValueInBounds (min_humidity, max_humidity)
+        keepValueInBounds (max = max_vegetation_percentage)
     )
 
-  val BasicEnvironment: Environment = apply(20, 50, 30)
+  val BasicEnvironment: Environment = apply(20, 30, 50)
 
   val IceAgeEnvironment: Environment = apply(-40, 10, 100)
 
@@ -63,7 +63,7 @@ object Environment {
 
   private class EnvironmentImpl(
       override val temperature: Float,
-      override val vegetationAvailable: Float,
-      override val humidity: Float)
+      override val humidity: Float,
+      override val vegetationAvailable: Float)
       extends Environment
 }

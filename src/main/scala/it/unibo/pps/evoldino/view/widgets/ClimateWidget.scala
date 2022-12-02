@@ -2,6 +2,7 @@ package it.unibo.pps.evoldino.view.widgets
 
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.model.disaster.Disaster
+import it.unibo.pps.evoldino.model.world.{ Environment, WorldConstants }
 import it.unibo.pps.evoldino.view.components.{ GenericButton, SliderPane }
 import scalafx.application.Platform
 import scalafx.geometry.*
@@ -19,9 +20,35 @@ object ClimateWidget:
     textAlignment = TextAlignment.Center
     margin = Insets(0, 5, 15, 5)
 
-  val tempSlider = SliderPane("Temperature", "", "°", Controller.modifyTemp)
-  val humSlider = SliderPane("Humidity", "", "g.m^3", Controller.modifyHum)
-  val vegSlider = SliderPane("Vegetation", "", "%", Controller.modifyVeg)
+  val tempSlider = SliderPane(
+    "Temperature",
+    "",
+    "°",
+    WorldConstants.min_temperature,
+    WorldConstants.max_temperature,
+    Environment.BasicEnvironment.temperature,
+    Controller.modifyTemp
+  )
+
+  val humSlider = SliderPane(
+    "Humidity",
+    "",
+    "g.m^3",
+    WorldConstants.min_humidity,
+    WorldConstants.max_humidity,
+    Environment.BasicEnvironment.humidity,
+    Controller.modifyHum
+  )
+
+  val vegSlider = SliderPane(
+    "Vegetation",
+    "",
+    "%",
+    0,
+    WorldConstants.max_vegetation_percentage,
+    Environment.BasicEnvironment.vegetationAvailable,
+    Controller.modifyVeg
+  )
 
   def update(temp: Float, hum: Float, veg: Float): Unit =
     tempSlider.update(temp)
