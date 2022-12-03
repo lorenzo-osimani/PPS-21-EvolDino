@@ -11,7 +11,7 @@ import alice.tuprolog.*
 import scala.language.postfixOps
 
 object prologFunextends8 extends App:
-  import PrologInScala.{*, given}
+  import it.unibo.pps.evoldino.prolog.PrologInScala.{*, given}
 
   val inj = 99
   val inj2 = 99

@@ -1,4 +1,4 @@
-package it.unibo.pps.evoldino.model
+package it.unibo.pps.evoldino.prolog
 
 import alice.tuprolog
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
@@ -13,7 +13,7 @@ import alice.tuprolog.*
 
 import scala.language.postfixOps
 
-object prologFunextends10 extends App:
+object disasterApplication extends App:
   import PrologInScala.{*, given}
 
   val myDinoList = createDemoDinosaur()
@@ -21,76 +21,72 @@ object prologFunextends10 extends App:
   val dinX = new ListBuffer[scala.Int]
   val dinY = new ListBuffer[scala.Int]
 
+
   //stampare con una funzione scala style i dinosauri :)
+  /*
   myDinoList.zipWithIndex.map {
     case (dino, count) =>
       println(s"$count is $dino")
       dinX += dino.coordinates._1
       dinY += dino.coordinates._2
-  }
+  }*/
 
   //i Disasteri per semplicità li ho inventati direttamente dentro Prolog
 
-  val engine: Term => LazyList[SolveInfo] = mkPrologEngine(s"""
 
-    dino_position(${dinX(0)},${dinY{0}}).
-    dino_position(${dinX(1)},${dinY{1}}).
-    dino_position(${dinX(2)},${dinY{2}}).
-    dino_position(${dinX(3)},${dinY{3}}).
-    dino_position(${dinX(4)},${dinY{4}}).
-    dino_position(${dinX(5)},${dinY{5}}).
+  //val myPrologFileName = "./disasterPrologTheory.pl"
+  //val engine: Term => LazyList[SolveInfo] = mkPrologEngine(myPrologFileName)
+  private val fileName = "disasterPrologTheory.pl"
+  //private val engine = mkPrologEngine(Theory.parseLazilyWithStandardOperators(getClass.getResourceAsStream(fileName)))
+  val engine: Term => LazyList[SolveInfo] = mkPrologEngine(Theory.parseLazilyWithStandardOperators(getClass.getResourceAsStream(fileName)))
 
-
-    dis_position(60, 20).
-    dis_position(45, 45).
-    dis_position(50, 50).
-    dis_position(20, 20).
-
-    dis_extension(0).
-    dis_extension(10).
-
-    %same position dino and dis
-    same(X, Y) :- dino_position(X, Y), dis_position(X, Y).
-
-  """)
-
-  //engine("same(X, Y)") foreach (println(_))
+//engine("same(X, Y)") foreach (println(_))
   //val res = engine("same(X, Y)") foreach (println(_))
   //engine("same(X, Y)") foreach (println(_))
-
+  //engine("same(X, Y)") foreach (println(_))
+  engine("doDisaster(dinosaur_position(DINX, DINY), dis_position(DISX, DISY, EXT)).") foreach (println(_))
   //NOTARE CHE UNA IS A LIST OF solveinfo e l altra di term
 
   //IO HO USATO TUPROLOG IN JAVA, MA PENSO SIA MEGLIO NUOVA VERSIONE IN KOTLIN !!
   //PENSO CHE FORSE MEGLIO SE LA STRINGA DELL' ENGINE SI SPOSTI FUORI NEL FILE .pl e si chiami poi
 
+  /*
   val DinoFromProlog1 = new ListBuffer[SolveInfo]
   val DinoFromProlog2 =  new ListBuffer[Term]
 
-  val termP1 = engine("dino_position(X,Y)") foreach ( DinoFromProlog1 += _ )
-  val termP2 = engine("dino_position(X,Y)") foreach ( DinoFromProlog2 += _.getSolution )
+  val termP1 = engine("din_position(X,Y)") foreach ( DinoFromProlog1 += _ )
+  val termP2 = engine("din_position(X,Y)") foreach ( DinoFromProlog2 += _.getSolution )
 
   val DinolistP1 = DinoFromProlog1.toList
   val DinolistP2 = DinoFromProlog2.toList
+  */
 
   //questo e' per prendere e stampare i dinosauri da prolog
+
+  /*
   print("print list dinosaur" + "\n")
+   */
+  /*
   for (i <- DinolistP1)
     print("list: " + i + "\n")
 
   print("print list dinosaur sol" + "\n")
   for (i <- DinolistP2)
     print("list sol: " + i + "\n")
-
+  */
   //questo è per prendere e stampare i disastri da prolog
+
+  /*
   val DisFromProlog =  new ListBuffer[Term]
-  val DisProlog: Unit = engine("dis_position(X,Y)") foreach ( DisFromProlog += _.getSolution )
+  val DisProlog: Unit = engine("dis_position(X,Y,E)") foreach ( DisFromProlog += _.getSolution )
   val DisList = DisFromProlog.toList
 
   print("print list disaster sol" + "\n")
   for (i <- DisList)
     print("list sol: " + i + "\n")
-
+  */
   //questo passa la funzione all engine e poi viene stampata
+  /*
   val ListFromPrologSameP = new ListBuffer[Term]
   val sameP = engine("same(X,Y)") foreach ( ListFromPrologSameP += _.getSolution )
 
@@ -101,8 +97,10 @@ object prologFunextends10 extends App:
     print("list sol: " + i + "\n")
 
   val lp2 = new ListBuffer[SolveInfo]
-
+  */
   //stessa cosa di sopra ma qui uso la funzione di TuProlog per prendere solo una variabile
+
+  /*
   val SameP2 = engine("same(X,Y)") foreach ( lp2 += _)
   val lp2List= lp2.toList
 
@@ -111,7 +109,7 @@ object prologFunextends10 extends App:
       print("element: " + i + " is " + "\n"
         + "X:" + el.getVarValue("X") + "\n"
         + "Y:" + el.getVarValue("Y") + "\n")
-  }
+  }*/
 
 
 

@@ -13,7 +13,6 @@ sealed trait Disaster:
 
   def name: String
   def damage: Int
-  def probability: Int
 
   def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
     print("\n nessun disastro applicato \n")
@@ -22,8 +21,7 @@ sealed trait Disaster:
   override def toString: String =
     super.toString +
       "\n name: " + name +
-      "\n damage: " + damage +
-      "\n probability: " + probability
+      "\n damage: " + damage
 
 /* DECIDERE COSA ESTENDERE E CHE FARE */
 abstract class AreaEffect extends Disaster:
@@ -88,7 +86,7 @@ object Disaster {
 
 }
 
-enum DisasterType(val probability: Int) extends Disaster {
+enum DisasterType(val probability: Int) {
   case EARTHQUAKE extends DisasterType(5)
   case METEORITE extends DisasterType(3)
   case ICEAGE extends DisasterType(1)

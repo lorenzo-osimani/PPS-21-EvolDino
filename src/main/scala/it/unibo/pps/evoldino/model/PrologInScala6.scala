@@ -11,7 +11,7 @@ import alice.tuprolog.*
 import scala.language.postfixOps
 
 object prologFunextends6 extends App:
-  import PrologInScala.{*, given}
+  import it.unibo.pps.evoldino.prolog.PrologInScala.{*, given}
 
   val engine: Term => LazyList[SolveInfo] = mkPrologEngine("""
 

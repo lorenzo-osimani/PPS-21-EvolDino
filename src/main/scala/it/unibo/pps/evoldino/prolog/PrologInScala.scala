@@ -1,6 +1,7 @@
-package it.unibo.pps.evoldino.model
+package it.unibo.pps.evoldino.prolog
 
 import alice.tuprolog.*
+//import it.unibo.pps.evoldino.prolog.PrologInScala
 
 object PrologInScala {
 

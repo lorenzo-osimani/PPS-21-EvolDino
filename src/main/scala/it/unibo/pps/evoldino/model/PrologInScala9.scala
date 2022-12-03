@@ -12,7 +12,7 @@ import alice.tuprolog.*
 import scala.language.postfixOps
 
 object prologFunextends9 extends App:
-  import PrologInScala.{*, given}
+  import it.unibo.pps.evoldino.prolog.PrologInScala.{*, given}
 
   val myDinoList = createDemoDinosaur()
 
