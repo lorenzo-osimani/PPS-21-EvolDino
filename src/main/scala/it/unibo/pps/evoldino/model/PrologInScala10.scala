@@ -7,7 +7,6 @@ import it.unibo.pps.evoldino.model.dinosaur.*
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 import it.unibo.pps.evoldino.model.disaster.Disaster
 import it.unibo.pps.evoldino.model.createDemoDinosaur
-import it.unibo.pps.evoldino.model.createList
 
 import scala.collection.mutable.ListBuffer
 import alice.tuprolog.*

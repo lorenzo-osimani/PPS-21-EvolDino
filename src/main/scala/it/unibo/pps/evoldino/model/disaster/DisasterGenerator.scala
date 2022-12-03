@@ -50,7 +50,7 @@ object DisasterGenerator {
     for (_ <- 1 to n)
       dL += createRandomDisasterWithProb()
     dL.toList
-
+  
   def createListOfDisastersWithDistribuition(): List[Disaster] =
     val number_of_disasters = (3 * Math.pow(random.nextDouble(), 4)).toInt
     createListOfDisasters(number_of_disasters)

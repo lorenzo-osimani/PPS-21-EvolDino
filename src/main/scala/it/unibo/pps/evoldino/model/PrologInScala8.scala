@@ -3,7 +3,7 @@ package it.unibo.pps.evoldino.model
 import alice.tuprolog
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.Disaster
 
 import scala.collection.mutable.ListBuffer
 import alice.tuprolog.*

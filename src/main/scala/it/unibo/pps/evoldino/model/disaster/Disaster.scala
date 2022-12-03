@@ -84,11 +84,13 @@ object Disaster {
     override val damage: Int = 10
     override val temperature: Int = 5000
 
-  enum DisasterType(val probability: Int) {
-    case EARTHQUAKE extends DisasterType(5)
-    case METEORITE extends DisasterType(3)
-    case ICEAGE extends DisasterType(1)
-    case DROUGHT extends DisasterType(7)
-  }
 
-}  
+
+}
+
+enum DisasterType(val probability: Int) extends Disaster {
+  case EARTHQUAKE extends DisasterType(5)
+  case METEORITE extends DisasterType(3)
+  case ICEAGE extends DisasterType(1)
+  case DROUGHT extends DisasterType(7)
+}
