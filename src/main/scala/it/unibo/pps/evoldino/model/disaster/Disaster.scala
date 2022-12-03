@@ -2,13 +2,15 @@ package it.unibo.pps.evoldino.model.disaster
 
 import cats.implicits.catsSyntaxMonadIdOps
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.disaster.{AreaEffect, ClimateEffect, Disaster}
+import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect, Disaster }
+import it.unibo.pps.evoldino.model.world.WorldConstants.*
 
 import scala.collection.mutable.ListBuffer
 import scala.math.Fractional.Implicits.infixFractionalOps
 import scala.math.Integral.Implicits.infixIntegralOps
 import scala.math.Numeric.Implicits.infixNumericOps
 import scala.math.Ordering.Implicits.infixOrderingOps
+import scala.util.Random
 
 /** Represent a Disaster */
 sealed trait Disaster:
@@ -61,14 +63,20 @@ abstract class ClimateEffect extends Disaster:
 
 object Disaster {
 
-  case class Earthquake(e: Int, c: (Int, Int)) extends AreaEffect:
+  case class Earthquake(
+      e: Int = Random.between(min_range_earthquake, max_range_earthquake),
+      c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
+      extends AreaEffect:
     override val name = "Earthquake"
     override val damage = 20
     override val probability = 5
     override val extension: Int = e
     override val coordinates: (Int, Int) = c
 
-  case class Meteorite(e: Int, c: (Int, Int)) extends AreaEffect:
+  case class Meteorite(
+      e: Int = Random.between(min_range_meteorite, max_range_meteorite),
+      c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
+      extends AreaEffect:
     override val name: String = "Meteorite"
     override val damage: Int = 40
     override val probability: Int = 3

@@ -40,10 +40,10 @@ object DisastersWidget:
     onAction = _ => Controller.addDisaster(Disaster.Drought)
 
   val earthquakeButton = new GenericButton("Earthquake", "Generate Earthquake"):
-    onAction = _ => Controller.addDisaster(Disaster.Earthquake(10, (0, 0)))
+    onAction = _ => Controller.addDisaster(Disaster.Earthquake())
 
   val meteoriteButton = new GenericButton("Meteorite", "Generate Meteorite"):
-    onAction = _ => Controller.addDisaster(Disaster.Meteorite(10, (0, 0)))
+    onAction = _ => Controller.addDisaster(Disaster.Meteorite())
 
   val disasterGrid = new GridPane:
     background = new Background(Array(new BackgroundFill(Color.White, null, null)))

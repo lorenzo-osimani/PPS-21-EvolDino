@@ -15,7 +15,13 @@ object WorldConstants {
   val environmentEvolutionDelta: Float = 1
 
   // World Dimensions
-  val dim_h_world = 100
-  val dim_w_world = 100
+  val dim_h_world = 75
+  val dim_w_world = 150
+
+  // Disasters Costants
+  val min_range_meteorite = 1
+  val max_range_meteorite = 20
+  val min_range_earthquake = 50
+  val max_range_earthquake = 100
 
 }

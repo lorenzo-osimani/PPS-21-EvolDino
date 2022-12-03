@@ -16,12 +16,21 @@ object SimInfoWidget:
 
   def updateRender(snapshot: WorldSnapshot): Unit =
     dinosaurNumber.text = "Numero Dinosauri: " + snapshot.livingPopulation().size
-    dinosaurAge.text = "Età media: " + (snapshot.livingPopulation().map(_.age).sum / snapshot
-      .livingPopulation()
-      .size)
+    dinosaurAge.text = "Età media: " +
+      (snapshot.livingPopulation().size > 0 match
+        case true =>
+          snapshot.livingPopulation().map(_.age).sum / snapshot
+            .livingPopulation()
+            .size
+        case false => ""
+      )
     temperature.text = "Temperatura: " + snapshot.environment.temperature
     humidity.text = "Umidità: " + snapshot.environment.humidity
     vegetation.text = "Vegetazione: " + snapshot.environment.vegetationAvailable
+    if (snapshot.disasters.isEmpty)
+      disasters.text = ""
+    else
+      for dis <- snapshot.disasters yield disasters.text = (disasters.getText + dis.name + " ")
 
   val dinosaurNumber = new Label:
     alignmentInParent = Pos.Center
@@ -58,9 +67,16 @@ object SimInfoWidget:
     textAlignment = TextAlignment.Center
     margin = Insets(0, 1, 15, 1)
 
+  val disasters = new Label:
+    alignmentInParent = Pos.Center
+    alignment = Pos.Center
+    text = ""
+    textAlignment = TextAlignment.Center
+    margin = Insets(0, 1, 15, 1)
+
   val simInfoWidget: TilePane =
     new TilePane:
       background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
-      children ++= Seq(dinosaurNumber, dinosaurAge, temperature, humidity, vegetation)
+      children ++= Seq(dinosaurNumber, dinosaurAge, temperature, humidity, vegetation, disasters)
 
   simInfoWidget.alignment = Pos.BaselineLeft

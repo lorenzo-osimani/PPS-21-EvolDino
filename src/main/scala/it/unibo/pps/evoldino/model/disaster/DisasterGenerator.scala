@@ -23,8 +23,8 @@ object DisasterGenerator {
     (random.between(MIN_POSITION, MAX_POSITION), random.between(MIN_POSITION, MAX_POSITION))
 
   def createSingleRandomDisasterProb(): Disaster =
-    val demoDisEarthquake: AreaEffect = Disaster.Earthquake(e = 0, c = (0, 0))
-    val demoDisMeteorite: AreaEffect = Disaster.Meteorite(e = 0, c = (0, 0))
+    val demoDisEarthquake: AreaEffect = Disaster.Earthquake()
+    val demoDisMeteorite: AreaEffect = Disaster.Meteorite()
     val demoDisIceAge: ClimateEffect = Disaster.IceAge
     val demoDisDrought: ClimateEffect = Disaster.Drought
 

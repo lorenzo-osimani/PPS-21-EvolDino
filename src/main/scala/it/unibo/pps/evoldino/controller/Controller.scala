@@ -16,7 +16,14 @@ object Controller {
 
   def startSimulation() = Engine.startSimulation()
 
-  def endSimulation() = Engine.endSimulation()
+  def endSimulation() =
+    Engine.endSimulation()
+    showEndDialog("The simulation has been stopped manually")
+
+  def showEndDialog(message: String) =
+    view
+      .getOrElse(throw IllegalStateException())
+      .endSimulation(message)
 
   def pauseSimulation() = Engine.pauseSimulation()
 
@@ -44,7 +51,6 @@ object Controller {
   def modifyManualSettings(temp: Float, hum: Float, veg: Float) =
     EngineController.modifyManualSettings(temp, hum, veg)
 
-  /* Add random creation for area damages */
   def addDisaster(disaster: Disaster) = EngineController.addDisaster(disaster)
 
   def renderIteration(snapshot: WorldSnapshot): Unit =
