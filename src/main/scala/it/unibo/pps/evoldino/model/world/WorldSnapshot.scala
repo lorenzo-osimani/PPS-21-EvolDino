@@ -1,8 +1,7 @@
 package it.unibo.pps.evoldino.model.world
 
-import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.world.WorldSnapshot.Population
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.dinosaur.{ Dinosaur, ImmutableDinosaur, Population }
+import it.unibo.pps.evoldino.model.disaster.Disaster
 
 import scala.util.Random
 
@@ -14,34 +13,23 @@ trait WorldSnapshot {
 
   val disasters: Seq[Disaster]
 
-  var ended: Boolean
-
-  def damagePopulation(damage: Float): Unit =
-    if (!ended)
-      Random.shuffle(livingPopulation()).take((damage * population.size).toInt).foreach(_.kill())
-    else throw new IllegalArgumentException
-
   def livingPopulation(): Population = population filter (_.isAlive)
 
   def closeSnapShot() =
-    ended = true
-  //population flatMap() IMMUTABLE DINOSAURS
+    population = population map (ImmutableDinosaur(_))
 }
 
 object WorldSnapshot {
-
-  type Population = Seq[Dinosaur]
 
   def apply(
       environment: Environment,
       population: Population,
       disasters: Seq[Disaster] = Seq.empty): WorldSnapshot =
-    new WorldSnapshotImpl(environment, population, disasters, false)
+    new WorldSnapshotImpl(environment, population, disasters)
 
   private class WorldSnapshotImpl(
       override val environment: Environment,
       var population: Population,
-      override val disasters: Seq[Disaster],
-      var ended: Boolean)
+      override val disasters: Seq[Disaster])
       extends WorldSnapshot
 }

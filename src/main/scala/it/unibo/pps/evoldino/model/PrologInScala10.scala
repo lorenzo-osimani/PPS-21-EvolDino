@@ -5,7 +5,7 @@ import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.dinosaur
 import it.unibo.pps.evoldino.model.dinosaur.*
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.Disaster
+import it.unibo.pps.evoldino.model.disaster.Disaster
 import it.unibo.pps.evoldino.model.createDemoDinosaur
 import it.unibo.pps.evoldino.model.createList
 
@@ -26,8 +26,8 @@ object prologFunextends10 extends App:
   myDinoList.zipWithIndex.map {
     case (dino, count) =>
       println(s"$count is $dino")
-      dinX += dino.testCoordinates._1
-      dinY += dino.testCoordinates._2
+      dinX += dino.coordinates._1
+      dinY += dino.coordinates._2
   }
 
   //i Disasteri per semplicità li ho inventati direttamente dentro Prolog

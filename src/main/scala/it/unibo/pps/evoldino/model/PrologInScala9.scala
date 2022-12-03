@@ -1,13 +1,10 @@
 package it.unibo.pps.evoldino.model
 
 import alice.tuprolog
-import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.dinosaur
 import it.unibo.pps.evoldino.model.dinosaur.*
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.Disaster
 import it.unibo.pps.evoldino.model.createDemoDinosaur
-import it.unibo.pps.evoldino.model.createList
 
 import scala.collection.mutable.ListBuffer
 import alice.tuprolog.*
@@ -31,8 +28,8 @@ object prologFunextends9 extends App:
   myDinoList.zipWithIndex.map {
     case (dino, count) =>
       println(s"$count is $dino")
-      dinX += dino.testCoordinates._1
-      dinY += dino.testCoordinates._2
+      dinX += dino.coordinates._1
+      dinY += dino.coordinates._2
   }
 
   val engine: Term => LazyList[SolveInfo] = mkPrologEngine(s"""

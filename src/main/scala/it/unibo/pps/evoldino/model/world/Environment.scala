@@ -1,26 +1,26 @@
 package it.unibo.pps.evoldino.model.world
 
-import it.unibo.pps.evoldino.model.world.EnvironmentConstants.*
+import it.unibo.pps.evoldino.model.world.WorldConstants.*
 import it.unibo.pps.evoldino.utils.GlobalUtils.calculateProbability
 
 trait Environment {
 
   def temperature: Float
 
-  def vegetationAvailable: Float
-
   def humidity: Float
 
+  def vegetationAvailable: Float
+
   override def toString: String =
-    "T: " + temperature + ", V: " + vegetationAvailable + ", H: " + humidity
+    "T: " + temperature + ", H: " + humidity + ", V: " + vegetationAvailable
 
   override def equals(obj: Any): Boolean =
     obj match
       case that: Environment =>
         that.isInstanceOf[Environment] &&
-          this.humidity == that.humidity &&
-          this.vegetationAvailable == that.vegetationAvailable &&
-          this.temperature == that.temperature
+        this.temperature == that.temperature &&
+        this.humidity == that.humidity &&
+        this.vegetationAvailable == that.vegetationAvailable
       case _ => false
 }
 
@@ -28,43 +28,42 @@ object Environment {
 
   def apply(
       temperature: Float = BasicEnvironment.temperature,
-      vegetationAvailable: Float = BasicEnvironment.vegetationAvailable,
-      humidity: Float = BasicEnvironment.humidity): Environment =
-    new EnvironmentImpl(temperature, vegetationAvailable, humidity)
+      humidity: Float = BasicEnvironment.humidity,
+      vegetationAvailable: Float = BasicEnvironment.vegetationAvailable): Environment =
+    new EnvironmentImpl(temperature, humidity, vegetationAvailable)
 
   def apply(environment: Environment): Environment =
     new EnvironmentImpl(
       environment.temperature,
-      environment.vegetationAvailable,
-      environment.humidity
+      environment.humidity,
+      environment.vegetationAvailable
     )
+
+  import it.unibo.pps.evoldino.utils.PimpScala.given
 
   def evolveFromEnvironment(environment: Environment): Environment =
-    new EnvironmentImpl(
-      evolveCharacteristic(environment.temperature, evolutionDelta),
-      evolveCharacteristic(environment.vegetationAvailable, evolutionDelta),
-      evolveCharacteristic(environment.humidity, evolutionDelta)
+    Environment(
+      evolveCharacteristic(environment.temperature)
+        keepValueInBounds (min_temperature, max_temperature),
+      evolveCharacteristic(environment.humidity) keepValueInBounds (min_humidity, max_humidity),
+      evolveCharacteristic(environment.vegetationAvailable)
+        keepValueInBounds (max = max_vegetation_percentage)
     )
 
-  val BasicEnvironment: Environment = apply(20, 100, 30)
+  val BasicEnvironment: Environment = apply(20, 30, 50)
 
   val IceAgeEnvironment: Environment = apply(-40, 10, 100)
 
-  private def evolveCharacteristic(value: Float, delta: Float): Float = value match
-    case _ if calculateProbability(characteristicEvolutionProbability) => value - delta
-    case _ if calculateProbability(characteristicEvolutionProbability) => value + delta
-    case _                                                             => value
+  private def evolveCharacteristic(value: Float): Float = value match
+    case _ if calculateProbability(characteristicEvolutionProbability) =>
+      value - environmentEvolutionDelta
+    case _ if calculateProbability(characteristicEvolutionProbability) =>
+      value + environmentEvolutionDelta
+    case _ => value
 
   private class EnvironmentImpl(
       override val temperature: Float,
-      override val vegetationAvailable: Float,
-      override val humidity: Float)
+      override val humidity: Float,
+      override val vegetationAvailable: Float)
       extends Environment
-}
-
-object EnvironmentConstants {
-
-  val characteristicEvolutionProbability = 0.3
-
-  val evolutionDelta: Float = 1
 }

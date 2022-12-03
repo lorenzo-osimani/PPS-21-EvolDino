@@ -6,19 +6,27 @@ import cats.effect.unsafe.implicits.global
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
-import scala.language.implicitConversions
-import WorldHistory.*
+import it.unibo.pps.evoldino.model.world.WorldHistory.*
 import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
+import it.unibo.pps.evoldino.controller.Controller
+import EngineConstants.*
+import it.unibo.pps.evoldino.model.dinosaur.Male
+import it.unibo.pps.evoldino.model.world.WorldHistory
 
 object Engine {
 
-  private var iteration_speed = EngineConstants.iteration_ms_1x
+  private var iteration_speed: Int = ITERATION_MS_1X
 
   private var paused = false
 
   private var ended = false
 
-  def startSimulation(): Unit = simulationLoop().unsafeRunAndForget()
+  def startSimulation(): Unit =
+    paused = false
+    ended = false
+    EngineController.resetController()
+    WorldHistory.resetHistory()
+    simulationLoop().unsafeRunAndForget()
 
   def endSimulation(): Unit = ended = true
 
@@ -28,10 +36,16 @@ object Engine {
     paused = false
     simulationLoop().unsafeRunAndForget()
 
-  def changeSpeed(): Unit = iteration_speed match
-    case EngineConstants.iteration_ms_1x => iteration_speed = EngineConstants.iteration_ms_2x
-    case EngineConstants.iteration_ms_2x => iteration_speed = EngineConstants.iteration_ms_4x
-    case EngineConstants.iteration_ms_4x => iteration_speed = EngineConstants.iteration_ms_1x
+  def changeSpeed(): Int =
+    iteration_speed match
+      case ITERATION_MS_1X => iteration_speed = ITERATION_MS_2X
+      case ITERATION_MS_2X => iteration_speed = ITERATION_MS_4X
+      case ITERATION_MS_4X => iteration_speed = ITERATION_MS_1X
+    iteration_speed
+
+  def isSimulationPlaying(): Boolean = !paused
+
+  def hasSimulationEnded(): Boolean = isSimulationOver() || ended
 
   given Conversion[Unit, IO[Unit]] with
     def apply(exp: Unit): IO[Unit] = IO(exp)
@@ -39,7 +53,8 @@ object Engine {
   private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- iterationLoop()
-    _ <- if (!hasSimulationEnded() && !paused) simulationLoop() else unit
+    _ <- Controller.renderIteration(WorldHistory.getLastSnapshot())
+    _ <- if (hasSimulationEnded() || paused) unit else simulationLoop()
   } yield ()
 
   private def iterationLoop(): IO[Unit] = for {
@@ -47,8 +62,10 @@ object Engine {
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
     _ <- reproductionPhase()
+    _ <- if (isSimulationOver())
+      (getLastSnapshot().livingPopulation().size <= 0) match
+        case true  => Controller.showEndDialog("All the dinosaurs are dead")
+        case false => Controller.showEndDialog("The world has reached its maximum lifespan")
   } yield ()
-
-  private def hasSimulationEnded(): Boolean = isSimulationOver() || ended
 
 }
