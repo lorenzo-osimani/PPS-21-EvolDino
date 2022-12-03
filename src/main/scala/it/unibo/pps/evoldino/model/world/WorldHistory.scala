@@ -3,7 +3,8 @@ package it.unibo.pps.evoldino.model.world
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.controller.engine.EngineController.{
   disasterFunction,
-  environmentEvolutionFunction
+  environmentEvolutionFunction,
+  manual_temperature
 }
 import it.unibo.pps.evoldino.model.dinosaur.{ Population, PopulationFactory, Reproduction }
 
