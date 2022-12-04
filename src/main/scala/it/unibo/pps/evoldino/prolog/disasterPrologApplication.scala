@@ -3,7 +3,7 @@ package it.unibo.pps.evoldino.prolog
 import alice.tuprolog
 import alice.tuprolog.*
 
-object disasterApplication extends App:
+object disasterPrologApplication extends App:
   import PrologInScala.{*, given}
 
   private val fileName = "disasterPrologTheory.pl"
