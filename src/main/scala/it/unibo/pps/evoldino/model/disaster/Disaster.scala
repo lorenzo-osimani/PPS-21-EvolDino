@@ -4,6 +4,7 @@ import cats.implicits.catsSyntaxMonadIdOps
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect, Disaster }
 import it.unibo.pps.evoldino.model.world.WorldConstants.*
+import it.unibo.pps.evoldino.model.world.WorldHistory.getLastLivingPopulation
 
 import scala.collection.mutable.ListBuffer
 import scala.math.Fractional.Implicits.infixFractionalOps
@@ -37,8 +38,11 @@ abstract class AreaEffect extends Disaster:
   override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
     // val dinoListNew = new ListBuffer[Dinosaur]
     for (dino <- p)
-      if ((coordinates._1 <= dino.coordinates._1 && dino.coordinates._1 <= coordinates._1 + extension)
-        && (coordinates._2 <= dino.coordinates._2 && dino.coordinates._2 <= coordinates._2 + extension))
+      if ((dino.coordinates._1 <= coordinates._1 + extension &&
+          dino.coordinates._1 >= coordinates._1 - extension)
+        &&
+        (dino.coordinates._2 <= coordinates._2 + extension &&
+          dino.coordinates._2 >= coordinates._2 - extension))
         dino.damageDinosaur(damage)
     // dinoListNew += dino
     // dinoListNew.toList
@@ -68,7 +72,7 @@ object Disaster {
       c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
       extends AreaEffect:
     override val name = "Earthquake"
-    override val damage = 20
+    override val damage = 100
     override val probability = 5
     override val extension: Int = e
     override val coordinates: (Int, Int) = c

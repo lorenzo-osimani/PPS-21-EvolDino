@@ -33,7 +33,6 @@ object EngineController {
     manual_temperature = temp
     manual_humidity = hum
     manual_vegetation_percentage = veg
-    println(manual_temperature + " " + manual_humidity + " " + manual_vegetation_percentage)
   }
 
   def disasterFunction(): () => Seq[Disaster] =

@@ -20,8 +20,8 @@ object WorldConstants {
 
   // Disasters Costants
   val min_range_meteorite = 1
-  val max_range_meteorite = 20
-  val min_range_earthquake = 50
-  val max_range_earthquake = 100
+  val max_range_meteorite = 10
+  val min_range_earthquake = 25
+  val max_range_earthquake = 50
 
 }
