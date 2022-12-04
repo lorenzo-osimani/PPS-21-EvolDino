@@ -3,7 +3,9 @@ package it.unibo.pps.evoldino.model
 import it.unibo.pps.evoldino.model.dinosaur.*
 import it.unibo.pps.evoldino.model.dinosaur.gene.*
 
-def createDemoDinosaur(): List[Dinosaur] =
+import scala.collection.mutable.ListBuffer
+
+def createListDemoDinosaur(): List[Dinosaur] =
 
   val dino1: Dinosaur =
     Dinosaur(Gene(23, 1234, 100, "green"), Male, (100, 100))
@@ -22,11 +24,7 @@ def createDemoDinosaur(): List[Dinosaur] =
 
   val dino6: Dinosaur =
     Dinosaur(Gene(23, 1234, 100, "green"), Male, (50, 50))
-
-  // usaare listbuffer perche' mutabile//vedere qui
-  // https://alvinalexander.com/scala/how-add-elements-to-a-list-in-scala-listbuffer-immutable/
-  import scala.collection.mutable.ListBuffer
-
+  
   val populationTest = new ListBuffer[Dinosaur]()
   populationTest += dino1
   populationTest += dino2

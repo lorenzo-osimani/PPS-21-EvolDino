@@ -22,49 +22,35 @@ object DisasterGenerator {
     /* genera una posizione random da 1 a 100 */
     (random.between(MIN_POSITION, MAX_POSITION), random.between(MIN_POSITION, MAX_POSITION))
 
-  def createSingleRandomDisasterProb(): Disaster =
-    val demoDisEarthquake: AreaEffect = Disaster.Earthquake()
-    val demoDisMeteorite: AreaEffect = Disaster.Meteorite()
-    val demoDisIceAge: ClimateEffect = Disaster.IceAge
-    val demoDisDrought: ClimateEffect = Disaster.Drought
+  def createRandomDisasterWithProb(): Disaster =
 
-    val disArrayNoProb = new ListBuffer[Disaster]
-    disArrayNoProb += demoDisEarthquake
-    disArrayNoProb += demoDisMeteorite
-    disArrayNoProb += demoDisIceAge
-    disArrayNoProb += demoDisDrought
+    val disListWithProb = new ListBuffer[Disaster]
 
-    val disProbList = new ListBuffer[Disaster]
-
-    for (disWithProb <- disArrayNoProb)
-      for (prob <- 1 to disWithProb.probability)
+    for
+      disWithProb <- DisasterType.values
+      _ <- 1 to disWithProb.probability
+    yield
         disWithProb match {
-          case _: Earthquake =>
-            disProbList += Earthquake(
-              e = generateRandomExtensionPList(),
-              c = generateRandomPositionPList()
-            )
-          case _: Meteorite =>
-            disProbList += Meteorite(
-              e = generateRandomExtensionPList(),
-              c = generateRandomPositionPList()
-            )
-          case _: ClimateEffect =>
-            disProbList += disWithProb
+          case DisasterType.EARTHQUAKE =>
+            disListWithProb += Earthquake()
+          case DisasterType.METEORITE =>
+            disListWithProb += Meteorite()
+          case DisasterType.ICEAGE =>
+            disListWithProb += IceAge
+          case DisasterType.DROUGHT =>
+            disListWithProb += Drought
           case null => println("ERROR")
         }
 
-    val disasterSingleRandomProb = disProbList(Random.nextInt(disProbList.length))
+    disListWithProb(Random.nextInt(disListWithProb.length))
 
-    disasterSingleRandomProb
-
-  /* It can generate from 0 to 3 disasters */
+  /* It can generate from 0 to n disasters */
   def createListOfDisasters(n: Int): List[Disaster] =
     val dL = new ListBuffer[Disaster]
-    for (i <- 1 to n)
-      dL += createSingleRandomDisasterProb()
+    for (_ <- 1 to n)
+      dL += createRandomDisasterWithProb()
     dL.toList
-
+  
   def createListOfDisastersWithDistribuition(): List[Disaster] =
     val number_of_disasters = (3 * Math.pow(random.nextDouble(), 4)).toInt
     createListOfDisasters(number_of_disasters)
