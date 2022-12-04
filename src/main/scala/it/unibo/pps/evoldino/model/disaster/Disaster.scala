@@ -23,17 +23,18 @@ sealed trait Disaster:
       "\n name: " + name +
       "\n damage: " + damage
 
-/* DECIDERE COSA ESTENDERE E CHE FARE */
 abstract class AreaEffect extends Disaster:
   val extension: Int
   val coordinates: (Int, Int)
 
   override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
-   p.filter(dino =>
-      (coordinates._1 <= dino.coordinates._1 && dino.coordinates._1 <= coordinates._1 + extension)
-        && (coordinates._2 <= dino.coordinates._2 && dino.coordinates._2 <= coordinates._2 + extension)
-      ).foreach(_.damageDinosaur(damage))
-   p
+    p.filter(dino =>
+      dino.coordinates._1 >= coordinates._1 - extension &&
+        dino.coordinates._1 <= coordinates._1 + extension &&
+        dino.coordinates._2 >= coordinates._2 - extension &&
+        dino.coordinates._2 <= coordinates._2 + extension
+    ).foreach(_.damageDinosaur(damage))
+    p
 
   override def toString: String =
     super.toString +
@@ -55,18 +56,18 @@ abstract class ClimateEffect extends Disaster:
 object Disaster {
 
   case class Earthquake(
-                         e: Int = Random.between(min_range_earthquake, max_range_earthquake),
-                         c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
-    extends AreaEffect:
+      e: Int = Random.between(min_range_earthquake, max_range_earthquake),
+      c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
+      extends AreaEffect:
     override val name: String = "Earthquake"
-    override val damage: Int = 20
+    override val damage: Int = 25
     override val extension: Int = e
     override val coordinates: (Int, Int) = c
 
   case class Meteorite(
-                        e: Int = Random.between(min_range_meteorite, max_range_meteorite),
-                        c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
-    extends AreaEffect:
+      e: Int = Random.between(min_range_meteorite, max_range_meteorite),
+      c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
+      extends AreaEffect:
     override val name: String = "Meteorite"
     override val damage: Int = 40
     override val extension: Int = e
@@ -81,8 +82,6 @@ object Disaster {
     override val name: String = "Drought"
     override val damage: Int = 10
     override val temperature: Int = 5000
-
-
 
 }
 
