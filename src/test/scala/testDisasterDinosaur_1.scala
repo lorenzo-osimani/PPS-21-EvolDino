@@ -7,8 +7,8 @@ class testDisasterDinosaur_1 extends AnyFunSpec:
 
   describe("Tests for createListDemoDinosaur") {
     val testPopolation = createListDemoDinosaur()
-    it("should have elements") {
-      println("\n DO CREATE LIST DEMO OF DINOSAUR \n")
+    it("should not be empty") {
+      println("DO CREATE LIST DEMO OF DINOSAUR")
       println(testPopolation)
       assertResult(false)(testPopolation.isEmpty)
     }
@@ -17,7 +17,7 @@ class testDisasterDinosaur_1 extends AnyFunSpec:
   describe("Tests for createRandomDisasterWithProb") {
     val testDisasterSingleRandomProb = createRandomDisasterWithProb()
     it("should not be empty") {
-      println("\n DO SINGLE RANDOM DISASTER WITH PROB \n")
+      println("DO SINGLE RANDOM DISASTER WITH PROB")
       println(testDisasterSingleRandomProb)
       assertResult(false)(testDisasterSingleRandomProb.equals(()))
     }
@@ -27,7 +27,7 @@ class testDisasterDinosaur_1 extends AnyFunSpec:
     val number = 5
     val testList = createListOfDisasters(5)
     it("should have the correct number of elements") {
-      println("\n DO LIST RANDOM DISASTER WITH PROB with " + number + " elements\n")
+      println("DO LIST RANDOM DISASTER WITH PROB with " + number + " elements")
       println(testList)
       assertResult(true)(testList.length == number)
     }

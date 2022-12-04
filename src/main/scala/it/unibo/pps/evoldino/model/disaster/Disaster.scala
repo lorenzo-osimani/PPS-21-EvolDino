@@ -41,14 +41,14 @@ abstract class AreaEffect extends Disaster:
     super.toString +
       "\n extension " + extension +
       "\n coordinateX " + coordinates._1 +
-      "\n coordinateY " + coordinates._2
+      "\n coordinateY " + coordinates._2 + "\n"
 
 abstract class ClimateEffect extends Disaster:
   val temperature: Int
 
   override def toString: String =
     super.toString +
-      "\n temperature " + temperature
+      "\n temperature " + temperature + "\n"
 
   override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
     p foreach (_.damageDinosaur(damage))
