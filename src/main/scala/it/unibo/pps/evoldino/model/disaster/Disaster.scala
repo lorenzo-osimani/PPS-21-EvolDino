@@ -4,6 +4,7 @@ import cats.implicits.catsSyntaxMonadIdOps
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
 import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect, Disaster }
 import it.unibo.pps.evoldino.model.world.WorldConstants.*
+import it.unibo.pps.evoldino.model.world.WorldHistory.getLastLivingPopulation
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
