@@ -1,6 +1,6 @@
+import it.unibo.pps.evoldino.model.disaster.Disaster
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
-import it.unibo.pps.evoldino.model.disaster.Disaster
 
 class DisasterTest extends AnyFunSpec {
   print("test begin")
