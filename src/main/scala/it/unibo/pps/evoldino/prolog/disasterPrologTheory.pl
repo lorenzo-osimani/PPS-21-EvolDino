@@ -1,19 +1,25 @@
-dinosaur_position(60, 20).
-dinosaur_position(63, 27).
-dinosaur_position(67, 23).
-dinosaur_position(65, 25).
-dinosaur_position(57, 15).
-dinosaur_position(70, 30).
-dinosaur_position(45, 45).
-dinosaur_position(30, 30).
-dinosaur_position(50, 50).
+%vita iniziale dinosauri
+init_life(L) :- L is 100.
 
-dis_extension_terremoto(E) :- E is 5.
-dis_extension_meteorite(E) :- E is 0.
+%dinosauri
+dinosaur(60, 20, L)  :- init_life(L).
+dinosaur(63, 27, L)  :- init_life(L).
+dinosaur(67, 23, L)  :- init_life(L).
+dinosaur(65, 25, L)  :- init_life(L).
+dinosaur(57, 15, L)  :- init_life(L).
+dinosaur(70, 30, L)  :- init_life(L).
+dinosaur(45, 45, L)  :- init_life(L).
+dinosaur(30, 30, L)  :- init_life(L).
+dinosaur(50, 50, L)  :- init_life(L).
 
-dis_position(60, 20, E) :- dis_extension_terremoto(E).
-dis_position(70, 30, E) :- dis_extension_terremoto(E).
-dis_position(50, 50, E) :- dis_extension_meteorite(E).
+%estensione e danno disastri
+disaster_extension_and_damage_terremoto(E, D) :- E is 5, D is 10.
+disaster_extension_and_damage_meteorite(E, D) :- E is 0, D is 30.
+
+%disastri
+disaster(60, 20, E, D) :- disaster_extension_and_damage_terremoto(E, D).
+disaster(70, 30, E, D) :- disaster_extension_and_damage_terremoto(E, D).
+disaster(50, 50, E, D) :- disaster_extension_and_damage_meteorite(E, D).
 
 %somma
 sum (A, B, C) :- C is (A + B).
@@ -21,22 +27,26 @@ sum (A, B, C) :- C is (A + B).
 %differenza
 dif (A, B, C) :- C is (A - B).
 
-%values included
+%valori inclusi (sia somma che differenza che uguale)
 
+includedIn(DIN, DIS, EXT) :- dif(DIS, EXT, DISEXTNEG), DIN = DISEXTNEG, !.
 includedIn(DIN, DIS, EXT) :- sum(DIS, EXT, DISEXTPOS),
 	  		     dif(DIS, EXT, DISEXTNEG),
 	                     (DIN < DISEXTPOS),
 	                     (DIN > DISEXTNEG),
 			     !.
-
-includedIn(DIN, DIS, EXT) :- dif(DIS, EXT, DISEXTNEG), DIN = DISEXTNEG, !.
-
 includedIn(DIN, DIS, EXT) :- sum(DIS, EXT, DISEXTPOS), DIN = DISEXTPOS, !.
 
-doDisaster(dinosaur_position(DINX, DINY), dis_position(DISX,DISY,EXT)) :-
-	dinosaur_position(DINX, DINY),
-	dis_position(DISX, DISY, EXT),
-	includedIn(DINX, DISX, EXT),
-	includedIn(DINY, DISY, EXT).
+%trova dinosauri colpiti e relativi disastri applicati
+doDisaster(dinosaur(DINX, DINY, LIF), disaster(DISX, DISY, EXT, DAM)) :-
+	   dinosaur(DINX, DINY, LIF),
+	   disaster(DISX, DISY, EXT, DAM),
+	   includedIn(DINX, DISX, EXT),
+	   includedIn(DINY, DISY, EXT).
 
-%doDisaster(dinosaur_position(DINX, DINY), dis_position(DISX, DISY, EXT)).
+%danneggia dinosauri (sempre partendo dai life points iniziali)
+damageDino(doDisaster(dinosaur(DINX, DINY, LIF), disaster(DISX, DISY, EXT, DAM))) :-
+	   doDisaster(dinosaur(DINX, DINY, LIFTODAM), disaster(DISX, DISY, EXT, DAM)),
+	   dif(LIFTODAM,DAM,LIF).
+
+%damageDino(doDisaster(dinosaur(DINX, DINY, LIF), disaster(DISX, DISY, EXT, DAM))).
