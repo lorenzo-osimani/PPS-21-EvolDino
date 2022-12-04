@@ -3,7 +3,7 @@ import it.unibo.pps.evoldino.model.disaster.DisasterGenerator.{createListOfDisas
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
 
-class testDisasterDinosaur_1 extends AnyFunSpec:
+class DisasterDinosaur_1 extends AnyFunSpec:
 
   describe("Tests for createListDemoDinosaur") {
     val testPopolation = createListDemoDinosaur()

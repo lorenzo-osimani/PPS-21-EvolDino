@@ -5,7 +5,7 @@ import it.unibo.pps.evoldino.model.disaster.{AreaEffect, ClimateEffect, Disaster
 import org.scalatest.funspec.AnyFunSpec
 import org.scalatest.matchers.must.Matchers as MustMatchers
 
-class testDisasterDinosaur_2 extends AnyFunSpec:
+class DisasterDinosaur_2 extends AnyFunSpec:
 
   val populationInitial: List[Dinosaur] = createListDemoDinosaur()
   val lf0: Double = populationInitial(0).lifepoints
