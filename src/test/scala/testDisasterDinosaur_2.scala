@@ -18,19 +18,21 @@ class testDisasterDinosaur_2 extends AnyFunSpec:
   describe("Tests for Earthquake") {
     it("population is changed Earthquake") {
       val populationDinoEarthquake = createListDemoDinosaur()
-      val demoDisEarthquake: AreaEffect = Disaster.Earthquake(e = 10, c = (20, 60))
-      println("damage dinosaur 3 e 4")
+      val demoDisEarthquake: AreaEffect = Disaster.Earthquake(e = 10, c = (30, 70))
+      println("damage dinosaur at position 2 and 3 and 4")
+      println("LP 2: " + populationDinoEarthquake(2).lifepoints)
       println("LP 3: " + populationDinoEarthquake(3).lifepoints)
       println("LP 4: " + populationDinoEarthquake(4).lifepoints)
       val populationDisEarthquake = demoDisEarthquake.applyDisaster(populationDinoEarthquake)
 
       assertResult(true)(lf0.equals(populationDisEarthquake(0).lifepoints))
       assertResult(true)(lf1.equals(populationDisEarthquake(1).lifepoints))
-      assertResult(true)(lf2.equals(populationDisEarthquake(2).lifepoints))
+      assertResult(false)(lf2.equals(populationDisEarthquake(2).lifepoints))
       assertResult(false)(lf3.equals(populationDisEarthquake(3).lifepoints))
       assertResult(false)(lf4.equals(populationDisEarthquake(4).lifepoints))
       assertResult(true)(lf5.equals(populationDisEarthquake(5).lifepoints))
 
+      println("LP 2 WITH DAMAGE: " + populationDisEarthquake(2).lifepoints)
       println("LP 3 WITH DAMAGE: " + populationDisEarthquake(3).lifepoints)
       println("LP 4 WITH DAMAGE: " + populationDisEarthquake(4).lifepoints)
 
@@ -41,7 +43,7 @@ class testDisasterDinosaur_2 extends AnyFunSpec:
     it("population is changed Meteorite") {
       val populationDinoMeteorite = createListDemoDinosaur()
       val demoDisMeteorite: AreaEffect = Disaster.Meteorite(e = 0, c = (50, 50))
-      println("damage dinosaur 5")
+      println("damage dinosaur at position 5")
       println("LP 5: " + populationDinoMeteorite(5).lifepoints)
       val populationDisMeteorite = demoDisMeteorite.applyDisaster(populationDinoMeteorite)
 
