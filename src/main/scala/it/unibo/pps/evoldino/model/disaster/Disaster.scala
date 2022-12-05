@@ -2,7 +2,8 @@ package it.unibo.pps.evoldino.model.disaster
 
 import cats.implicits.catsSyntaxMonadIdOps
 import it.unibo.pps.evoldino.model.dinosaur.Dinosaur
-import it.unibo.pps.evoldino.model.disaster.{AreaEffect, ClimateEffect, Disaster}
+import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect, Disaster }
+import it.unibo.pps.evoldino.model.world.Environment
 import it.unibo.pps.evoldino.model.world.WorldConstants.*
 import it.unibo.pps.evoldino.model.world.WorldHistory.getLastLivingPopulation
 
@@ -13,7 +14,6 @@ import scala.util.Random
 sealed trait Disaster:
 
   def name: String
-  def damage: Int
 
   def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
     print("\n nessun disastro applicato \n")
@@ -21,12 +21,12 @@ sealed trait Disaster:
 
   override def toString: String =
     super.toString +
-      "\n name: " + name +
-      "\n damage: " + damage
+      "\n name: " + name
 
 abstract class AreaEffect extends Disaster:
   val extension: Int
   val coordinates: (Int, Int)
+  def damage: Int
 
   override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
     p.filter(dino =>
@@ -39,19 +39,20 @@ abstract class AreaEffect extends Disaster:
 
   override def toString: String =
     super.toString +
+      "\n damage: " + damage +
       "\n extension " + extension +
       "\n coordinateX " + coordinates._1 +
       "\n coordinateY " + coordinates._2 + "\n"
 
 abstract class ClimateEffect extends Disaster:
-  val temperature: Int
+  val environment: Environment
 
   override def toString: String =
     super.toString +
-      "\n temperature " + temperature + "\n"
+      environment.toString
 
   override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
-    p foreach (_.damageDinosaur(damage))
+    for dino <- p yield Environment.applyEnvironmentDamage(dino, environment)
     p
 
 object Disaster {
@@ -76,13 +77,11 @@ object Disaster {
 
   case object IceAge extends ClimateEffect:
     override val name: String = "IceAge"
-    override val damage: Int = 30
-    override val temperature: Int = 100
+    override val environment: Environment = Environment.IceAgeEnvironment
 
   case object Drought extends ClimateEffect:
     override val name: String = "Drought"
-    override val damage: Int = 10
-    override val temperature: Int = 5000
+    override val environment: Environment = Environment.DroughtEnvironment
 
 }
 

@@ -47,16 +47,9 @@ object WorldHistory {
         .take(((1 - difference) * getLastLivingPopulation().size).toInt)
         .foreach(_.kill())
 
-  private def applyEnvironmentDamage(environment: Environment): Unit = for {
-    dino <- getLastLivingPopulation()
-  } yield {
-    val delta =
-      (dino.genes.idealHumidity - environment.humidity).abs + (dino.genes.idealTemperature - environment.temperature).abs
-    dino.damageDinosaur(math.pow(delta / 10, 2))
-  }
-
   def applyDisturbances(): Unit =
-    applyEnvironmentDamage(getLastSnapshot().environment)
+    for dino <- getLastLivingPopulation()
+    yield Environment.applyEnvironmentDamage(dino, getLastSnapshot().environment)
     getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation().toList))
 
   def reproductionPhase(): Unit =
