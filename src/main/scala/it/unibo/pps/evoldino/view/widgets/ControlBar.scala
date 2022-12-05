@@ -4,6 +4,7 @@ import com.sun.javafx.scene.traversal.ContainerTabOrder
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.view.components.GenericButton
+import javafx.application.Platform
 import scalafx.geometry.Pos
 import scalafx.scene.layout.{ Background, BackgroundFill, TilePane }
 import scalafx.scene.control.Tooltip
@@ -19,13 +20,7 @@ object ControlBar:
   val stopButton = new GenericButton("Stop", "Stop the simulation"):
     disable = true
 
-    onAction = _ => {
-      Controller.endSimulation()
-      changeSpeedButton.disable = true
-      this.disable = true
-      playButton.onAction = startSimEventHandler
-      playButton.setText("Start")
-    }
+    onAction = _ => Controller.endSimulation()
 
   /* ChangeSpeedButton definition */
   val changeSpeedButton = new GenericButton("x1", "Change simulation speed"):
@@ -53,6 +48,14 @@ object ControlBar:
     stopButton.setDisable(false)
     changeSpeedButton.setDisable(false)
     Controller.startSimulation()
+
+  def resetButtons() =
+    playButton.onAction = startSimEventHandler
+    playButton.setText("Start")
+    playButton.tooltip = Tooltip("Start the simulation");
+    stopButton.disable = true;
+    changeSpeedButton.text = "1x"
+    changeSpeedButton.disable = true
 
   val controlBar: TilePane =
     new TilePane:

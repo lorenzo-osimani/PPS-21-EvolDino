@@ -80,6 +80,7 @@ object SimInfoWidget:
   val simInfoWidget: TilePane =
     new TilePane:
       background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
+
       children ++= Seq(dinosaurNumber, dinosaurAge, temperature, humidity, vegetation, disasters)
 
   simInfoWidget.alignment = Pos.BaselineLeft
