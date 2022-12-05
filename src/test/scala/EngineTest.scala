@@ -10,9 +10,9 @@ class EngineTest extends AnyFunSpec {
     Engine.startSimulation()
     Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
     Engine.endSimulation()
-    assert(WorldHistory.history.size >= n_iterations)
+    assert(WorldHistory.history.size >= n_iterations - 1)
     Thread.sleep(EngineConstants.ITERATION_MS_1X * n_iterations)
-    assert(WorldHistory.history.size >= n_iterations)
+    assert(WorldHistory.history.size >= n_iterations - 1)
   }
 
   it("A simulation can be paused") {
