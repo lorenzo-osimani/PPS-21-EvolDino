@@ -8,7 +8,7 @@ object WorldConstants {
   val min_humidity: Float = -50
   val max_humidity: Float = 70
 
-  val max_vegetation_percentage: Float = 10000
+  val max_vegetation_value: Float = 2000
 
   val characteristicEvolutionProbability = 0.3
 

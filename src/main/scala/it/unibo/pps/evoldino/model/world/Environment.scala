@@ -47,12 +47,12 @@ object Environment {
         keepValueInBounds (min_temperature, max_temperature),
       evolveCharacteristic(environment.humidity) keepValueInBounds (min_humidity, max_humidity),
       evolveCharacteristic(environment.vegetationAvailable)
-        keepValueInBounds (max = max_vegetation_percentage)
+        keepValueInBounds (max = max_vegetation_value)
     )
 
-  val BasicEnvironment: Environment = apply(20, 30, 50)
+  val BasicEnvironment: Environment = apply(20, 30, 100)
 
-  val IceAgeEnvironment: Environment = apply(-40, 10, 100)
+  val IceAgeEnvironment: Environment = apply(-40, 100, 10)
 
   private def evolveCharacteristic(value: Float): Float = value match
     case _ if calculateProbability(characteristicEvolutionProbability) =>

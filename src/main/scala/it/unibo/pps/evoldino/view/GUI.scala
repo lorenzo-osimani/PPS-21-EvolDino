@@ -55,3 +55,8 @@ object GUI:
           (dis.coordinates, dis.extension)
         }
     )
+    ClimateWidget.update(
+      snapshot.environment.temperature,
+      snapshot.environment.humidity,
+      snapshot.environment.vegetationAvailable
+    )

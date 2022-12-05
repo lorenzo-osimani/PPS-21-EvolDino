@@ -45,15 +45,15 @@ object ClimateWidget:
     "",
     "%",
     0,
-    WorldConstants.max_vegetation_percentage,
+    100,
     Environment.BasicEnvironment.vegetationAvailable,
-    Controller.modifyVeg
+    (veg) => Controller.modifyVeg(veg * WorldConstants.max_vegetation_value / 100)
   )
 
   def update(temp: Float, hum: Float, veg: Float): Unit =
     tempSlider.update(temp)
     humSlider.update(hum)
-    vegSlider.update(veg)
+    vegSlider.update(veg * 100 / WorldConstants.max_vegetation_value)
 
   val climateWidget: GridPane =
     new GridPane:

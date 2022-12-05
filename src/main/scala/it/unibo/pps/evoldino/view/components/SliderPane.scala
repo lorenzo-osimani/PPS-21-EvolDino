@@ -42,8 +42,10 @@ object SliderPane {
       tooltip = Tooltip(this.getValue() + " " + measureUnit)
 
     slider.valueProperty.addListener((_, _, newVal: Number) =>
-      updateMethod(newVal.floatValue())
-      updateSlider(newVal.floatValue() + " " + measureUnit)
+      val value = (newVal.floatValue() * 10).round / 10.toFloat
+      updateMethod(value)
+      this.slider.value = value
+      this.slider.tooltip = Tooltip(value + " " + measureUnit)
     )
 
     left = new Label:
@@ -59,7 +61,4 @@ object SliderPane {
       if !slider.isHover then
         slider.value = newValue.doubleValue()
         slider.tooltip = Tooltip(slider.getValue() + " " + measureUnit)
-
-    def updateSlider(message: String) =
-      slider.tooltip = Tooltip(message)
 }
