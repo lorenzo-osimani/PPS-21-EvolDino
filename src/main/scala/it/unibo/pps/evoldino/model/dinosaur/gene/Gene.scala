@@ -4,6 +4,7 @@ import it.unibo.pps.evoldino.model.dinosaur.*
 import it.unibo.pps.evoldino.model.dinosaur.gene.*
 import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
 
+import java.lang.reflect.Constructor
 import scala.util.Random
 
 sealed trait Gene:

@@ -6,6 +6,7 @@ import it.unibo.pps.evoldino.model.dinosaur.Gender
 import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
 import it.unibo.pps.evoldino.model.world.WorldConstants
 import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
+import it.unibo.pps.evoldino.utils.PimpScala.given
 
 sealed trait Gender
 case object Male extends Gender
@@ -21,7 +22,7 @@ trait Dinosaur:
   /** @return the age of the dinosaur */
   def age: Int
 
-  /** @return the life points of the dinosaur */
+  /** @return the lifepoints of the dinosaur */
   def lifepoints: Float
 
   /** @return the coordinates of the dinosaur */
@@ -29,8 +30,7 @@ trait Dinosaur:
 
   /**
    * Method to check if a dinosaur is alive.
-   * @return
-   *   true if the dinosaur is alive, false otherwise
+   * @return true if the dinosaur is alive, false otherwise
    */
   def isAlive: Boolean
 
@@ -100,8 +100,6 @@ object Dinosaur {
 
     override def coordinates: (Int, Int) = _coordinates
 
-    import it.unibo.pps.evoldino.utils.PimpScala.given
-
     override def moveDinosaur(): Unit =
       val delta_x = Random.between(-1, 2)
       val delta_y = Random.between(-1, 2)
@@ -111,7 +109,7 @@ object Dinosaur {
       )
 }
 
-case class ImmutableDinosaur(dinosaur: Dinosaur) extends Dinosaur:
+ case class ImmutableDinosaur(dinosaur: Dinosaur) extends Dinosaur:
   override val genes = dinosaur.genes
   override val gender = dinosaur.gender
   override val father = dinosaur.father
