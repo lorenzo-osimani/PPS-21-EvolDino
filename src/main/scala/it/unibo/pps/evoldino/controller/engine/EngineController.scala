@@ -6,9 +6,9 @@ import it.unibo.pps.evoldino.model.world.Environment
 object EngineController {
   private var manual: Boolean = false
 
-  private var manual_temperature: Float = 20
-  private var manual_humidity: Float = 50
-  private var manual_vegetation_percentage: Float = 100
+  private var manual_temperature: Float = Environment.BasicEnvironment.temperature
+  private var manual_humidity: Float = Environment.BasicEnvironment.humidity
+  private var manual_vegetation_percentage: Float = Environment.BasicEnvironment.vegetationAvailable
 
   // Right way to do it???
   private var iceAgeApplied: Boolean = false
@@ -48,7 +48,11 @@ object EngineController {
 
   def resetController() =
     incomingDisasters = List.empty
-    modifyManualSettings(20, 50, 100)
+    modifyManualSettings(
+      Environment.BasicEnvironment.temperature,
+      Environment.BasicEnvironment.humidity,
+      Environment.BasicEnvironment.vegetationAvailable
+    )
 
   def addDisaster(disaster: Disaster): Unit =
     incomingDisasters = incomingDisasters :+ disaster

@@ -9,3 +9,5 @@ trait View:
   def show(stage: Stage): Unit
 
   def renderSimulation(snapshot: WorldSnapshot): Unit
+
+  def endSimulation(message: String): Unit

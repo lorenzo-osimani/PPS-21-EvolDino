@@ -62,6 +62,10 @@ object Engine {
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
     _ <- reproductionPhase()
+    _ <- if (isSimulationOver())
+      (getLastSnapshot().livingPopulation().size <= 0) match
+        case true  => Controller.showEndDialog("All the dinosaurs are dead")
+        case false => Controller.showEndDialog("The world has reached its maximum lifespan")
   } yield ()
 
 }
