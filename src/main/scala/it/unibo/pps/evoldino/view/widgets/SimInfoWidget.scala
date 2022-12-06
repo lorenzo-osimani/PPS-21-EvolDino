@@ -3,7 +3,7 @@ package it.unibo.pps.evoldino.view.widgets
 import com.sun.javafx.scene.traversal.ContainerTabOrder
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
-import it.unibo.pps.evoldino.model.world.WorldSnapshot
+import it.unibo.pps.evoldino.model.world.{ WorldConstants, WorldSnapshot }
 import it.unibo.pps.evoldino.view.components.GenericButton
 import scalafx.geometry.{ Insets, Pos }
 import scalafx.scene.control.Label
@@ -24,13 +24,16 @@ object SimInfoWidget:
             .size
         case false => ""
       )
-    temperature.text = "Temperatura: " + snapshot.environment.temperature
-    humidity.text = "Umidità: " + snapshot.environment.humidity
-    vegetation.text = "Vegetazione: " + snapshot.environment.vegetationAvailable
+    temperature.text = "Temperatura: " + snapshot.environment.temperature + "°"
+    humidity.text = "Umidità: " + snapshot.environment.humidity + "g.m^3"
+    vegetation.text = "Vegetazione: " +
+      snapshot.environment.vegetationAvailable * 100 / WorldConstants.max_vegetation_value
+      + "%"
     if (snapshot.disasters.isEmpty)
       disasters.text = ""
     else
-      for dis <- snapshot.disasters yield disasters.text = (disasters.getText + dis.name + " ")
+      for dis <- snapshot.disasters
+      yield disasters.text = ("/" + disasters.getText + dis.name + "/ ")
 
   val dinosaurNumber = new Label:
     alignmentInParent = Pos.Center
@@ -77,6 +80,7 @@ object SimInfoWidget:
   val simInfoWidget: TilePane =
     new TilePane:
       background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
+
       children ++= Seq(dinosaurNumber, dinosaurAge, temperature, humidity, vegetation, disasters)
 
   simInfoWidget.alignment = Pos.BaselineLeft

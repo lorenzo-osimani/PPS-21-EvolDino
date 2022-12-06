@@ -1,5 +1,6 @@
 package it.unibo.pps.evoldino.model.world
 
+import it.unibo.pps.evoldino.model.dinosaur.{ Dinosaur, Population }
 import it.unibo.pps.evoldino.model.world.WorldConstants.*
 import it.unibo.pps.evoldino.utils.GlobalUtils.calculateProbability
 
@@ -47,12 +48,18 @@ object Environment {
         keepValueInBounds (min_temperature, max_temperature),
       evolveCharacteristic(environment.humidity) keepValueInBounds (min_humidity, max_humidity),
       evolveCharacteristic(environment.vegetationAvailable)
-        keepValueInBounds (max = max_vegetation_percentage)
+        keepValueInBounds (max = max_vegetation_value)
     )
 
-  val BasicEnvironment: Environment = apply(20, 30, 50)
+  def applyEnvironmentDamage(dino: Dinosaur, environment: Environment): Unit =
+    val delta =
+      (dino.genes.idealHumidity - environment.humidity).abs + (dino.genes.idealTemperature - environment.temperature).abs
+    dino.damageDinosaur(math.pow(delta / 10, 2))
 
-  val IceAgeEnvironment: Environment = apply(-40, 10, 100)
+  val BasicEnvironment: Environment = apply(20, 30, 100)
+
+  val IceAgeEnvironment: Environment = apply(-40, 100, 10)
+  val DroughtEnvironment: Environment = apply(60, 10, 10)
 
   private def evolveCharacteristic(value: Float): Float = value match
     case _ if calculateProbability(characteristicEvolutionProbability) =>
