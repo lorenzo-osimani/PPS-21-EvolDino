@@ -1,12 +1,12 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
-
-import scala.util.Random
 import it.unibo.pps.evoldino.model.dinosaur.Gender
 import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
 import it.unibo.pps.evoldino.model.world.WorldConstants
 import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
+import it.unibo.pps.evoldino.utils.PimpScala.given
+import scala.util.Random
 
 sealed trait Gender
 case object Male extends Gender
@@ -30,8 +30,7 @@ trait Dinosaur:
 
   /**
    * Method to check if a dinosaur is alive.
-   * @return
-   *   true if the dinosaur is alive, false otherwise
+   * @return true if the dinosaur is alive, false otherwise
    */
   def isAlive: Boolean
 
@@ -100,8 +99,6 @@ object Dinosaur {
       if (lifepoints <= 0) kill()
 
     override def coordinates: (Int, Int) = _coordinates
-
-    import it.unibo.pps.evoldino.utils.PimpScala.given
 
     override def moveDinosaur(): Unit =
       val delta_x = Random.between(-1, 2)

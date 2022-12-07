@@ -38,10 +38,10 @@ object Gene:
       getRandomGenotype(TemperatureType),
       getRandomGenotype(HumidityType),
       getRandomGenotype(LifeSpan),
-      "blue"
+      "green"
     )
 
-  private def combineGenes(first_gene: Int, second_gene: Int): Int =
+  def combineGenes(first_gene: Int, second_gene: Int): Int =
     val range = (first_gene - second_gene).abs
     val delta = Random.nextInt(range + 1) - (range / 2)
     (first_gene + second_gene) / 2 + delta
