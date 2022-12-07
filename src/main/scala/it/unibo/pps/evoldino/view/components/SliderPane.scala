@@ -48,13 +48,7 @@ object SliderPane {
       this.slider.tooltip = Tooltip(value + " " + measureUnit)
     )
 
-    left = new Label:
-
-      graphic = new ImageView:
-        fitHeight = 30
-        fitWidth = 30
-        // image = new Image(iconPath)
-      tooltip = Tooltip(name)
+    left = Icon(iconPath, name, 20)
     right = slider
 
     def update(newValue: Number): Unit =

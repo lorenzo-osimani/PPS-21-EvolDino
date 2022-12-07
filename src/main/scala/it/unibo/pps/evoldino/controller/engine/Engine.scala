@@ -28,6 +28,9 @@ object Engine {
     WorldHistory.resetHistory()
     simulationLoop().unsafeRunAndForget()
 
+  def doSingleIteration(): Unit =
+    iterationLoop().unsafeRunAndForget()
+
   def endSimulation(): Unit = ended = true
 
   def pauseSimulation(): Unit = paused = true
@@ -53,7 +56,6 @@ object Engine {
   private def simulationLoop(): IO[Unit] = for {
     _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
     _ <- iterationLoop()
-    _ <- Controller.renderIteration(WorldHistory.getLastSnapshot())
     _ <- if (hasSimulationEnded() || paused) unit else simulationLoop()
   } yield ()
 
@@ -62,6 +64,7 @@ object Engine {
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
     _ <- reproductionPhase()
+    _ <- Controller.renderIteration(WorldHistory.getLastSnapshot())
     _ <- if (isSimulationOver())
       (getLastSnapshot().livingPopulation().size <= 0) match
         case true  => Controller.showEndDialog("All the dinosaurs are dead")

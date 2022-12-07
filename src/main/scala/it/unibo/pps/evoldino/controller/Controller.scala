@@ -20,6 +20,8 @@ object Controller {
     Engine.endSimulation()
     showEndDialog("The simulation has been stopped manually")
 
+  def doSingleIteration() = Engine.doSingleIteration()
+
   def showEndDialog(message: String) =
     view
       .getOrElse(throw IllegalStateException())

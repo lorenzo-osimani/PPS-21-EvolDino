@@ -1,11 +1,13 @@
 package it.unibo.pps.evoldino.view.widgets
 
 import it.unibo.pps.evoldino.model.world.WorldConstants
-import scalafx.geometry.Pos
+import it.unibo.pps.evoldino.view.components.Icon
+import it.unibo.pps.evoldino.view.widgets.WorldGridWidget.worldGridWidget
+import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Group
-import scalafx.scene.layout.{ Background, GridPane, TilePane }
+import scalafx.scene.layout.{Background, GridPane, TilePane}
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.{ Circle, Rectangle }
+import scalafx.scene.shape.{Circle, Rectangle}
 
 object WorldGridWidget:
 
@@ -16,7 +18,9 @@ object WorldGridWidget:
       origin_y = dis._1._2
       delta_x <- -dis._2 until dis._2
       delta_y <- -dis._2 until dis._2
-    } yield (origin_x + delta_x, origin_y + delta_y)
+    } yield
+      (origin_x + delta_x, origin_y + delta_y)
+
 
     for {
       x <- 0 until WorldConstants.dim_w_world
@@ -29,7 +33,8 @@ object WorldGridWidget:
       else
         worldGrid(x)(y).fill = Color.Grey
 
-  val worldGridWidget: GridPane = new GridPane()
+  val worldGridWidget: GridPane = new GridPane:
+    margin = Insets(5)
 
   val worldGrid: Array[Array[Rectangle]] =
     Array.fill(WorldConstants.dim_w_world)(Array.fill(WorldConstants.dim_h_world)(null))

@@ -5,11 +5,11 @@ import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.view.components.GenericButton
 import javafx.application.Platform
-import scalafx.geometry.Pos
-import scalafx.scene.layout.{ Background, BackgroundFill, TilePane }
+import scalafx.geometry.{Insets, Pos}
+import scalafx.scene.layout.{Background, BackgroundFill, TilePane}
 import scalafx.scene.control.Tooltip
 import scalafx.scene.paint.Color
-import javafx.event.{ ActionEvent, EventHandler }
+import javafx.event.{ActionEvent, EventHandler}
 
 object ControlBar:
 
@@ -31,6 +31,12 @@ object ControlBar:
         case EngineConstants.ITERATION_MS_1X => text = "x1"
         case EngineConstants.ITERATION_MS_2X => text = "x2"
         case EngineConstants.ITERATION_MS_4X => text = "x4"
+
+  val stepForwardButton = new GenericButton("Go Forward", "Do a single Iteration"):
+    disable = true
+    onAction = _ =>
+      //END BUTTON
+      Controller.doSingleIteration()
 
   private lazy val startSimEventHandler: EventHandler[ActionEvent] = _ =>
     playButton.text = "Pause"
@@ -60,6 +66,7 @@ object ControlBar:
   val controlBar: TilePane =
     new TilePane:
       background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
+      padding = Insets(10)
       children ++= Seq(playButton, changeSpeedButton, stopButton)
 
   controlBar.alignment = Pos.BaselineLeft

@@ -58,7 +58,7 @@ object Environment {
 
   val BasicEnvironment: Environment = apply(20, 30, 100)
 
-  val IceAgeEnvironment: Environment = apply(-40, 100, 10)
+  val IceAgeEnvironment: Environment = apply(0, 40, 10)
   val DroughtEnvironment: Environment = apply(60, 10, 10)
 
   private def evolveCharacteristic(value: Float): Float = value match
