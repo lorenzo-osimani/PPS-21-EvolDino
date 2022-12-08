@@ -26,6 +26,7 @@ object Engine {
     ended = false
     EngineController.resetController()
     WorldHistory.resetHistory()
+    Controller.renderIteration(WorldHistory.getLastSnapshot())
     simulationLoop().unsafeRunAndForget()
 
   def doSingleIteration(): Unit =
