@@ -33,7 +33,7 @@ object SliderPane {
       max_value: Double,
       starting_value: Double)
       extends SliderPane:
-    margin = Insets(15)
+    margin = Insets(10)
 
     protected val slider: Slider = new Slider:
       min = min_value
@@ -48,7 +48,7 @@ object SliderPane {
       this.slider.tooltip = Tooltip(value + " " + measureUnit)
     )
 
-    left = Icon(iconPath, name, 20)
+    left = GenericIcon(iconPath, name, 20)
     right = slider
 
     def update(newValue: Number): Unit =

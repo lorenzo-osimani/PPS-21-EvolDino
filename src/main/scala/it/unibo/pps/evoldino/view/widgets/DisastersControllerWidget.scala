@@ -7,10 +7,10 @@ import scalafx.scene.text.{Font, FontWeight, TextAlignment}
 import scalafx.geometry.*
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.model.disaster.Disaster
-import it.unibo.pps.evoldino.view.components.{GenericButton, SliderPane}
+import it.unibo.pps.evoldino.view.components.{GenericButton, SliderPane, BoldLabel}
 import scalafx.application.Platform
 
-object DisastersWidget:
+object DisastersControllerWidget:
 
   val title = new Label:
     text = "Controllo Simulazione"
@@ -50,7 +50,7 @@ object DisastersWidget:
   val disasterGrid = new GridPane:
     background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
     disable = true
-    padding = Insets(5)
+    padding = Insets(10)
     hgap = 5
     vgap = 5
     this.add(iceAgeButton, 0, 0)
@@ -65,4 +65,5 @@ object DisastersWidget:
       this.add(title, 0, 0)
       this.add(manualModeButton, 0, 1)
       this.add(disasterGridTitle, 0, 2)
-      this.add(disasterGrid, 0, 3)
+      this.add(BoldLabel("Genera Disastri"), 0, 5)
+      this.add(disasterGrid, 0, 6)

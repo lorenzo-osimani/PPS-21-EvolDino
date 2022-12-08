@@ -14,9 +14,9 @@ import scalafx.scene.text.{Font, FontWeight, TextAlignment}
 object ClimateWidget:
 
   val climateGridTitle = new Label:
-    text = "Gestione Clima"
+    text = "Gestione Ambiente"
     textAlignment = TextAlignment.Center
-    margin = Insets(5, 5, 2, 5)
+    margin = Insets(10, 5, 2, 10)
     font = Font.font("Arial", FontWeight.Bold, 15)
 
   val tempSlider = SliderPane(

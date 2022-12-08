@@ -4,14 +4,17 @@ import com.sun.javafx.scene.traversal.ContainerTabOrder
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.world.{WorldConstants, WorldSnapshot}
-import it.unibo.pps.evoldino.view.components.GenericButton
+import it.unibo.pps.evoldino.model.disaster.DisasterType
+import it.unibo.pps.evoldino.view.components.{GenericButton, GenericIcon, ValueLabel, BoldLabel}
 import scalafx.geometry.{Insets, Orientation, Pos}
-import scalafx.scene.control.Label
-import scalafx.scene.control.Tooltip
-import scalafx.scene.image.{Image, ImageView}
+import scalafx.scene.Node
+import scalafx.scene.control.{Label, ScrollPane, Tooltip}
 import scalafx.scene.layout.{Background, BackgroundFill, FlowPane}
 import scalafx.scene.paint.Color
+import scalafx.scene.shape.Rectangle
 import scalafx.scene.text.{Font, FontWeight, TextAlignment}
+
+import scala.collection.mutable.ListBuffer
 
 object SimInfoWidget:
 
@@ -28,34 +31,19 @@ object SimInfoWidget:
     humidity.text = snapshot.environment.humidity + "g.m^3"
     vegetation.text = snapshot.environment.vegetationAvailable * 100 / WorldConstants.max_vegetation_value
       + "%"
-    if (snapshot.disasters.isEmpty)
-      disasters.text = ""
-    else
-      for dis <- snapshot.disasters
-      yield
-        disasters.text = ("/" + disasters.getText + dis.name + "/ ")
+    iteration.text = snapshot.number_iteration.toString
 
-  private class BoldLabel(title: String) extends Label:
-    text = title
-    padding = Insets(0, 0, 5, 10)
-    font = Font.font("Arial", FontWeight.Bold, 12)
+  private val dinosaurNumber = new ValueLabel("/", 40)
 
-  private class ValueLabel(value: String) extends Label:
-    text = value
-    padding = Insets(0, 10, 5, 0)
-    font = Font.font("Arial", FontWeight.Light, 12)
+  private val dinosaurAge = new ValueLabel("/", 40)
 
-  private val dinosaurNumber = new ValueLabel("/")
+  private val temperature = new ValueLabel("/", 60)
 
-  private val dinosaurAge = new ValueLabel("/")
+  private val humidity = new ValueLabel("/", 80)
 
-  private val temperature = new ValueLabel("/")
+  private val vegetation = new ValueLabel("/", 80)
 
-  private val humidity = new ValueLabel("/")
-
-  private val vegetation = new ValueLabel("/")
-
-  private val disasters = new ValueLabel("")
+  private val iteration = new ValueLabel("/", 80)
 
   val simInfoWidget: FlowPane =
     new FlowPane:
@@ -66,5 +54,5 @@ object SimInfoWidget:
         new BoldLabel("Età media:"), dinosaurAge,
         new BoldLabel("Temperatura:"), temperature,
         new BoldLabel("Umidità:"), humidity,
-        new BoldLabel("Vegetazione:"), vegetation,
-        disasters)
+        new BoldLabel("Vegetazione:"), vegetation, DisastersLogWidget.disasterLogWidget,
+        new BoldLabel("Numero Iterazione:"), iteration)

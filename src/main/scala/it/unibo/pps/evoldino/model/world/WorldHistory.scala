@@ -16,13 +16,13 @@ object WorldHistory {
 
   def resetHistory(
       environment: Environment = Environment.BasicEnvironment,
-      population: Population = PopulationFactory(10)): Unit =
+      population: Population = PopulationFactory(50)): Unit =
     history = initializeWorld(environment, population)
 
   private def initializeWorld(
       startingEnvironment: Environment,
       startingPopulation: Population): History =
-    Seq(WorldSnapshot(startingEnvironment, startingPopulation))
+    Seq(WorldSnapshot(1, startingEnvironment, startingPopulation))
 
   def getLastSnapshot(): WorldSnapshot = history.head
 
@@ -33,6 +33,7 @@ object WorldHistory {
     getLastSnapshot().closeSnapShot()
     newPopulation foreach (_.incrementAge())
     history = WorldSnapshot(
+      history.size+1,
       environmentEvolutionFunction()(getLastSnapshot().environment),
       newPopulation,
       disasterFunction()()

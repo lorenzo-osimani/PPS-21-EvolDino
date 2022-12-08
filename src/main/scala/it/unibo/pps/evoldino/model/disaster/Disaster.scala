@@ -61,7 +61,7 @@ object Disaster {
       e: Int = Random.between(min_range_earthquake, max_range_earthquake),
       c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
       extends AreaEffect:
-    override val name: String = "Earthquake"
+    override val name: String = DisasterType.EARTHQUAKE.name
     override val damage: Int = 25
     override val extension: Int = e
     override val coordinates: (Int, Int) = c
@@ -70,24 +70,24 @@ object Disaster {
       e: Int = Random.between(min_range_meteorite, max_range_meteorite),
       c: (Int, Int) = (Random.nextInt(dim_w_world + 1), Random.nextInt(dim_h_world + 1)))
       extends AreaEffect:
-    override val name: String = "Meteorite"
+    override val name: String = DisasterType.METEORITE.name
     override val damage: Int = 40
     override val extension: Int = e
     override val coordinates: (Int, Int) = c
 
   case object IceAge extends ClimateEffect:
-    override val name: String = "IceAge"
+    override val name: String = DisasterType.ICEAGE.name
     override val environment: Environment = Environment.IceAgeEnvironment
 
   case object Drought extends ClimateEffect:
-    override val name: String = "Drought"
+    override val name: String = DisasterType.DROUGHT.name
     override val environment: Environment = Environment.DroughtEnvironment
 
 }
 
-enum DisasterType(val probability: Int) {
-  case EARTHQUAKE extends DisasterType(5)
-  case METEORITE extends DisasterType(3)
-  case ICEAGE extends DisasterType(1)
-  case DROUGHT extends DisasterType(7)
+enum DisasterType(val name: String, val probability: Int) {
+  case EARTHQUAKE extends DisasterType("Earthquake", 5)
+  case METEORITE extends DisasterType("Meteorite",3)
+  case ICEAGE extends DisasterType("Ice Age",1)
+  case DROUGHT extends DisasterType("Drought",7)
 }

@@ -1,37 +1,46 @@
 package it.unibo.pps.evoldino.view.widgets
 
 import it.unibo.pps.evoldino.model.world.WorldConstants
-import it.unibo.pps.evoldino.view.components.Icon
+import it.unibo.pps.evoldino.model.disaster.DisasterType
+import it.unibo.pps.evoldino.view.components.GenericIcon
 import it.unibo.pps.evoldino.view.widgets.WorldGridWidget.worldGridWidget
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.Group
+import scalafx.scene.control.{Label, Tooltip}
 import scalafx.scene.layout.{Background, GridPane, TilePane}
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.{Circle, Rectangle}
 
 object WorldGridWidget:
 
-  def renderWorld(population: Seq[(Int, Int)], disasters: Seq[((Int, Int), Int)] = Seq.empty) =
-    val disasters_coverage: Seq[(Int, Int)] = for {
-      dis <- disasters
-      origin_x = dis._1._1
-      origin_y = dis._1._2
-      delta_x <- -dis._2 until dis._2
-      delta_y <- -dis._2 until dis._2
-    } yield
-      (origin_x + delta_x, origin_y + delta_y)
+  private def disasterContains(x: Int, y: Int, origin_x: Int, origin_y: Int, coverage: Int): Boolean =
+    origin_x - coverage <= x && origin_x + coverage >= x &&
+      origin_y - coverage <= y && origin_y + coverage >= y
 
-
+  def renderWorld(population: Seq[(Int, Int)], disasters: Seq[((Int, Int), Int, String)] = Seq.empty) =
     for {
       x <- 0 until WorldConstants.dim_w_world
       y <- 0 until WorldConstants.dim_h_world
     } yield
+      var tooltipMessage: String = ""
+      var color: Color = Color.Grey
       if (population.contains((x, y)))
-        worldGrid(x)(y).fill = Color.Green
-      else if (disasters_coverage.contains(x, y))
-        worldGrid(x)(y).fill = Color.DarkRed
+        color = Color.Green
+        tooltipMessage = "Dinosaur"
+        Tooltip.install(worldGrid(x)(y), Tooltip(tooltipMessage))
       else
-        worldGrid(x)(y).fill = Color.Grey
+        disasters foreach (dis =>
+          if (disasterContains(x, y, dis._1._1, dis._1._2, dis._2)) {
+            dis._3 match
+              case DisasterType.EARTHQUAKE.name =>
+                color = Color.Brown
+                tooltipMessage = "Earthquake"
+              case DisasterType.METEORITE.name =>
+                color = Color.LightCoral
+                tooltipMessage = "Meteorite"
+            Tooltip.install(worldGrid(x)(y), Tooltip(tooltipMessage))
+          })
+      worldGrid(x)(y).fill = color
 
   val worldGridWidget: GridPane = new GridPane:
     margin = Insets(5)
