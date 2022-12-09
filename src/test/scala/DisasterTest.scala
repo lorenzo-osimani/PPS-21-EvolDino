@@ -40,7 +40,7 @@ class DisasterTest extends AnyFunSpec {
 
     val iceAgeTest = Disaster.IceAge
     it("should have the name IceAge") {
-      assertResult("IceAge")(iceAgeTest.name)
+      assertResult("Ice Age")(iceAgeTest.name)
     }
     it("should have an environment") {
       assertCompiles("iceAgeTest.environment")
