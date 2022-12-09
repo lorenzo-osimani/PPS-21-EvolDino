@@ -1,17 +1,14 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import cats.effect.{ ExitCode, IO, IOApp, Temporal }
+import cats.effect.{ExitCode, IO, IOApp, Temporal}
 import cats.effect.IO.unit
 import cats.effect.unsafe.implicits.global
 
-import java.util.concurrent.TimeUnit
 import scala.concurrent.duration.FiniteDuration
-import it.unibo.pps.evoldino.model.world.WorldHistory.*
-import it.unibo.pps.evoldino.controller.engine.Engine.iterationLoop
+import scala.concurrent.duration
 import it.unibo.pps.evoldino.controller.Controller
 import EngineConstants.*
-import it.unibo.pps.evoldino.model.dinosaur.Male
-import it.unibo.pps.evoldino.model.world.WorldHistory
+import it.unibo.pps.evoldino.model.world.WorldHistory.*
 
 object Engine {
 
@@ -25,8 +22,8 @@ object Engine {
     paused = false
     ended = false
     EngineController.resetController()
-    WorldHistory.resetHistory()
-    Controller.renderIteration(WorldHistory.getLastSnapshot())
+    resetHistory()
+    Controller.renderIteration(getLastSnapshot())
     simulationLoop().unsafeRunAndForget()
 
   def doSingleIteration(): Unit =
@@ -55,7 +52,7 @@ object Engine {
     def apply(exp: Unit): IO[Unit] = IO(exp)
 
   private def simulationLoop(): IO[Unit] = for {
-    _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, TimeUnit.MILLISECONDS))
+    _ <- Temporal[IO].sleep(FiniteDuration.apply(iteration_speed, duration.MILLISECONDS))
     _ <- iterationLoop()
     _ <- if (hasSimulationEnded() || paused) unit else simulationLoop()
   } yield ()
@@ -65,7 +62,7 @@ object Engine {
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
     _ <- reproductionPhase()
-    _ <- Controller.renderIteration(WorldHistory.getLastSnapshot())
+    _ <- Controller.renderIteration(getLastSnapshot())
     _ <- if (isSimulationOver())
       (getLastSnapshot().livingPopulation().size <= 0) match
         case true  => Controller.showEndDialog("All the dinosaurs are dead")

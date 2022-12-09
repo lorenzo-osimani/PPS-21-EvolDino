@@ -3,10 +3,9 @@ package it.unibo.pps.evoldino.model.world
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.controller.engine.EngineController.{
   disasterFunction,
-  environmentEvolutionFunction,
-  manual_temperature
+  environmentEvolutionFunction
 }
-import it.unibo.pps.evoldino.model.dinosaur.{ Population, PopulationFactory, Reproduction }
+import it.unibo.pps.evoldino.model.dinosaur.{ Population, PopulationFactory }
 
 object WorldHistory {
 
@@ -55,7 +54,7 @@ object WorldHistory {
 
   def reproductionPhase(): Unit =
     getLastSnapshot().population.foreach(_.moveDinosaur())
-    getLastSnapshot().population = Reproduction.reproduction(getLastSnapshot().livingPopulation())
+    getLastSnapshot().population = PopulationFactory.reproduction(getLastSnapshot().livingPopulation())
 
   def isSimulationOver(): Boolean =
     history.size >= EngineConstants.max_iterations ||

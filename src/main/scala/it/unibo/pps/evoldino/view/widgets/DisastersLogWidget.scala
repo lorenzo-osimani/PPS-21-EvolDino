@@ -1,14 +1,11 @@
 package it.unibo.pps.evoldino.view.widgets
 
-import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.model.disaster.{Disaster, DisasterType}
-import it.unibo.pps.evoldino.view.components.{BoldLabel, GenericButton, GenericIcon, SliderPane, ValueLabel}
-import it.unibo.pps.evoldino.view.widgets.WorldGridWidget.worldGrid
-import scalafx.application.Platform
+import it.unibo.pps.evoldino.view.components.{BoldLabel, GenericIcon, ValueLabel}
 import scalafx.geometry.*
 import scalafx.scene.Node
-import scalafx.scene.control.{CheckBox, Label, ScrollPane, Tooltip}
-import scalafx.scene.layout.{Background, BackgroundFill, FlowPane, GridPane}
+import scalafx.scene.control.Tooltip
+import scalafx.scene.layout.{Background, BackgroundFill, FlowPane}
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.Rectangle
 import scalafx.scene.text.{Font, FontWeight, TextAlignment}

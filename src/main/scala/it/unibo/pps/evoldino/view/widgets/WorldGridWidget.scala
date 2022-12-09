@@ -3,13 +3,11 @@ package it.unibo.pps.evoldino.view.widgets
 import it.unibo.pps.evoldino.model.world.WorldConstants
 import it.unibo.pps.evoldino.model.disaster.DisasterType
 import it.unibo.pps.evoldino.view.components.GenericIcon
-import it.unibo.pps.evoldino.view.widgets.WorldGridWidget.worldGridWidget
 import scalafx.geometry.{Insets, Pos}
-import scalafx.scene.Group
-import scalafx.scene.control.{Label, Tooltip}
-import scalafx.scene.layout.{Background, GridPane, TilePane}
+import scalafx.scene.control.{Tooltip}
+import scalafx.scene.layout.{Background, GridPane}
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.{Circle, Rectangle}
+import scalafx.scene.shape.Rectangle
 
 object WorldGridWidget:
 

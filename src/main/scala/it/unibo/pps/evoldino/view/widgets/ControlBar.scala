@@ -1,10 +1,8 @@
 package it.unibo.pps.evoldino.view.widgets
 
-import com.sun.javafx.scene.traversal.ContainerTabOrder
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.view.components.GenericButton
-import javafx.application.Platform
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.layout.{Background, BackgroundFill, FlowPane}
 import scalafx.scene.control.Tooltip

@@ -1,12 +1,10 @@
 package it.unibo.pps.evoldino.view.widgets
 
 import it.unibo.pps.evoldino.controller.Controller
-import it.unibo.pps.evoldino.model.disaster.Disaster
 import it.unibo.pps.evoldino.model.world.{Environment, WorldConstants}
-import it.unibo.pps.evoldino.view.components.{GenericButton, SliderPane}
-import scalafx.application.Platform
+import it.unibo.pps.evoldino.view.components.SliderPane
 import scalafx.geometry.*
-import scalafx.scene.control.{CheckBox, Label, Tooltip}
+import scalafx.scene.control.Label
 import scalafx.scene.layout.{Background, BackgroundFill, GridPane}
 import scalafx.scene.paint.Color
 import scalafx.scene.text.{Font, FontWeight, TextAlignment}

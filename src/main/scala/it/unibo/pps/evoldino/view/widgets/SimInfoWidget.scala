@@ -1,17 +1,10 @@
 package it.unibo.pps.evoldino.view.widgets
 
-import com.sun.javafx.scene.traversal.ContainerTabOrder
-import it.unibo.pps.evoldino.controller.Controller
-import it.unibo.pps.evoldino.controller.engine.EngineConstants
 import it.unibo.pps.evoldino.model.world.{WorldConstants, WorldSnapshot}
-import it.unibo.pps.evoldino.model.disaster.DisasterType
-import it.unibo.pps.evoldino.view.components.{GenericButton, GenericIcon, ValueLabel, BoldLabel}
+import it.unibo.pps.evoldino.view.components.{ValueLabel, BoldLabel}
 import scalafx.geometry.{Insets, Orientation, Pos}
-import scalafx.scene.Node
-import scalafx.scene.control.{Label, ScrollPane, Tooltip}
 import scalafx.scene.layout.{Background, BackgroundFill, FlowPane}
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.Rectangle
 import scalafx.scene.text.{Font, FontWeight, TextAlignment}
 
 import scala.collection.mutable.ListBuffer
@@ -27,9 +20,9 @@ object SimInfoWidget:
             .livingPopulation()
             .size).toString
         case false => ""
-    temperature.text = snapshot.environment.temperature + "°"
-    humidity.text = snapshot.environment.humidity + "g.m^3"
-    vegetation.text = snapshot.environment.vegetationAvailable * 100 / WorldConstants.max_vegetation_value
+    temperature.text = snapshot.environment.temperature.toString + "°"
+    humidity.text = snapshot.environment.humidity.toString + "g.m^3"
+    vegetation.text = (snapshot.environment.vegetationAvailable * 100 / WorldConstants.max_vegetation_value).toString
       + "%"
     iteration.text = snapshot.number_iteration.toString
 

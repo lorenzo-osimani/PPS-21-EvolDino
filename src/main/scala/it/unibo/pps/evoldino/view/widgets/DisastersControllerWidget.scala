@@ -7,8 +7,7 @@ import scalafx.scene.text.{Font, FontWeight, TextAlignment}
 import scalafx.geometry.*
 import it.unibo.pps.evoldino.controller.Controller
 import it.unibo.pps.evoldino.model.disaster.Disaster
-import it.unibo.pps.evoldino.view.components.{GenericButton, SliderPane, BoldLabel}
-import scalafx.application.Platform
+import it.unibo.pps.evoldino.view.components.{GenericButton, BoldLabel}
 
 object DisastersControllerWidget:
 

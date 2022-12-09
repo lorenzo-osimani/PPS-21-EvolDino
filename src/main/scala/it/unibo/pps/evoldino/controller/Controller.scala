@@ -1,9 +1,7 @@
 package it.unibo.pps.evoldino.controller
 
 import it.unibo.pps.evoldino.controller.engine.Engine
-import it.unibo.pps.evoldino.controller.engine.Engine.paused
 import it.unibo.pps.evoldino.controller.engine.EngineController
-import it.unibo.pps.evoldino.model.world.WorldHistory.isSimulationOver
 import it.unibo.pps.evoldino.model.disaster.Disaster
 import it.unibo.pps.evoldino.model.world.{ WorldHistory, WorldSnapshot }
 import it.unibo.pps.evoldino.view.View
