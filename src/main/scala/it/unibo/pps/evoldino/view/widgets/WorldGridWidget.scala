@@ -17,7 +17,7 @@ object WorldGridWidget:
     origin_x - coverage <= x && origin_x + coverage >= x &&
       origin_y - coverage <= y && origin_y + coverage >= y
 
-  def renderWorld(population: Seq[(Int, Int)], disasters: Seq[((Int, Int), Int, String)] = Seq.empty) =
+  def renderWorld(population: Map[(Int, Int), String], disasters: Seq[((Int, Int), Int, String)] = Seq.empty) =
     for {
       x <- 0 until WorldConstants.dim_w_world
       y <- 0 until WorldConstants.dim_h_world
@@ -25,7 +25,7 @@ object WorldGridWidget:
       var tooltipMessage: String = ""
       var color: Color = Color.Grey
       if (population.contains((x, y)))
-        color = Color.Green
+        color = Color.valueOf(population.get((x, y)).getOrElse("green"))
         tooltipMessage = "Dinosaur"
         Tooltip.install(worldGrid(x)(y), Tooltip(tooltipMessage))
       else

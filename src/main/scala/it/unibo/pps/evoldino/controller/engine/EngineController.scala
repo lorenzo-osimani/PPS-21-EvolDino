@@ -12,6 +12,15 @@ object EngineController {
 
   var incomingDisasters: List[Disaster] = List.empty
 
+  def resetController() =
+    manual = false
+    incomingDisasters = List.empty
+    modifyManualSettings(
+      Environment.BasicEnvironment.temperature,
+      Environment.BasicEnvironment.humidity,
+      Environment.BasicEnvironment.vegetationAvailable
+    )
+
   def setManualMode(mode: Boolean) = manual = mode
   def isManualModeActive() = manual
 
@@ -38,14 +47,6 @@ object EngineController {
       disasters = DisasterGenerator.createListOfDisastersWithDistribuition()
     incomingDisasters = List.empty
     () => disasters
-
-  def resetController() =
-    incomingDisasters = List.empty
-    modifyManualSettings(
-      Environment.BasicEnvironment.temperature,
-      Environment.BasicEnvironment.humidity,
-      Environment.BasicEnvironment.vegetationAvailable
-    )
 
   def addDisaster(disaster: Disaster): Unit =
     incomingDisasters = incomingDisasters :+ disaster

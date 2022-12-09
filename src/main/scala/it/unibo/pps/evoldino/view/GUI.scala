@@ -59,7 +59,7 @@ object GUI:
   def updateRender(snapshot: WorldSnapshot): Unit =
     SimInfoWidget.updateRender(snapshot)
     WorldGridWidget.renderWorld(
-      snapshot.livingPopulation().map(_.coordinates),
+      snapshot.livingPopulation().map(din => (din.coordinates, din.genes.color)).toMap,
       snapshot.disasters
         .filter(_.isInstanceOf[AreaEffect])
         .map { d =>

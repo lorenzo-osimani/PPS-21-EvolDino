@@ -34,10 +34,10 @@ object Gene:
 
   def randomizedGene() =
     Gene(
-      getRandomGenotype(TemperatureType),
-      getRandomGenotype(HumidityType),
-      getRandomGenotype(LifeSpan),
-      "blue"
+      getRandomGenotype(TemperatureType).toInt,
+      getRandomGenotype(HumidityType).toInt,
+      getRandomGenotype(LifeSpan).toInt,
+      getRandomGenotype(ColorType)
     )
 
   private def combineGenes(first_gene: Int, second_gene: Int): Int =
