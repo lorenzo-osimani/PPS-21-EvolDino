@@ -57,6 +57,8 @@ trait Dinosaur:
 
 object Dinosaur {
 
+  var counter = 0
+
   def apply(
       genes: Gene,
       gender: Gender,
@@ -66,6 +68,7 @@ object Dinosaur {
       ),
       mother: Option[Dinosaur] = Option.empty,
       father: Option[Dinosaur] = Option.empty): Dinosaur =
+    counter += 1
     new DinosaurImpl(genes, gender, starting_coordinates, mother, father)
 
   def randomizedDinosaur() = Dinosaur(Gene.randomizedGene(), chooseBetweenTwo(Male, Female))
@@ -107,8 +110,8 @@ object Dinosaur {
       val delta_x = Random.between(-1, 2)
       val delta_y = Random.between(-1, 2)
       _coordinates = (
-        _coordinates._1 keepValueInCircularRange (delta_x, 100),
-        _coordinates._2 keepValueInCircularRange (delta_y, 100)
+        _coordinates._1 keepValueInCircularRange (delta_x, WorldConstants.dim_w_world),
+        _coordinates._2 keepValueInCircularRange (delta_y, WorldConstants.dim_h_world)
       )
 }
 

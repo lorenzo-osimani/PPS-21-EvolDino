@@ -1,6 +1,6 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import it.unibo.pps.evoldino.model.disaster.{ ClimateEffect, Disaster, DisasterGenerator }
+import it.unibo.pps.evoldino.model.disaster.{ Disaster, DisasterGenerator }
 import it.unibo.pps.evoldino.model.world.Environment
 
 object EngineController {
@@ -11,6 +11,15 @@ object EngineController {
   private var manual_vegetation_percentage: Float = Environment.BasicEnvironment.vegetationAvailable
 
   var incomingDisasters: List[Disaster] = List.empty
+
+  def resetController() =
+    manual = false
+    incomingDisasters = List.empty
+    modifyManualSettings(
+      Environment.BasicEnvironment.temperature,
+      Environment.BasicEnvironment.humidity,
+      Environment.BasicEnvironment.vegetationAvailable
+    )
 
   def setManualMode(mode: Boolean) = manual = mode
   def isManualModeActive() = manual
@@ -38,14 +47,6 @@ object EngineController {
       disasters = DisasterGenerator.createListOfDisastersWithDistribuition()
     incomingDisasters = List.empty
     () => disasters
-
-  def resetController() =
-    incomingDisasters = List.empty
-    modifyManualSettings(
-      Environment.BasicEnvironment.temperature,
-      Environment.BasicEnvironment.humidity,
-      Environment.BasicEnvironment.vegetationAvailable
-    )
 
   def addDisaster(disaster: Disaster): Unit =
     incomingDisasters = incomingDisasters :+ disaster

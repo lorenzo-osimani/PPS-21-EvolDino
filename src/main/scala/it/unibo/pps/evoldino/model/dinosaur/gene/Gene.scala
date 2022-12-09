@@ -1,6 +1,5 @@
 package it.unibo.pps.evoldino.model.dinosaur.gene
 
-import it.unibo.pps.evoldino.model.dinosaur.*
 import it.unibo.pps.evoldino.model.dinosaur.gene.*
 import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
 
@@ -34,10 +33,10 @@ object Gene:
 
   def randomizedGene() =
     Gene(
-      getRandomGenotype(TemperatureType),
-      getRandomGenotype(HumidityType),
-      getRandomGenotype(LifeSpan),
-      "blue"
+      getRandomGenotype(TemperatureType).toInt,
+      getRandomGenotype(HumidityType).toInt,
+      getRandomGenotype(LifeSpan).toInt,
+      getRandomGenotype(ColorType)
     )
 
   private def combineGenes(first_gene: Int, second_gene: Int): Int =

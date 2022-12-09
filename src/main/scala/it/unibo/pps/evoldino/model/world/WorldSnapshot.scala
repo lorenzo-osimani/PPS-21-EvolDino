@@ -7,6 +7,8 @@ import scala.util.Random
 
 trait WorldSnapshot {
 
+  def number_iteration: Int
+
   def environment: Environment
 
   var population: Population
@@ -22,12 +24,14 @@ trait WorldSnapshot {
 object WorldSnapshot {
 
   def apply(
+      number_iteration: Int,
       environment: Environment,
       population: Population,
       disasters: Seq[Disaster] = Seq.empty): WorldSnapshot =
-    new WorldSnapshotImpl(environment, population, disasters)
+    new WorldSnapshotImpl(number_iteration, environment, population, disasters)
 
   private class WorldSnapshotImpl(
+      override val number_iteration: Int,
       override val environment: Environment,
       var population: Population,
       override val disasters: Seq[Disaster])

@@ -17,15 +17,18 @@ object HumidityType extends Genotype:
   val MEDIUM_HUMIDITY: Int = 35
   val HIGH_HUMIDITY: Int = 70
 
-import it.unibo.pps.evoldino.model.dinosaur.gene.Genotype
+object ColorType extends Genotype:
+  val LIGHTGREEN: String = "lightgreen"
+  val DARKGREEN: String = "darkgreen"
+  val GREEN: String = "green"
 
 import scala.util.Random
 
-def getRandomGenotype[A <: Genotype](genotype: A): Int =
+def getRandomGenotype[A <: Genotype](genotype: A): String =
   val fields = for {
     field <- genotype.getClass.getDeclaredFields.filter(!genotype.getClass.getFields.contains(_))
   } yield {
     field.setAccessible(true)
-    field.getInt(genotype)
+    field.get(genotype).toString
   }
   Random.shuffle(fields).head
