@@ -7,7 +7,7 @@ class GeneTest extends AnyFunSpec {
 
   describe("Tests for genes") {
 
-    val DinoGene: Gene = Gene(10,60,80, "blue")
+    val DinoGene: Gene = Gene(10,60,80, "darkgreen")
 
     it("idealTemperature should have value 10") {
       assert(DinoGene.idealTemperature == 10)
@@ -18,8 +18,8 @@ class GeneTest extends AnyFunSpec {
     it ("lifespan should have value 80") {
       assert(DinoGene.lifespan == 80)
     }
-    it ("color should be blue") {
-      assert(DinoGene.color == "blue")
+    it ("color should be darkgreen") {
+      assert(DinoGene.color == "darkgreen")
     }
   }
 
