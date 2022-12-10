@@ -16,7 +16,7 @@ class DisasterTest extends AnyFunSpec {
       assertCompiles("earthquakeTest.coordinates")
     }
     it("should not have temperature") {
-      assertDoesNotCompile("earthquakeTest.temperature")
+      assertDoesNotCompile("earthquakeTest.environment")
     }
   }
 
@@ -32,7 +32,7 @@ class DisasterTest extends AnyFunSpec {
       assertCompiles("meteoriteTest.coordinates")
     }
     it("should not have temperature") {
-      assertDoesNotCompile("meteoriteTest.temperature")
+      assertDoesNotCompile("meteoriteTest.environment")
     }
   }
 
