@@ -1,12 +1,12 @@
 package it.unibo.pps.evoldino.model.dinosaur
 
 import it.unibo.pps.evoldino.controller.engine.EngineConstants
-
-import scala.util.Random
 import it.unibo.pps.evoldino.model.dinosaur.Gender
 import it.unibo.pps.evoldino.model.dinosaur.gene.Gene
 import it.unibo.pps.evoldino.model.world.WorldConstants
 import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
+import it.unibo.pps.evoldino.utils.PimpScala.given
+import scala.util.Random
 
 sealed trait Gender
 case object Male extends Gender
@@ -30,8 +30,7 @@ trait Dinosaur:
 
   /**
    * Method to check if a dinosaur is alive.
-   * @return
-   *   true if the dinosaur is alive, false otherwise
+   * @return true if the dinosaur is alive, false otherwise
    */
   def isAlive: Boolean
 
@@ -57,8 +56,6 @@ trait Dinosaur:
 
 object Dinosaur {
 
-  var counter = 0
-
   def apply(
       genes: Gene,
       gender: Gender,
@@ -68,18 +65,17 @@ object Dinosaur {
       ),
       mother: Option[Dinosaur] = Option.empty,
       father: Option[Dinosaur] = Option.empty): Dinosaur =
-    counter += 1
     new DinosaurImpl(genes, gender, starting_coordinates, mother, father)
 
   def randomizedDinosaur() = Dinosaur(Gene.randomizedGene(), chooseBetweenTwo(Male, Female))
 
   private class DinosaurImpl(
-      override val genes: Gene,
-      override val gender: Gender,
-      starting_coordinates: (Int, Int),
-      override val mother: Option[Dinosaur],
-      override val father: Option[Dinosaur])
-      extends Dinosaur:
+                              override val genes: Gene,
+                              override val gender: Gender,
+                              starting_coordinates: (Int, Int),
+                              override val mother: Option[Dinosaur],
+                              override val father: Option[Dinosaur])
+    extends Dinosaur:
 
     private var _age: Int = 0
     private var _lifepoints: Double = genes.lifespan.toFloat
@@ -103,8 +99,6 @@ object Dinosaur {
       if (lifepoints <= 0) kill()
 
     override def coordinates: (Int, Int) = _coordinates
-
-    import it.unibo.pps.evoldino.utils.PimpScala.given
 
     override def moveDinosaur(): Unit =
       val delta_x = Random.between(-1, 2)
