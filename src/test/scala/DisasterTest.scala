@@ -40,10 +40,10 @@ class DisasterTest extends AnyFunSpec {
 
     val iceAgeTest = Disaster.IceAge
     it("should have the name IceAge") {
-      assertResult("IceAge")(iceAgeTest.name)
+      assertResult("Ice Age")(iceAgeTest.name)
     }
-    it("should have temperature") {
-      assertCompiles("iceAgeTest.temperature")
+    it("should have an environment") {
+      assertCompiles("iceAgeTest.environment")
     }
     it("should not have extension") {
       assertDoesNotCompile("iceAgeTest.extension")
@@ -58,8 +58,8 @@ class DisasterTest extends AnyFunSpec {
     it("should have the name Drought") {
       assertResult("Drought")(droughtTest.name)
     }
-    it("should have temperature") {
-      assertCompiles("droughtTest.temperature")
+    it("should have an environment") {
+      assertCompiles("droughtTest.environment")
     }
     it("should not have extension") {
       assertDoesNotCompile("droughtTest.extension")

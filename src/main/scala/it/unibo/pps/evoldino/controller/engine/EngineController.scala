@@ -1,6 +1,6 @@
 package it.unibo.pps.evoldino.controller.engine
 
-import it.unibo.pps.evoldino.model.disaster.{ ClimateEffect, Disaster, DisasterGenerator }
+import it.unibo.pps.evoldino.model.disaster.{ Disaster, DisasterGenerator }
 import it.unibo.pps.evoldino.model.world.Environment
 
 object EngineController {
@@ -10,17 +10,22 @@ object EngineController {
   private var manual_humidity: Float = Environment.BasicEnvironment.humidity
   private var manual_vegetation_percentage: Float = Environment.BasicEnvironment.vegetationAvailable
 
-  // Right way to do it???
-  private var iceAgeApplied: Boolean = false
-  private var droughtApplied: Boolean = false
-
   var incomingDisasters: List[Disaster] = List.empty
+
+  def resetController() =
+    manual = false
+    incomingDisasters = List.empty
+    modifyManualSettings(
+      Environment.BasicEnvironment.temperature,
+      Environment.BasicEnvironment.humidity,
+      Environment.BasicEnvironment.vegetationAvailable
+    )
 
   def setManualMode(mode: Boolean) = manual = mode
   def isManualModeActive() = manual
 
   def environmentEvolutionFunction(): Environment => Environment =
-    if (manual) { (env: Environment) =>
+    if (manual) { (_) =>
       Environment(manual_temperature, manual_humidity, manual_vegetation_percentage)
     } else { (env: Environment) =>
       Environment.evolveFromEnvironment(env)
@@ -40,19 +45,8 @@ object EngineController {
     if (manual) disasters = Seq.from(incomingDisasters)
     else
       disasters = DisasterGenerator.createListOfDisastersWithDistribuition()
-    incomingDisasters = incomingDisasters.filter(_ match
-      case _: ClimateEffect => true
-      case _                => false
-    )
-    () => disasters
-
-  def resetController() =
     incomingDisasters = List.empty
-    modifyManualSettings(
-      Environment.BasicEnvironment.temperature,
-      Environment.BasicEnvironment.humidity,
-      Environment.BasicEnvironment.vegetationAvailable
-    )
+    () => disasters
 
   def addDisaster(disaster: Disaster): Unit =
     incomingDisasters = incomingDisasters :+ disaster

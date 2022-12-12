@@ -5,26 +5,33 @@ import scala.util.Random
 
 sealed trait Genotype
 
-  object LifeSpan extends Genotype
+object LifeSpan extends Genotype:
   val SHORT_LIFE: Int = 50
   val MEDIUM_LIFE: Int = 75
   val LONG_LIFE: Int = 100
 
-  object TemperatureType extends Genotype
+object TemperatureType extends Genotype:
   val COLD_TEMPERATURE: Int = 0
   val WARM_TEMPERATURE: Int = 20
   val HOT_TEMPERATURE: Int = 35
 
-  object HumidityType extends Genotype
+object HumidityType extends Genotype:
   val LOW_HUMIDITY: Int = 10
   val MEDIUM_HUMIDITY: Int = 35
   val HIGH_HUMIDITY: Int = 70
 
-def getRandomGenotype[A <: Genotype](genotype: A): Int =
+object ColorType extends Genotype:
+  val LIGHTGREEN: String = "lightgreen"
+  val DARKGREEN: String = "darkgreen"
+  val GREEN: String = "green"
+
+import scala.util.Random
+
+def getRandomGenotype[A <: Genotype](genotype: A): String =
   val fields = for {
     field <- genotype.getClass.getDeclaredFields.filter(!genotype.getClass.getFields.contains(_))
   } yield {
     field.setAccessible(true)
-    field.getInt(genotype)
+    field.get(genotype).toString
   }
   Random.shuffle(fields).head

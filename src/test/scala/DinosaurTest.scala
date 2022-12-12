@@ -5,30 +5,24 @@ import it.unibo.pps.evoldino.model.dinosaur.gene.*
 
 class DinosaurTest extends AnyFunSpec {
 
-  val dino: Dinosaur = Dinosaur(Gene(20, 35, 75, "green"), Male, (10, 20))
-  dino.isAlive: Boolean
-
-  describe("A dinosaur is alive") {
+  describe("A dinosaur has a life cycle") {
+    val dino: Dinosaur = Dinosaur(Gene(20, 35, 75, "green"), Male, (10, 20))
     it("When the dinosaur has lifepoints >0 is alive") {
       assert(dino.isAlive)
     }
-  }
 
-  dino.kill(): Unit
-  describe("A dinosaur is dead") {
     it("When the dinosaur has lifepoints <0 is not alive") {
+      dino.kill()
       assert(!dino.isAlive)
     }
   }
 
-  val newDino: Dinosaur = Dinosaur(Gene(35, 10, 50, "brown"), Female, (5,15))
-  newDino.age == 10
-  newDino.incrementAge()
-
   describe("A dinosaur increases her age") {
+    val newDino: Dinosaur = Dinosaur(Gene(35, 10, 50, "brown"), Female, (5,15))
     it("A dinosaur increases her age by 1") {
-      assert(newDino.age == 11)
+      assert(newDino.age == 0)
+      newDino.incrementAge()
+      assert(newDino.age == 1)
     }
   }
-
 }

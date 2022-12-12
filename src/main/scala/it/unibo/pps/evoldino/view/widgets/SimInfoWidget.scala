@@ -1,82 +1,51 @@
 package it.unibo.pps.evoldino.view.widgets
 
-import com.sun.javafx.scene.traversal.ContainerTabOrder
-import it.unibo.pps.evoldino.controller.Controller
-import it.unibo.pps.evoldino.controller.engine.EngineConstants
-import it.unibo.pps.evoldino.model.world.WorldSnapshot
-import it.unibo.pps.evoldino.view.components.GenericButton
-import scalafx.geometry.{ Insets, Pos }
-import scalafx.scene.control.Label
-import scalafx.scene.control.Tooltip
-import scalafx.scene.layout.{ Background, BackgroundFill, TilePane }
+import it.unibo.pps.evoldino.model.world.{WorldConstants, WorldSnapshot}
+import it.unibo.pps.evoldino.view.components.{ValueLabel, BoldLabel}
+import scalafx.geometry.{Insets, Orientation, Pos}
+import scalafx.scene.layout.{Background, BackgroundFill, FlowPane}
 import scalafx.scene.paint.Color
-import scalafx.scene.text.TextAlignment
+import scalafx.scene.text.{Font, FontWeight, TextAlignment}
+
+import scala.collection.mutable.ListBuffer
 
 object SimInfoWidget:
 
   def updateRender(snapshot: WorldSnapshot): Unit =
-    dinosaurNumber.text = "Numero Dinosauri: " + snapshot.livingPopulation().size
-    dinosaurAge.text = "Età media: " +
-      (snapshot.livingPopulation().size > 0 match
+    dinosaurNumber.text = snapshot.livingPopulation().size.toString
+    dinosaurAge.text =
+      snapshot.livingPopulation().size > 0 match
         case true =>
-          snapshot.livingPopulation().map(_.age).sum / snapshot
+          (snapshot.livingPopulation().map(_.age).sum / snapshot
             .livingPopulation()
-            .size
+            .size).toString
         case false => ""
-      )
-    temperature.text = "Temperatura: " + snapshot.environment.temperature
-    humidity.text = "Umidità: " + snapshot.environment.humidity
-    vegetation.text = "Vegetazione: " + snapshot.environment.vegetationAvailable
-    if (snapshot.disasters.isEmpty)
-      disasters.text = ""
-    else
-      for dis <- snapshot.disasters yield disasters.text = (disasters.getText + dis.name + " ")
+    temperature.text = snapshot.environment.temperature.toString + "°"
+    humidity.text = snapshot.environment.humidity.toString + "g.m^3"
+    vegetation.text = (snapshot.environment.vegetationAvailable * 100 / WorldConstants.max_vegetation_value).toString
+      + "%"
+    iteration.text = snapshot.number_iteration.toString
 
-  val dinosaurNumber = new Label:
-    alignmentInParent = Pos.Center
-    alignment = Pos.Center
-    text = "Numero Dinosauri: /"
-    textAlignment = TextAlignment.Center
-    margin = Insets(0, 1, 15, 1)
+  private val dinosaurNumber = new ValueLabel("/", 40)
 
-  val dinosaurAge = new Label:
-    alignmentInParent = Pos.Center
-    alignment = Pos.Center
-    text = "Età media: /"
-    textAlignment = TextAlignment.Center
-    margin = Insets(0, 1, 15, 1)
+  private val dinosaurAge = new ValueLabel("/", 40)
 
-  val temperature = new Label:
-    alignmentInParent = Pos.Center
-    alignment = Pos.Center
-    text = "Temperatura: /"
-    textAlignment = TextAlignment.Center
-    margin = Insets(0, 1, 15, 1)
+  private val temperature = new ValueLabel("/", 60)
 
-  val humidity = new Label:
-    alignmentInParent = Pos.Center
-    alignment = Pos.Center
-    text = "Umidità: /"
-    textAlignment = TextAlignment.Center
-    margin = Insets(0, 1, 15, 1)
+  private val humidity = new ValueLabel("/", 80)
 
-  val vegetation = new Label:
-    alignmentInParent = Pos.Center
-    alignment = Pos.Center
-    text = "Vegetazione: /"
-    textAlignment = TextAlignment.Center
-    margin = Insets(0, 1, 15, 1)
+  private val vegetation = new ValueLabel("/", 80)
 
-  val disasters = new Label:
-    alignmentInParent = Pos.Center
-    alignment = Pos.Center
-    text = ""
-    textAlignment = TextAlignment.Center
-    margin = Insets(0, 1, 15, 1)
+  private val iteration = new ValueLabel("/", 80)
 
-  val simInfoWidget: TilePane =
-    new TilePane:
+  val simInfoWidget: FlowPane =
+    new FlowPane:
       background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
-      children ++= Seq(dinosaurNumber, dinosaurAge, temperature, humidity, vegetation, disasters)
-
-  simInfoWidget.alignment = Pos.BaselineLeft
+      padding = Insets(10, 0, 0, 0)
+      alignment = Pos.TopLeft
+      children ++= Seq(new BoldLabel("Numero Dinosauri:"), dinosaurNumber,
+        new BoldLabel("Età media:"), dinosaurAge,
+        new BoldLabel("Temperatura:"), temperature,
+        new BoldLabel("Umidità:"), humidity,
+        new BoldLabel("Vegetazione:"), vegetation, DisastersLogWidget.disasterLogWidget,
+        new BoldLabel("Numero Iterazione:"), iteration)
