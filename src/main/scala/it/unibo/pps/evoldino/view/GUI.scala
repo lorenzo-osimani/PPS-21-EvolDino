@@ -36,7 +36,7 @@ object GUI:
         titleLabel)
 
     stage.setTitle("Evoldino")
-    stage.setResizable(true)
+    stage.setResizable(false)
     stage.setScene(
       new Scene:
         root = new BorderPane:

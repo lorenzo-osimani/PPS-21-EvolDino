@@ -6,7 +6,7 @@ import it.unibo.pps.evoldino.model.dinosaur.gene.*
 class ReproductionTest extends AnyFunSpec {
 
   val reproductionTest: Population = Seq.empty
-  val son = Reproduction.reproduction(reproductionTest)
+  val son = PopulationFactory.reproduction(reproductionTest)
 
   describe ("Should be empty if there are not dinosaurs") {
     it ("Should be zero if there is not even a dinosaur") {
@@ -14,8 +14,8 @@ class ReproductionTest extends AnyFunSpec {
     }
   }
 
- val add = Seq.fill(1)(Dinosaur)
-  val child = Reproduction.reproduction(reproductionTest)
+  val add = Seq.fill(1)(Dinosaur)
+  val child = PopulationFactory.reproduction(reproductionTest)
   describe("Should be empty if there is one dinosaurs") {
     it("Should be zero if there is only a dinosaur") {
       assert(child.isEmpty)
