@@ -7,7 +7,7 @@ import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.{Tooltip}
 import scalafx.scene.layout.{Background, GridPane}
 import scalafx.scene.paint.Color
-import scalafx.scene.shape.Rectangle
+import scalafx.scene.shape.{Rectangle, StrokeType}
 
 object WorldGridWidget:
 

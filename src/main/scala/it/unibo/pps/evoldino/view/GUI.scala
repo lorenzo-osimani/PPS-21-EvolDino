@@ -12,20 +12,14 @@ import scalafx.scene.text.{Font, FontWeight, TextAlignment}
 import scalafx.stage.{Screen, Stage}
 import it.unibo.pps.evoldino.view.widgets.{ClimateWidget, ControlBar, DisastersControllerWidget, DisastersLogWidget, SimInfoWidget, WorldGridWidget}
 import it.unibo.pps.evoldino.view.components.GenericIcon
+import scalafx.application.JFXApp3
 import scalafx.scene.image.{Image, ImageView}
 
 object GUI:
 
   def start(stage: Stage): Unit =
-
-    println("Screen size: " + Screen.primary.bounds.width + "x" + Screen.primary.bounds.height)
-
-    val preferredHeight: Double = Screen.primary.bounds.height * 3 / 4
-    val preferredWidth: Double = Screen.primary.bounds.width * 3 / 4
-
     val titleLabel = new Label:
       text = "Evoldino"
-      margin = Insets(0, 0, 0, 0)
       font = Font.font("Arial", FontWeight.Bold, 24)
 
     val title = new TilePane:
@@ -49,12 +43,12 @@ object GUI:
             top = SimInfoWidget.simInfoWidget
             bottom = WorldGridWidget.worldGridWidget
           right = new FlowPane(Orientation.Vertical):
+            background = new Background(Array(new BackgroundFill(Color.Gray, null, null)))
             children ++= Seq(
               DisastersControllerWidget.disastersWidget,
-              ClimateWidget.climateWidget)
+              ClimateWidget.climateWidget
+              )
     )
-
-    stage.setFullScreen(false)
 
   def updateRender(snapshot: WorldSnapshot): Unit =
     SimInfoWidget.updateRender(snapshot)
@@ -73,3 +67,5 @@ object GUI:
       snapshot.environment.humidity,
       snapshot.environment.vegetationAvailable
     )
+
+

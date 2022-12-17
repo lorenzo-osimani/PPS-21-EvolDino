@@ -41,7 +41,4 @@ object DisastersLogWidget:
 
   val disasterLogWidget: FlowPane =
     new FlowPane(Orientation.Horizontal):
-      hgap = 5
-      vgap = 5
-      padding = Insets(5,0,5,0)
-      children ++= Seq(new BoldLabel("Disastri:"), new ValueLabel("Nessun disastro",10))
+      children ++= Seq(new BoldLabel("Disastri: "), new ValueLabel("Nessun disastro",10))

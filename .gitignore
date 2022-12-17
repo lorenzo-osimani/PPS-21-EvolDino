@@ -18,6 +18,7 @@
 *.backup
 **/.recommenders/*
 **/bin/
+**/out/
 *.synctex.gz
 *.synctex*
 *.kate-swp
