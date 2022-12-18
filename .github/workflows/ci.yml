@@ -7,9 +7,8 @@ on:
     branches: [main,testflow]
     paths-ignore:
       - './prolog'
-      - 'backup/**'
-      - '**/*.draft.md'
-    
+      - './test/DisasterPrologApplicationTest.scala'
+      - '../test/DisasterPrologApplicationTest.scala'
 jobs:
   test:
     strategy:
