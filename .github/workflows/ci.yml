@@ -2,8 +2,13 @@ name: PPS-EvolDino ci
 on:
   pull_request:
     branches: [main,testflow]
+    
   push:
     branches: [main,testflow]
+    paths-ignore:
+      - './prolog'
+      - 'backup/**'
+      - '**/*.draft.md'
     
 jobs:
   test:
