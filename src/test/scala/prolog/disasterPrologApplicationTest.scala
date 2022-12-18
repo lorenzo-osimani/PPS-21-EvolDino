@@ -1,12 +1,12 @@
-package it.unibo.pps.evoldino.prolog
+package prolog
 
 import alice.tuprolog
 import alice.tuprolog.*
 
 object disasterPrologApplicationTest extends App:
-  import PrologInScala.{*, given}
-
+  import it.unibo.pps.evoldino.prolog.PrologInScala.{*, given}
+  
   private val fileName = "disasterPrologTheoryTest.pl"
   val engine: Term => LazyList[SolveInfo] = mkPrologEngine(Theory.parseLazilyWithStandardOperators(getClass.getResourceAsStream(fileName)))
 
-  engine("damageDino(doDisaster(dinosaur(DINX, DINY, LIF), disaster(DISX, DISY, EXT, DAM))).") foreach (println(_))
+  engine("%test(dinosaur(DINXEX, DINYEX, LIFEX))") foreach (println(_))
