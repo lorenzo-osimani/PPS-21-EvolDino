@@ -7,7 +7,7 @@ import it.unibo.pps.evoldino.view.ViewImpl
 object EvoldinoApp extends JFXApp3:
   val view = ViewImpl()
 
-  /*@main Entry point*/
+  /**@main Entry point*/
   override def start(): Unit =
     Controller.setView(view)
     view.show(JFXApp3.PrimaryStage())

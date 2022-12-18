@@ -10,8 +10,7 @@ import scalafx.scene.paint.Color
 import javafx.event.{ActionEvent, EventHandler}
 
 object ControlBar:
-
-  /* PlayButton definition */
+  
   val playButton = new GenericButton("Start", "Start the simulation"):
     alignmentInParent = Pos.Center
     onAction = startSimEventHandler
@@ -19,8 +18,7 @@ object ControlBar:
   val stopButton = new GenericButton("Stop", "Stop the simulation"):
     disable = true
     onAction = _ => Controller.endSimulation()
-
-  /* ChangeSpeedButton definition */
+  
   val changeSpeedButton = new GenericButton("x1", "Change simulation speed"):
     disable = true
 
@@ -39,7 +37,7 @@ object ControlBar:
     playButton.text = "Pause"
     playButton.tooltip = Tooltip("Pause the simulation")
     playButton.onAction = _ =>
-      Controller.isSimulationPlaying() match
+      Controller.isSimulationPlaying match
         case true =>
           Controller.pauseSimulation()
           stepForwardButton.disable = false

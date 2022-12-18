@@ -5,7 +5,8 @@ import it.unibo.pps.evoldino.model.disaster.Disaster
 
 import scala.util.Random
 
-trait WorldSnapshot {
+/** Represents the world state at a given instance */
+trait WorldSnapshot:
 
   def number_iteration: Int
 
@@ -19,9 +20,9 @@ trait WorldSnapshot {
 
   def closeSnapShot() =
     population = population map (ImmutableDinosaur(_))
-}
 
-object WorldSnapshot {
+
+object WorldSnapshot:
 
   def apply(
       number_iteration: Int,
@@ -36,4 +37,4 @@ object WorldSnapshot {
       var population: Population,
       override val disasters: Seq[Disaster])
       extends WorldSnapshot
-}
+

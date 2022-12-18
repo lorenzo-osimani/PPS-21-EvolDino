@@ -54,7 +54,7 @@ trait Dinosaur:
       "\n age: " + age +
       "\n isAlive: " + isAlive
 
-object Dinosaur {
+object Dinosaur:
 
   def apply(
       genes: Gene,
@@ -107,8 +107,9 @@ object Dinosaur {
         _coordinates._1 keepValueInCircularRange (delta_x, WorldConstants.dim_w_world),
         _coordinates._2 keepValueInCircularRange (delta_y, WorldConstants.dim_h_world)
       )
-}
 
+
+/** An immutable version of a Dinosaur*/
 case class ImmutableDinosaur(dinosaur: Dinosaur) extends Dinosaur:
   override val genes = dinosaur.genes
   override val gender = dinosaur.gender

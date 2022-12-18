@@ -14,9 +14,9 @@ object DisastersLogWidget:
 
   def update(disasters: Seq[String]) =
     if (disasters.isEmpty)
-      disasterLogWidget.children = Seq(new BoldLabel("Disastri:"), new ValueLabel("Nessun disastro"))
+      disasterLogWidget.children = Seq(BoldLabel("Disastri:"), ValueLabel("Nessun disastro"))
     else
-      disasterLogWidget.children = Seq(new BoldLabel("Disastri:"))
+      disasterLogWidget.children = Seq(BoldLabel("Disastri:"))
       for dis <- disasters
         yield {
           var icon: Node = null
@@ -36,9 +36,9 @@ object DisastersLogWidget:
             case DisasterType.DROUGHT.name =>
               icon = GenericIcon("sun.png", "Icona", 15)
           Tooltip.install(icon, Tooltip(dis))
-          disasterLogWidget.children ++= Seq(icon, new ValueLabel(dis))
+          disasterLogWidget.children ++= Seq(icon, ValueLabel(dis))
         }
 
   val disasterLogWidget: FlowPane =
     new FlowPane(Orientation.Horizontal):
-      children ++= Seq(new BoldLabel("Disastri: "), new ValueLabel("Nessun disastro",10))
+      children ++= Seq(BoldLabel("Disastri: "), ValueLabel("Nessun disastro",10))

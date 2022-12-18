@@ -10,7 +10,8 @@ import it.unibo.pps.evoldino.controller.Controller
 import EngineConstants.*
 import it.unibo.pps.evoldino.model.world.WorldHistory.*
 
-object Engine {
+/** Represent the central motor of a simulation*/
+object Engine:
 
   private var iteration_speed: Int = ITERATION_MS_1X
 
@@ -18,6 +19,7 @@ object Engine {
 
   private var ended = false
 
+  /** Starts the simulation resetting all the parameters*/
   def startSimulation(): Unit =
     paused = false
     ended = false
@@ -26,17 +28,23 @@ object Engine {
     Controller.renderIteration(getLastSnapshot())
     simulationLoop().unsafeRunAndForget()
 
+  /** Do a single iteration of the current simulation */
   def doSingleIteration(): Unit =
     iterationLoop().unsafeRunAndForget()
 
+  /** End the current simulation */
   def endSimulation(): Unit = ended = true
 
+  /** Pause the current simulation */
   def pauseSimulation(): Unit = paused = true
 
+  /** Unpause the current simulation and restart the simulation loop*/
   def unpauseSimulation(): Unit =
-    paused = false
-    simulationLoop().unsafeRunAndForget()
+    if(paused && !hasSimulationEnded())
+      paused = false
+      simulationLoop().unsafeRunAndForget()
 
+  /** Change the simulation speed*/
   def changeSpeed(): Int =
     iteration_speed match
       case ITERATION_MS_1X => iteration_speed = ITERATION_MS_2X
@@ -44,8 +52,10 @@ object Engine {
       case ITERATION_MS_4X => iteration_speed = ITERATION_MS_1X
     iteration_speed
 
-  def isSimulationPlaying(): Boolean = !paused
+  /** @return true if the simulation is not paused and running*/
+  def isSimulationPlaying(): Boolean = !paused && !ended
 
+  /** @return true if the simulation is over*/
   def hasSimulationEnded(): Boolean = isSimulationOver() || ended
 
   given Conversion[Unit, IO[Unit]] with
@@ -61,7 +71,7 @@ object Engine {
     _ <- nextIteration()
     _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
-    _ <- reproductionPhase()
+    _ <- dinosaursPhase()
     _ <- Controller.renderIteration(getLastSnapshot())
     _ <- if (isSimulationOver())
       (getLastSnapshot().livingPopulation().size <= 0) match
@@ -69,4 +79,3 @@ object Engine {
         case false => Controller.showEndDialog("The world has reached its maximum lifespan")
   } yield ()
 
-}

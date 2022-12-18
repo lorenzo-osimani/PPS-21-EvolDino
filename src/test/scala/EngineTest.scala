@@ -39,9 +39,9 @@ class EngineTest extends AnyFunSpec {
 
   describe("A manual mode should exist") {
     it("can be set active") {
-      assert(!EngineController.isManualModeActive())
+      assert(!EngineController.isManualModeActive)
       EngineController.setManualMode(true)
-      assert(EngineController.isManualModeActive())
+      assert(EngineController.isManualModeActive)
     }
 
     it("can modify the current environment and keep it constant") {

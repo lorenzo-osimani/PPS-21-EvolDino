@@ -12,7 +12,7 @@ import scalafx.scene.paint.{ Color, LinearGradient, Stops }
 trait SliderPane extends BorderPane:
   def update(newValue: Number): Unit
 
-object SliderPane {
+object SliderPane:
 
   def apply(
       name: String,
@@ -55,4 +55,3 @@ object SliderPane {
       if !slider.isHover then
         slider.value = newValue.doubleValue()
         slider.tooltip = Tooltip(slider.getValue().toString + " " + measureUnit)
-}

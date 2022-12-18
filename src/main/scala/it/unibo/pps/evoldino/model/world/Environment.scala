@@ -4,7 +4,8 @@ import it.unibo.pps.evoldino.model.dinosaur.{ Dinosaur, Population }
 import it.unibo.pps.evoldino.model.world.WorldConstants.*
 import it.unibo.pps.evoldino.utils.GlobalUtils.calculateProbability
 
-trait Environment {
+/** Represents an environment at a given instance */
+trait Environment:
 
   def temperature: Float
 
@@ -23,9 +24,9 @@ trait Environment {
         this.humidity == that.humidity &&
         this.vegetationAvailable == that.vegetationAvailable
       case _ => false
-}
 
-object Environment {
+
+object Environment:
 
   def apply(
       temperature: Float = BasicEnvironment.temperature,
@@ -42,6 +43,7 @@ object Environment {
 
   import it.unibo.pps.evoldino.utils.PimpScala.given
 
+  /** Evolves randomly an environment from his predecessor*/
   def evolveFromEnvironment(environment: Environment): Environment =
     Environment(
       evolveCharacteristic(environment.temperature)
@@ -51,6 +53,7 @@ object Environment {
         keepValueInBounds (max = max_vegetation_value)
     )
 
+  /** Applies the environmental damage of an Environment to a Dinosaur*/
   def applyEnvironmentDamage(dino: Dinosaur, environment: Environment): Unit =
     val delta =
       (dino.genes.idealHumidity - environment.humidity).abs + (dino.genes.idealTemperature - environment.temperature).abs
@@ -59,8 +62,10 @@ object Environment {
   val BasicEnvironment: Environment = apply(20, 30, 100)
 
   val IceAgeEnvironment: Environment = apply(0, 40, 10)
+
   val DroughtEnvironment: Environment = apply(60, 10, 10)
 
+  /** Evolves randomly an environmental characteristic*/
   private def evolveCharacteristic(value: Float): Float = value match
     case _ if calculateProbability(characteristicEvolutionProbability) =>
       value - environmentEvolutionDelta
@@ -73,4 +78,4 @@ object Environment {
       override val humidity: Float,
       override val vegetationAvailable: Float)
       extends Environment
-}
+

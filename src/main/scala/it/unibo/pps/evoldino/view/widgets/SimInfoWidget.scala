@@ -27,8 +27,8 @@ object SimInfoWidget:
     iteration.modifyValue(snapshot.number_iteration.toString)
 
   private class InfoLog(title: String, value: String ="/") extends FlowPane:
-    val valueLabel = new ValueLabel(value)
-    children = Seq(new BoldLabel(title),  valueLabel)
+    val valueLabel = ValueLabel(value)
+    children = Seq(BoldLabel(title),  valueLabel)
     maxWidth = 190
     def modifyValue(newValue: String) = valueLabel.text = newValue
 

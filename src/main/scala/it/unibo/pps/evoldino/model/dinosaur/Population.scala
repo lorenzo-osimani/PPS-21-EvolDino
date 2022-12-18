@@ -8,11 +8,12 @@ import scala.collection.mutable.ListBuffer
 
 type Population = Seq[Dinosaur]
 
-object PopulationFactory {
+object PopulationFactory:
 
   def apply(size: Int): Population =
     Seq.fill(size)(Dinosaur.randomizedDinosaur())
 
+  /**Apply the reproduction on a given population*/
   def reproduction(population: Population): Population =
     val progeny: ListBuffer[Dinosaur] = ListBuffer.empty
     val couples =
@@ -24,7 +25,6 @@ object PopulationFactory {
         mother = Option(mother),
         father = Option(father)
       )
-    (population filter (_.isAlive)) ++: progeny.toSeq  
-}
+    (population filter (_.isAlive)) ++: progeny.toSeq
 
 

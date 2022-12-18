@@ -4,7 +4,7 @@ import scalafx.application.Platform
 import scalafx.stage.Stage
 import it.unibo.pps.evoldino.view.View
 import it.unibo.pps.evoldino.model.world.WorldSnapshot
-import it.unibo.pps.evoldino.view.components.Dialog
+import it.unibo.pps.evoldino.view.components.EndDialog
 import it.unibo.pps.evoldino.view.widgets.{ControlBar, DisastersControllerWidget}
 
 class ViewImpl extends View:
@@ -17,7 +17,7 @@ class ViewImpl extends View:
 
   def endSimulation(message: String): Unit =
     Platform.runLater { () =>
-      Dialog.dialogBuilder("GAME OVER", message).show()
+      EndDialog("GAME OVER", message).show()
       ControlBar.resetButtons()
       DisastersControllerWidget.resetButtons()
     }
