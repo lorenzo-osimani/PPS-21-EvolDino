@@ -20,4 +20,5 @@ class DisasterPrologApplicationTest extends AnyFunSpec:
       )
       assert(true, grouped_values.equals(test_values))
     }
+
   }
