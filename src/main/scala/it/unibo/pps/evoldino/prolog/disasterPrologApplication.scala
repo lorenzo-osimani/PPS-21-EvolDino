@@ -9,4 +9,4 @@ object disasterPrologApplication extends App:
   private val fileName = "disasterPrologTheory.pl"
   val engine: Term => LazyList[SolveInfo] = mkPrologEngine(Theory.parseLazilyWithStandardOperators(getClass.getResourceAsStream(fileName)))
 
-  engine("damageDino(doDisaster(dinosaur(DINX, DINY, LIF), disaster(DISX, DISY, EXT, DAM))).") foreach (println(_))
+  engine("damageDino(dinosaur(DINX, DINY, LIF)).") foreach (println(_))

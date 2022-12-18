@@ -8,7 +8,7 @@ import it.unibo.pps.evoldino.view.View
 
 object Controller:
 
-  var view: Option[View] = Option.empty
+  private var view: Option[View] = Option.empty
 
   /** Sets the View for the program*/
   def setView(view: View): Unit = this.view = Option(view)
@@ -64,7 +64,7 @@ object Controller:
     EngineController.modifyManualSettings(veg = veg)
 
   /** Modify manually the environment*/
-  def modifyManualSettings(temp: Float, hum: Float, veg: Float): Unit =
+  def modifyManualClimateSettings(temp: Float, hum: Float, veg: Float): Unit =
     EngineController.modifyManualSettings(temp, hum, veg)
 
   /** Cause manually a disaster in the next iteration*/
