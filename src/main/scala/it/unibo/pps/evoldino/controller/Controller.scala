@@ -6,53 +6,70 @@ import it.unibo.pps.evoldino.model.disaster.Disaster
 import it.unibo.pps.evoldino.model.world.{ WorldHistory, WorldSnapshot }
 import it.unibo.pps.evoldino.view.View
 
-object Controller {
+object Controller:
 
   var view: Option[View] = Option.empty
 
-  def setView(view: View) = this.view = Option(view)
+  /** Sets the View for the program*/
+  def setView(view: View): Unit = this.view = Option(view)
 
-  def startSimulation() = Engine.startSimulation()
+  /** Starts the simulation*/
+  def startSimulation(): Unit = Engine.startSimulation()
 
-  def endSimulation() =
+  /** Stop the simulation manually*/
+  def endSimulation(): Unit =
     Engine.endSimulation()
     showEndDialog("The simulation has been stopped manually")
 
-  def doSingleIteration() = Engine.doSingleIteration()
+  /** Do a single iteration of the current simulation*/
+  def doSingleIteration(): Unit = Engine.doSingleIteration()
 
-  def showEndDialog(message: String) =
+  /** Show the dialog with a message to signal that the simulation has ended*/
+  def showEndDialog(message: String): Unit =
     view
       .getOrElse(throw IllegalStateException())
       .endSimulation(message)
 
-  def pauseSimulation() = Engine.pauseSimulation()
+  /** Pause the current simulation */
+  def pauseSimulation(): Unit = Engine.pauseSimulation()
 
-  def unpauseSimulation() = Engine.unpauseSimulation()
+  /** Unpause the current simulation*/
+  def unpauseSimulation(): Unit = Engine.unpauseSimulation()
 
-  def changeSpeed() = Engine.changeSpeed()
+  /** Change the simulation speed*/
+  def changeSpeed(): Int = Engine.changeSpeed()
 
-  def isSimulationPlaying(): Boolean = Engine.isSimulationPlaying()
+  /**@return true if a simulation is running*/
+  def isSimulationPlaying: Boolean = Engine.isSimulationPlaying()
 
-  def hasSimulationEnded(): Boolean = Engine.hasSimulationEnded()
+  /**@return true if a simulation is over*/
+  def hasSimulationEnded: Boolean = Engine.hasSimulationEnded()
 
-  def setManualMode(mode: Boolean) = EngineController.setManualMode(mode)
+  /**@return true if a simulation is running*/
+  def setManualMode(mode: Boolean): Unit = EngineController.setManualMode(mode)
 
-  def isManualModeActive() = EngineController.isManualModeActive()
+  /**@return true if the manual mode is active*/
+  def isManualModeActive: Boolean = EngineController.isManualModeActive
 
-  def modifyTemp(temp: Float) =
+  /** Modify manually the temperature of the environment*/
+  def modifyTemp(temp: Float): Unit =
     EngineController.modifyManualSettings(temp)
 
-  def modifyHum(hum: Float) =
+  /** Modify manually the humidity of the environment*/
+  def modifyHum(hum: Float): Unit =
     EngineController.modifyManualSettings(hum = hum)
 
-  def modifyVeg(veg: Float) =
+  /** Modify manually the vegetation level of the environment*/
+  def modifyVeg(veg: Float): Unit =
     EngineController.modifyManualSettings(veg = veg)
 
-  def modifyManualSettings(temp: Float, hum: Float, veg: Float) =
+  /** Modify manually the environment*/
+  def modifyManualSettings(temp: Float, hum: Float, veg: Float): Unit =
     EngineController.modifyManualSettings(temp, hum, veg)
 
-  def addDisaster(disaster: Disaster) = EngineController.addDisaster(disaster)
+  /** Cause manually a disaster in the next iteration*/
+  def addDisaster(disaster: Disaster): Unit = EngineController.addDisaster(disaster)
 
+  /** Show on the view an iteration*/
   def renderIteration(snapshot: WorldSnapshot): Unit =
     view.getOrElse(throw IllegalStateException()).renderSimulation(snapshot)
-}

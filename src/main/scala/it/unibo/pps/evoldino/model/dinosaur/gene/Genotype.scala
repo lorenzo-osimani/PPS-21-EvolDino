@@ -27,6 +27,7 @@ object ColorType extends Genotype:
 
 import scala.util.Random
 
+/** @return a random standard value of a genotype */
 def getRandomGenotype[A <: Genotype](genotype: A): String =
   val fields = for {
     field <- genotype.getClass.getDeclaredFields.filter(!genotype.getClass.getFields.contains(_))

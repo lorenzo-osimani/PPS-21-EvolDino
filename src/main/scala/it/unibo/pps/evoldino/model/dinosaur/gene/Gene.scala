@@ -6,6 +6,7 @@ import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
 import java.lang.reflect.Constructor
 import scala.util.Random
 
+/** Represents the generic heritage of a Dinosaur */
 sealed trait Gene:
   val idealTemperature: Int
   val idealHumidity: Int
@@ -32,6 +33,7 @@ object Gene:
       chooseBetweenTwo(father.color, mother.color)
     )
 
+  /** Generate a randomized gene */
   def randomizedGene() =
     Gene(
       getRandomGenotype(TemperatureType).toInt,
@@ -40,6 +42,7 @@ object Gene:
       getRandomGenotype(ColorType)
     )
 
+  /** @return the combination of the genotypes */
   def combineGenes(first_gene: Int, second_gene: Int): Int =
     val range = (first_gene - second_gene).abs
     val delta = Random.nextInt(range + 1) - (range / 2)

@@ -7,13 +7,10 @@ import scalafx.scene.layout.BorderPane
 import scalafx.scene.text.TextAlignment
 import scalafx.stage.Stage
 
-object Dialog:
-
-  def dialogBuilder(dialogTitle: String, message: String): Stage = new Stage:
+object EndDialog:
+  def apply(dialogTitle: String, message: String): Stage = new Stage:
     title = dialogTitle
-
     scene = new Scene:
-
       root = new BorderPane:
         padding = Insets(10)
 
