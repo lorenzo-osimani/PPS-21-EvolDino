@@ -1,9 +1,9 @@
 name: PPS-EvolDino ci
 on:
   pull_request:
-    branches: [main]
+    branches: [main,testflow]
   push:
-    branches: [main]
+    branches: [main,testflow]
     
 jobs:
   test:
