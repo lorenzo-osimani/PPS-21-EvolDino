@@ -18,11 +18,6 @@ class DisasterPrologApplicationTest extends AnyFunSpec:
                 element.getVarValue("DINYEX").toString,
                 element.getVarValue("LIFEX").toString)
       )
-
-      assert(grouped_values.equals(test_values))
+      assert(true, grouped_values.equals(test_values))
     }
   }
-
-
-
-
