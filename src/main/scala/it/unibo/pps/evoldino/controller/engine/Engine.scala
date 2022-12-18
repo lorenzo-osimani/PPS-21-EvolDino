@@ -69,7 +69,6 @@ object Engine:
 
   private def iterationLoop(): IO[Unit] = for {
     _ <- nextIteration()
-    _ <- dinosaursEatingPhase()
     _ <- applyDisturbances()
     _ <- dinosaursPhase()
     _ <- Controller.renderIteration(getLastSnapshot())

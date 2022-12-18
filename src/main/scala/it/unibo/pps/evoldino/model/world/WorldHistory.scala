@@ -44,8 +44,14 @@ object WorldHistory:
       disasterFunction()()
     ) +: history
 
+  /** Applies all the disasters to the population */
+  def applyDisturbances(): Unit =
+    for dino <- getLastLivingPopulation()
+    yield Environment.applyEnvironmentDamage(dino, getLastSnapshot().environment)
+    getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation().toList))
+
   /** Damage the population if there's not enough food for all the dinosaurs */
-  def dinosaursEatingPhase(): Unit =
+  private def dinosaursEatingPhase(): Unit =
     val difference =
       getLastSnapshot().environment.vegetationAvailable / getLastLivingPopulation().size
     if (difference < 1)
@@ -54,15 +60,10 @@ object WorldHistory:
         .take(((1 - difference) * getLastLivingPopulation().size).toInt)
         .foreach(_.kill())
 
-  /** Applies all the disasters to the population */
-  def applyDisturbances(): Unit =
-    for dino <- getLastLivingPopulation()
-    yield Environment.applyEnvironmentDamage(dino, getLastSnapshot().environment)
-    getLastSnapshot().disasters foreach (_.applyDisaster(getLastLivingPopulation().toList))
-
-  /** Makes the remaining living dinosaurs reproduce and move in the world*/
+  /** Makes the remaining living dinosaurs eat, move in the world and reproduce*/
   def dinosaursPhase(): Unit =
-    getLastSnapshot().population.foreach(_.moveDinosaur())
+    dinosaursEatingPhase()
+    getLastSnapshot().livingPopulation().foreach(_.moveDinosaur())
     getLastSnapshot().population = PopulationFactory.reproduction(getLastSnapshot().livingPopulation())
 
   /** @return true if the simulation has reached any of its ending conditions */

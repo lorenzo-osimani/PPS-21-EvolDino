@@ -43,7 +43,7 @@ object ClimateWidget:
     "%",
     0,
     100,
-    Environment.BasicEnvironment.vegetationAvailable,
+    5,
     (veg) => Controller.modifyVeg(veg * WorldConstants.max_vegetation_value / 100)
   )
 

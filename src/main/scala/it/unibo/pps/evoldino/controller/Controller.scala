@@ -53,19 +53,19 @@ object Controller:
 
   /** Modify manually the temperature of the environment*/
   def modifyTemp(temp: Float): Unit =
-    EngineController.modifyManualSettings(temp)
+    EngineController.modifyManualClimateSettings(temp)
 
   /** Modify manually the humidity of the environment*/
   def modifyHum(hum: Float): Unit =
-    EngineController.modifyManualSettings(hum = hum)
+    EngineController.modifyManualClimateSettings(hum = hum)
 
   /** Modify manually the vegetation level of the environment*/
   def modifyVeg(veg: Float): Unit =
-    EngineController.modifyManualSettings(veg = veg)
+    EngineController.modifyManualClimateSettings(veg = veg)
 
   /** Modify manually the environment*/
   def modifyManualClimateSettings(temp: Float, hum: Float, veg: Float): Unit =
-    EngineController.modifyManualSettings(temp, hum, veg)
+    EngineController.modifyManualClimateSettings(temp, hum, veg)
 
   /** Cause manually a disaster in the next iteration*/
   def addDisaster(disaster: Disaster): Unit = EngineController.addDisaster(disaster)

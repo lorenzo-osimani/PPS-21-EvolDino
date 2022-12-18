@@ -15,7 +15,7 @@ object EngineController:
   def resetController(): Unit =
     manual = false
     incomingDisasters = List.empty
-    modifyManualSettings(
+    modifyManualClimateSettings(
       Environment.BasicEnvironment.temperature,
       Environment.BasicEnvironment.humidity,
       Environment.BasicEnvironment.vegetationAvailable
@@ -34,7 +34,7 @@ object EngineController:
       (env: Environment) => Environment.evolveFromEnvironment(env)
 
   /**Modify manually the environment*/
-  def modifyManualSettings(
+  def modifyManualClimateSettings(
       temp: Float = manual_temperature,
       hum: Float = manual_humidity,
       veg: Float = manual_vegetation_percentage): Unit =
