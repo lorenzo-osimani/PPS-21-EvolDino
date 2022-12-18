@@ -1,5 +1,8 @@
 package it.unibo.pps.evoldino.model.dinosaur.gene
 
+import it.unibo.pps.evoldino.model.dinosaur.gene.Genotype
+import scala.util.Random
+
 sealed trait Genotype
 
 object LifeSpan extends Genotype:

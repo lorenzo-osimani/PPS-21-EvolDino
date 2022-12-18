@@ -13,11 +13,11 @@ object ControlBar:
 
   /* PlayButton definition */
   val playButton = new GenericButton("Start", "Start the simulation"):
+    alignmentInParent = Pos.Center
     onAction = startSimEventHandler
 
   val stopButton = new GenericButton("Stop", "Stop the simulation"):
     disable = true
-
     onAction = _ => Controller.endSimulation()
 
   /* ChangeSpeedButton definition */
@@ -52,6 +52,7 @@ object ControlBar:
           playButton.tooltip = Tooltip("Pause the simulation")
     stopButton.setDisable(false)
     changeSpeedButton.setDisable(false)
+    DisastersControllerWidget.resetButtons()
     Controller.startSimulation()
 
   def resetButtons() =
@@ -63,10 +64,8 @@ object ControlBar:
     changeSpeedButton.disable = true
     stepForwardButton.disable = true
 
-  val controlBar: FlowPane =
-    new FlowPane:
-      background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
-      padding = Insets(10)
-      children ++= Seq(playButton, stepForwardButton, changeSpeedButton, stopButton)
-
-  controlBar.alignment = Pos.BaselineLeft
+  val controlBar = new FlowPane:
+        background = new Background(Array(new BackgroundFill(Color.Grey, null, null)))
+        padding = Insets(10)
+        children ++= Seq(playButton, stepForwardButton, changeSpeedButton, stopButton)
+        alignment = Pos.Center

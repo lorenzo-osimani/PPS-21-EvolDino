@@ -3,6 +3,7 @@ package it.unibo.pps.evoldino.model.dinosaur.gene
 import it.unibo.pps.evoldino.model.dinosaur.gene.*
 import it.unibo.pps.evoldino.utils.GlobalUtils.chooseBetweenTwo
 
+import java.lang.reflect.Constructor
 import scala.util.Random
 
 sealed trait Gene:
@@ -39,7 +40,7 @@ object Gene:
       getRandomGenotype(ColorType)
     )
 
-  private def combineGenes(first_gene: Int, second_gene: Int): Int =
+  def combineGenes(first_gene: Int, second_gene: Int): Int =
     val range = (first_gene - second_gene).abs
     val delta = Random.nextInt(range + 1) - (range / 2)
     (first_gene + second_gene) / 2 + delta

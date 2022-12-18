@@ -39,13 +39,13 @@ object SliderPane {
       min = min_value
       max = max_value
       value = starting_value
-      tooltip = Tooltip(this.getValue() + " " + measureUnit)
+      tooltip = Tooltip(this.getValue().toString + " " + measureUnit)
 
     slider.valueProperty.addListener((_, _, newVal: Number) =>
       val value = (newVal.floatValue() * 10).round / 10.toFloat
       updateMethod(value)
       this.slider.value = value
-      this.slider.tooltip = Tooltip(value + " " + measureUnit)
+      this.slider.tooltip = Tooltip(value.toString + " " + measureUnit)
     )
 
     left = GenericIcon(iconPath, name, 20)
@@ -54,5 +54,5 @@ object SliderPane {
     def update(newValue: Number): Unit =
       if !slider.isHover then
         slider.value = newValue.doubleValue()
-        slider.tooltip = Tooltip(slider.getValue() + " " + measureUnit)
+        slider.tooltip = Tooltip(slider.getValue().toString + " " + measureUnit)
 }

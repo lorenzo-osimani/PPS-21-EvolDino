@@ -10,7 +10,7 @@ object EvoldinoApp extends JFXApp3:
   /*@main Entry point*/
   override def start(): Unit =
     Controller.setView(view)
-    view.show(new JFXApp3.PrimaryStage())
+    view.show(JFXApp3.PrimaryStage())
 
   /** Automatically stops the simulation when closing frame. */
   override def stopApp(): Unit =
