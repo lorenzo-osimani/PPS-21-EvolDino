@@ -11,6 +11,6 @@ The software is an academic project developed for the exam of Paradigmi di Progr
 To run the project download the jar file from the last release and execute ```java jar <path-to-jar>``` or download the repository and execute ```sbt run``` in the folder.
 
 ## Group's Components
-Lorenzo Osimani - lorenzo.osimani@studio.unibo.it
-Alberto Donati - alberto.donati6@studio.unibo.it
-Alessandro Tullio - alessandro.tullio@studio.unibo.it
++ Lorenzo Osimani - lorenzo.osimani@studio.unibo.it
++ Alberto Donati - alberto.donati6@studio.unibo.it
++ Alessandro Tullio - alessandro.tullio@studio.unibo.it
