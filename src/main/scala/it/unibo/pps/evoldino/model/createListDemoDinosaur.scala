@@ -5,7 +5,7 @@ import it.unibo.pps.evoldino.model.dinosaur.gene.*
 
 import scala.collection.mutable.ListBuffer
 
-def createListDemoDinosaur(): List[Dinosaur] =
+def createListDemoDinosaur(): Population =
 
   val dino1: Dinosaur =
     Dinosaur(Gene(23, 1234, 100, "green"), Male, (100, 100))

@@ -5,6 +5,7 @@ import it.unibo.pps.evoldino.model.disaster.{ AreaEffect, ClimateEffect, Disaste
 import it.unibo.pps.evoldino.model.world.Environment
 import it.unibo.pps.evoldino.model.world.WorldConstants.*
 import it.unibo.pps.evoldino.model.world.WorldHistory.getLastLivingPopulation
+import it.unibo.pps.evoldino.model.dinosaur.Population
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
@@ -14,7 +15,7 @@ sealed trait Disaster:
 
   def name: String
 
-  def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
+  def applyDisaster(p: Population): Population =
     print("\n nessun disastro applicato \n")
     p
 
@@ -27,7 +28,7 @@ abstract class AreaEffect extends Disaster:
   val coordinates: (Int, Int)
   def damage: Int
 
-  override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
+  override def applyDisaster(p: Population): Population =
     p.filter(dino =>
       dino.coordinates._1 >= coordinates._1 - extension &&
         dino.coordinates._1 <= coordinates._1 + extension &&
@@ -50,7 +51,7 @@ abstract class ClimateEffect extends Disaster:
     super.toString +
       environment.toString
 
-  override def applyDisaster(p: List[Dinosaur]): List[Dinosaur] =
+  override def applyDisaster(p: Population): Population =
     for dino <- p yield Environment.applyEnvironmentDamage(dino, environment)
     p
 
