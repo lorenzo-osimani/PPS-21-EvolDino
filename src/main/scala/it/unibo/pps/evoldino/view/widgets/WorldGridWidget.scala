@@ -11,6 +11,8 @@ import scalafx.scene.shape.{Rectangle, StrokeType}
 
 object WorldGridWidget:
 
+  private val base_color = Color.rgb(70,70,70)
+
   private def disasterContains(x: Int, y: Int, origin_x: Int, origin_y: Int, coverage: Int): Boolean =
     origin_x - coverage <= x && origin_x + coverage >= x &&
       origin_y - coverage <= y && origin_y + coverage >= y
@@ -21,7 +23,7 @@ object WorldGridWidget:
       y <- 0 until WorldConstants.dim_h_world
     } yield
       var tooltipMessage: String = ""
-      var color: Color = Color.Grey
+      var color: Color = base_color
       if (population.contains((x, y)))
         color = Color.valueOf(population.get((x, y)).getOrElse("green"))
         tooltipMessage = "Dinosaur"
@@ -53,7 +55,7 @@ object WorldGridWidget:
     val cell = new Rectangle:
       width = 5
       height = 5
-      fill = Color.Grey
+      fill = base_color
     worldGridWidget.add(cell, x, y)
     worldGrid(x)(y) = cell
   }
