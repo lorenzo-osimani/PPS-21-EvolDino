@@ -6,7 +6,7 @@ import alice.tuprolog.*
 object DisasterPrologApplication extends App:
   import PrologInScala.{*, given}
 
-  private val fileName = "disasterPrologTheory.pl"
+  private val fileName = "/prolog/disasterPrologTheory.pl"
   val engine: Term => LazyList[SolveInfo] = mkPrologEngine(Theory.parseLazilyWithStandardOperators(getClass.getResourceAsStream(fileName)))
 
   engine("damageDino(dinosaur(DINX, DINY, LIF)).") foreach (println(_))

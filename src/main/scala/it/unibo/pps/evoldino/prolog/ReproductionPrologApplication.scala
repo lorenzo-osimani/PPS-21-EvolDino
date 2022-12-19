@@ -7,7 +7,7 @@ import it.unibo.pps.evoldino.prolog.DisasterPrologApplication.getClass
 object ReproductionPrologApplication extends App:
   import PrologInScala.{*, given}
 
-  private val nameFile = "ReproductionPrologTheory.pl"
+  private val nameFile = "/prolog/ReproductionPrologTheory.pl"
   val engine: Term => LazyList[SolveInfo] = mkPrologEngine(Theory.parseLazilyWithStandardOperators(
     getClass.getResourceAsStream(nameFile)))
 
