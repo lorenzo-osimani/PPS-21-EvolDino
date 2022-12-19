@@ -1,7 +1,6 @@
 import alice.tuprolog.{SolveInfo, Term, Theory}
 import it.unibo.pps.evoldino.prolog.PrologInScala
 import it.unibo.pps.evoldino.prolog.DisasterPrologApplication
-import it.unibo.pps.evoldino.prolog.DisasterPrologApplication.engine
 import org.scalatest.funspec.AnyFunSpec
 
 class DisasterPrologApplicationTest extends AnyFunSpec:
@@ -13,7 +12,14 @@ class DisasterPrologApplicationTest extends AnyFunSpec:
       ("70","30","90"), ("45","45","100"), ("30","30","100"), ("50","50","70"), ("90","90","60"))
 
     it("It should return the damaged dinos") {
-            val grouped_values = engine("test(dinosaur(DINXEX, DINYEX, LIFEX)).").map(element =>
+      val fileName = "/prolog/disasterPrologTheory.pl"
+      val engine: Term => LazyList[SolveInfo] = mkPrologEngine(
+        Theory.parseLazilyWithStandardOperators(
+          getClass.getResourceAsStream(fileName)
+        )
+      )
+
+      val grouped_values = engine("test(dinosaur(DINXEX, DINYEX, LIFEX)).").map(element =>
               (element.getVarValue("DINXEX").toString,
                 element.getVarValue("DINYEX").toString,
                 element.getVarValue("LIFEX").toString)
